@@ -1,0 +1,106 @@
+@import "@/styles/utils/variables";
+@import '@/styles/utils/mixins';
+
+.header {
+  border-bottom: 1px solid #fff;
+  padding: 0.8rem;
+
+  &__switcher {
+    @include custom-menu
+  }
+
+  &__section {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    padding: 0 2rem;
+    align-items: center;
+    max-width: $container-lg;
+    margin: 0 auto;
+  }
+
+  &__menu {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    font-size: 0.9rem;
+
+    &_active {
+      @include custom-menu;
+
+      & p {
+        padding: 0.5rem;
+
+        &:hover {
+          border-radius: 0;
+          @include hover-bg
+        }
+      }
+
+      & p:last-child {
+        border-top: 1px solid $secondary-color;
+      }
+    }
+
+    & aside {
+      display: grid;
+      grid-auto-flow: column;
+
+      & picture {
+        &:hover {
+          @include hover-bg;
+        }
+
+        position: relative;
+        padding: 0.5rem;
+      }
+    }
+
+    & a {
+      padding: 0.8rem;
+
+      &:hover {
+        @include hover-bg
+      }
+    }
+  }
+}
+
+.menu__burger {
+  display: none;
+}
+
+.active {
+  @include hover-bg;
+}
+
+.hidden {
+  display: none;
+}
+
+@media screen and (max-width: 650px) {
+  .menu__hidden {
+    display: none;
+  }
+  //.header__menu {
+  //  &_active {
+  //    @include custom-menu;
+  //
+  //    & a {
+  //      padding: 0.5rem;
+  //
+  //      &:hover {
+  //        border-radius: 0;
+  //      }
+  //    }
+  //
+  //    & a:last-child {
+  //      border-top: 1px solid $secondary-color;
+  //    }
+  //  }
+  //}
+  .menu__burger {
+    display: block;
+    position: relative;
+  }
+}
