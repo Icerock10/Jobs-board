@@ -1,7 +1,5 @@
-import { createContext } from 'react'
-export const themes = {
-  dark: 'dark',
-  light: 'light',
-}
+import { createContext, Dispatch, SetStateAction } from 'react';
+import { Theme, Themes } from '@/types/types';
 
-export const ThemeContext = createContext({})
+export const DarkModeContext = createContext<Theme>(Themes.DARK);
+export const SetDarkModeContext = createContext<Dispatch<SetStateAction<Theme>>>((value) => value)

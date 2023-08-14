@@ -1,16 +1,18 @@
 'use client';
-import { ReactNode, useEffect, useState } from 'react';
-import { ThemeContext } from '@/context/theme/ThemeContext';
-import { getInitialTheme } from '@/utils/getTheme';
+import { ReactNode } from 'react';
+import { DarkModeContext, SetDarkModeContext } from '@/context/theme/ThemeContext';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { Theme, Themes } from '@/types/types';
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState(getInitialTheme);
-  
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    localStorage.setItem('theme', theme);
-  }, [theme]);
+  const [theme, setTheme] = useLocalStorage<Theme>('theme', Themes.DARK)
 
-  return <ThemeContext.Provider value={{ theme, setTheme }}>{children}</ThemeContext.Provider>;
+  return (
+    <DarkModeContext.Provider value={theme}>
+      <SetDarkModeContext.Provider value={setTheme}>
+        {children}
+      </SetDarkModeContext.Provider>
+    </DarkModeContext.Provider>
+  )
 };
 
 export default ThemeProvider;
