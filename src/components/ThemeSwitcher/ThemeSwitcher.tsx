@@ -1,5 +1,5 @@
 'use client';
-import SunIcon from '../../../public/SVG/sun.svg';
+import SunIcon from '@/../public/SVG/sun.svg';
 import MoonIcon from '../../../public/SVG/moon.svg';
 import styles from './ThemeSwitcher.module.scss';
 import clsx from 'clsx';

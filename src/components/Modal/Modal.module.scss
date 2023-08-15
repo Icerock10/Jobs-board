@@ -1,0 +1,20 @@
+.modal__container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  backdrop-filter: blur(0.2rem);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  width: 60vw;
+  height: 20rem;
+  background-color: #fff;
+  border-radius: 0.2rem;
+  border: 1px solid lightgray;
+}

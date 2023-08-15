@@ -5,7 +5,7 @@ interface Refs {
   burgerMenuRef: RefObject<HTMLDivElement>;
 }
 
-export const useClickOutside = (handler: () => void, isMenuActive: boolean): Refs => {
+export const useClickOutside = (callback: () => void, isMenuActive: boolean): Refs => {
   const menuRef = useRef<HTMLDivElement>(null);
   const burgerMenuRef = useRef<HTMLDivElement>(null);
   
@@ -14,19 +14,19 @@ export const useClickOutside = (handler: () => void, isMenuActive: boolean): Ref
       const handleClickOutside = (event: MouseEvent) => {
         const target = event.target as HTMLElement;
         if (menuRef.current && !menuRef.current.contains(target)) {
-          handler();
+          callback();
         }
         if (burgerMenuRef.current && !burgerMenuRef.current.contains(target)) {
-          handler();
+          callback();
         }
       };
-      document.addEventListener('click', handleClickOutside);
+      document.addEventListener('click', handleClickOutside, true);
       return () => {
-        document.removeEventListener('click', handleClickOutside);
+        document.removeEventListener('click', handleClickOutside, true);
       };
     }
     return;
-  }, [handler]);
+  }, [callback]);
   return {
     menuRef,
     burgerMenuRef,
