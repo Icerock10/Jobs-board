@@ -1,8 +1,3 @@
-
 export default function Jobs() {
-  return (
-    <section>
-      Jobs Here
-    </section>
-  );
+  return <section>Jobs are here</section>;
 }

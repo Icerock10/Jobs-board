@@ -26,7 +26,7 @@ export const useClickOutside = (callback: () => void, isMenuActive: boolean): Re
       };
     }
     return;
-  }, [callback]);
+  }, [isMenuActive, callback]);
   return {
     menuRef,
     burgerMenuRef,

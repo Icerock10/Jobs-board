@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import BurgerIcon from '../../../public/SVG/burger.svg';
 import { Menu } from '@/components/Menu/Menu';
 import { UseThemeToggle } from '@/hooks/useThemeToggler';
-import { Themes } from '@/types/types';
+import { Themes } from '@/utils/types/types';
 import { UseVisibility } from '@/hooks/useVisibility';
 import { useClickOutside } from '@/hooks/useClickOutside';
 export const ThemeSwitcher = () => {
