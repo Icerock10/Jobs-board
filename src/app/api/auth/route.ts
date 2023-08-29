@@ -4,12 +4,15 @@ import connectDB from '@/lib/db/connect-db';
 
 export async function GET(req: NextRequest) {
   try {
-    // await connectDB();
+    await connectDB();
     const authHeader = req.headers.get('authorization');
-    const token = authHeader?.startsWith('Bearer ') ? authHeader.split(' ')[1] : '';
-    const isAuthed = await jwtService.verify(token)
-    return NextResponse.json({ email: 'dp02@gmail.com' });
+    const token = authHeader?.startsWith('Bearer ') ? authHeader?.split(' ')[1] : '';
+    if(token === 'undefined') return NextResponse.json({ error: 'Token was not provided' }, { status: 401 });
+    const { email } = await jwtService.verify(token);
+    if (email) {
+      return NextResponse.json({ email });
+    }
   } catch (error: unknown) {
-    return NextResponse.json({ error: 'You are not authed' }, { status: 401 })
+    return NextResponse.json({ error: 'You are not authed' }, { status: 401 });
   }
 }

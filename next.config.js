@@ -25,4 +25,13 @@ module.exports = {
     serverActions: true,
     serverComponentsExternalPackages: ['mongoose'],
   },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/jobs',
+        permanent: true,
+      },
+    ];
+  },
 };

@@ -1,7 +1,7 @@
 import mongoose, { Model } from 'mongoose';
 interface IUser {
-  email: string,
-  password: string
+  email: string;
+  password: string;
 }
 
 const userSchema = new mongoose.Schema({
@@ -9,4 +9,4 @@ const userSchema = new mongoose.Schema({
   password: String,
 });
 
-export default mongoose.models.User || mongoose.model('User', userSchema)
+export default mongoose.models.User || mongoose.model('User', userSchema);

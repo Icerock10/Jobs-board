@@ -1,0 +1,9 @@
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
+.loading_spinner__small {
+  @include spinner(rgba(0, 0, 0, 0.4));
+}
+[data-theme='light'] .loading_spinner__small {
+  @include spinner($primary-text-color);
+}

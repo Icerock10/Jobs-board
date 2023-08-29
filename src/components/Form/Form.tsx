@@ -1,39 +1,50 @@
-import React from 'react';
+'use client';
 import styles from './Form.module.scss';
 import Link from 'next/link';
 import clsx from 'clsx';
+import { Button } from '@/components/LoadingButton/Button';
+import { signUpOrLoginAction } from '@/lib/db/_actions';
+import { Input } from '@/components/FormInput/Input';
+import { useValidation } from '@/hooks/useValidation';
+import { toastService } from '@/lib/toast/toastr-service';
 
-export const Form = ({ isRegister, action }: { isRegister?: boolean, action: (data: FormData) => void }) => {
-  const isLogin = isRegister ? 'Sign up' : 'Log In';
+export const Form = ({ isRegistration }: { isRegistration?: boolean }) => {
+  const isLogin = isRegistration ? 'Sign up' : 'Log In';
+  const { isValid, handleFieldChange } = useValidation(isRegistration);
+
   return (
-    <form action={action} className={styles.container}>
-      <div className={styles.form}>
+    <div className={styles.container}>
+      <form
+        action={async formData => {
+          const response = await signUpOrLoginAction(formData, isRegistration);
+          toastService.error(response);
+        }}
+        className={styles.form}
+      >
         <h2>{isLogin}</h2>
-        <p className={styles.text__sm}>
+        <p className={styles.text_sm}>
           You can use any email and password to log in to the demo version
         </p>
-        <div className={styles.input__group}>
-          <label htmlFor="email">Email</label>
-          <input name="email" id="email" type="text" />
-          <label htmlFor="password"> Password</label>
-          <input name="password" id="password" type="password" />
-          {isRegister && (
-            <React.Fragment>
-              <label htmlFor="confirm"> Confirm Password</label>
-              <input name="confirm" id="confirm" type="password" />
-            </React.Fragment>
+        <div className={styles.input_group}>
+          <Input handleChange={handleFieldChange} name="email" type="text" />
+          <Input handleChange={handleFieldChange} name="password" type="password" />
+          {isRegistration && (
+            <Input handleChange={handleFieldChange} name="confirm" type="password" />
           )}
         </div>
-        <div className={styles.button__group}>
+        <div className={styles.button_group}>
           <Link className={styles.link} href={'/jobs'}>
             Cancel
           </Link>
-          <Link className={clsx(styles.link, styles.link_bordered)} href={isRegister ? '/login' : '/signup'}>
-            {isRegister ? 'Login' : 'Sign Up'}
+          <Link
+            className={clsx(styles.link, styles.link_bordered)}
+            href={isRegistration ? '/login' : '/signup'}
+          >
+            {isRegistration ? 'Login' : 'Sign Up'}
           </Link>
-          <button className={styles.login}>{isLogin}</button>
+          <Button isLogin={isLogin} isValid={isValid} />
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 };

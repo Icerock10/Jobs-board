@@ -1,0 +1,40 @@
+@import "@/styles/variables";
+@import "@/styles/mixins";
+
+.container {
+  position: relative;
+}
+.hovered {
+  padding: 0.8rem;
+  @include custom-hover($hover-dark);
+}
+[data-theme='light'] .hovered {
+  @include custom-hover($hover-light);
+}
+.profile_button {
+  color: $primary-text-color;
+  font-size: 0.875rem;
+  width: 100%;
+  overflow: hidden;
+}
+
+[data-theme='light'] .profile_button {
+  color: $secondary-text-color;
+}
+.profile_menu {
+  @include custom-menu;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: $primary-color;
+  border: 1px solid $secondary-color;
+}
+[data-theme='light'] .profile_menu {
+  border: 1px solid $hover-light;
+  background-color: $primary-text-color;
+}
+@media screen and (max-width: 650px) {
+  .profile_menu {
+    left: -4rem;
+    top: 1.45rem;
+  }
+}

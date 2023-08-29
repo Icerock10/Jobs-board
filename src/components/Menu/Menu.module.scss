@@ -1,0 +1,20 @@
+@import "@/styles/mixins";
+@import "@/styles/variables";
+
+.nav {
+  display: flex;
+  & a {
+    padding: 0.8rem;
+    @include custom-hover($secondary-color);
+  }
+}
+
+[data-theme='light'] .nav a {
+    @include custom-hover($hover-light)
+}
+
+@media screen and (max-width: 650px) {
+  .hidden {
+    display: none;
+  }
+}

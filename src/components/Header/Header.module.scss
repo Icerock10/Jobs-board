@@ -16,28 +16,13 @@
   }
 }
 
-.header__menu {
+.header_menu {
   display: flex;
   gap: 1rem;
   align-items: center;
   font-size: 0.9rem;
-
-  & a {
-    padding: 0.8rem;
-    @include custom-hover($secondary-color);
-  }
 }
 
 [data-theme='light'] .header {
   border-bottom: 1px solid $hover-light;
-
-  & a {
-    @include custom-hover($hover-light)
-  }
-}
-
-@media screen and (max-width: 650px) {
-  .menu__hidden {
-    display: none;
-  }
 }

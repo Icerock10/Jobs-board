@@ -1,4 +1,5 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosError, AxiosInstance } from 'axios';
+import { toast } from 'react-toastify';
 
 export class AuthService {
   protected readonly instance: AxiosInstance;
@@ -11,21 +12,46 @@ export class AuthService {
     });
   }
 
-  register = (email: FormDataEntryValue | null, password: FormDataEntryValue | null) => {
-    return this.instance.post('/api/register', { email, password }).then(({ data }) => {
-      return data.token;
-    });
+  private handleAxiosError(error: unknown) {
+    if (axios.isAxiosError(error)) {
+      if (error.response) {
+        const { data, status } = error.response;
+        return { data: data.error, status };
+      }
+    }
+  }
+
+  register = async (email: FormDataEntryValue | null, password: FormDataEntryValue | null) => {
+    try {
+      const { status, data } = await this.instance.post<{
+        status: number;
+        data: { token: string };
+      }>('/api/register', { email, password });
+      return { status, data };
+    } catch (error) {
+      return this.handleAxiosError(error);
+    }
   };
-  getAuthUser = (token?: string) => {
+  login = async (email: FormDataEntryValue | null, password: FormDataEntryValue | null) => {
+    try {
+      const { status, data } = await this.instance.post('/api/login', { email, password });
+      return { status, data };
+    } catch (error) {
+      return this.handleAxiosError(error);
+    }
+  };
+  getAuthUser = async (token?: string) => {
     const config = {
       headers: {
         'authorization': `Bearer ${token}`,
       },
     };
-    return this.instance
-      .get('/api/auth', config)
-      .then(({ data: { email } }) => email)
-      .catch(e => console.log(e.response.data));
+    try {
+      const { status, data } = await this.instance.get('/api/auth', config);
+      return { status, data };
+    } catch (error) {
+      return this.handleAxiosError(error);
+    }
   };
 }
 

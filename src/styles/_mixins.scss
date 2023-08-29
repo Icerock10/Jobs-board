@@ -1,5 +1,21 @@
 @import "variables";
 
+@mixin spinner($border-color) {
+  border: 2.5px dashed $border-color;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  animation: spin 1s linear infinite;
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
 @mixin custom-hover($theme-color) {
   &:hover {
     background-color: $theme-color;

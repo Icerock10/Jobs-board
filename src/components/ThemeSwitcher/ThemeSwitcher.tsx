@@ -9,22 +9,23 @@ import { UseThemeToggle } from '@/hooks/useThemeToggler';
 import { Themes } from '@/utils/types/types';
 import { UseVisibility } from '@/hooks/useVisibility';
 import { useClickOutside } from '@/hooks/useClickOutside';
-export const ThemeSwitcher = () => {
+import { ToastContainer } from 'react-toastify';
+
+export const ThemeSwitcher = ({ email }: { email?: string }) => {
   const { toggleTheme, isDarkMode } = UseThemeToggle();
   const { isMenuActive, toggleMenu, isBurgerMenuActive, toggleBurgerMenu } = UseVisibility();
   const { menuRef } = useClickOutside(toggleMenu, isMenuActive);
   const { burgerMenuRef } = useClickOutside(toggleBurgerMenu, isBurgerMenuActive);
   const themeIcon = isDarkMode === Themes.DARK ? <MoonIcon /> : <SunIcon />;
-  
   return (
     <aside className={styles.container}>
-      <figure
-        onClick={toggleMenu}
-        className={clsx(isMenuActive ? styles.menu__active : '')}
-      >
+      <ToastContainer theme={isDarkMode} />
+      <figure data-set='switcher' onClick={toggleMenu} className={clsx(isMenuActive ? styles.menu__active : '')}>
         {themeIcon}
-        <div ref={menuRef}
-             className={clsx(isMenuActive ? styles.switcher : styles.hidden, styles.switcher_left)}>
+        <div
+          ref={menuRef}
+          className={clsx(isMenuActive ? styles.switcher : styles.hidden, styles.switcher_left)}
+        >
           <div onClick={() => toggleTheme(Themes.LIGHT)}>Light</div>
           <div onClick={() => toggleTheme(Themes.DARK)}>Dark</div>
         </div>
@@ -36,6 +37,7 @@ export const ThemeSwitcher = () => {
         <BurgerIcon />
         <div ref={burgerMenuRef}>
           <Menu
+            email={email}
             className={clsx(
               isBurgerMenuActive ? styles.switcher : styles.hidden,
               styles.switcher_center,

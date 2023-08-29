@@ -1,0 +1,15 @@
+@import "@/styles/variables";
+@import "@/styles/mixins";
+
+[data-theme='dark'] .input {
+  background-color: transparent;
+  color: $primary-text-color;
+  border-color: $secondary-color;
+}
+
+.input {
+  padding: 0.7rem;
+  border-radius: 0.4rem;
+  outline: none;
+  border: 1px solid #ccc;
+}

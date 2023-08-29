@@ -2,19 +2,19 @@ import * as jose from 'jose';
 import { getSecretEnv } from '@/lib/token/getSecretEnv';
 class Jwt {
   private instance: typeof jose;
-  public secret: Uint8Array
+  public secret: Uint8Array;
+
   constructor() {
     this.instance = jose;
-    this.secret =  getSecretEnv()
+    this.secret = getSecretEnv();
   }
 
   generate(email: FormDataEntryValue | null) {
-    return new this.instance.SignJWT( {email} )
+    const EXPIRED_IN_TWO_WEEKS = '14d';
+    return new this.instance.SignJWT({ email })
       .setProtectedHeader({ alg: 'HS256' })
       .setIssuedAt()
-      .setIssuer('urn:example:issuer')
-      .setAudience('urn:example:audience')
-      .setExpirationTime('10s')
+      .setExpirationTime(EXPIRED_IN_TWO_WEEKS)
       .sign(this.secret);
   }
 
@@ -23,7 +23,7 @@ class Jwt {
       const { payload } = await this.instance.jwtVerify(token, this.secret);
       return payload;
     } catch (e) {
-      throw new Error('Your token expired')
+      throw new Error('Your token expired');
     }
   }
 }

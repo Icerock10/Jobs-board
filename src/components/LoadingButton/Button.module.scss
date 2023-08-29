@@ -1,0 +1,26 @@
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
+.submit__button {
+  border-radius: 0.3rem;
+  color: $primary-text-color;
+  height: 2.5rem;
+  min-width: 4.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.disabled {
+  background-color: #868B94;
+  cursor: auto;
+}
+[data-theme='dark'] .enabled {
+  @include custom-hover($hover-light);
+  background-color: $primary-text-color;
+  color: $secondary-text-color;
+}
+.enabled {
+  background-color: $primary-color;
+  color: $primary-text-color;
+}
