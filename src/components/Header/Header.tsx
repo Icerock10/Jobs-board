@@ -2,12 +2,8 @@ import styles from './Header.module.scss';
 import { ThemeSwitcher } from '@/components/ThemeSwitcher/ThemeSwitcher';
 import { Menu } from '@/components/Menu/Menu';
 import ThemeProvider from '@/context/theme/ThemeProvider';
-import { cookies } from 'next/headers';
-import { authService } from '@/lib/api-requests/auth-service';
 
-export const Header = async () => {
-  const token = cookies().get('token')?.value;
-  const response = await authService.getAuthUser(token);
+export const Header = () => {
   return (
     <header className={styles.header}>
       <section className={styles.header__section}>
@@ -16,9 +12,9 @@ export const Header = async () => {
         </picture>
         <aside className={styles.header_menu}>
           <ThemeProvider>
-            <ThemeSwitcher email={response?.data.email} />
+            <ThemeSwitcher />
           </ThemeProvider>
-          <Menu email={response?.data.email} />
+          <Menu />
         </aside>
       </section>
     </header>

@@ -4,7 +4,7 @@ import User from '@/lib/db/models/User';
 import { jwtService } from '@/lib/token/jwtService';
 import bcrypt from 'bcrypt';
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse | unknown> {
   try {
     const { email, password } = await req.json();
     await connectDB();

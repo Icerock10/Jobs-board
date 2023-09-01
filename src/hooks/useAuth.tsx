@@ -3,14 +3,15 @@ import { useEffect } from 'react';
 import { authService } from '@/lib/api-requests/auth-service';
 import { useRouter } from 'next/navigation';
 import { toastService } from '@/lib/toast/toastr-service';
+import cookies from 'js-cookie';
 
 export const Auth = ({ token }: { token: string }) => {
   const { replace, refresh } = useRouter();
-
   async function checkIfUserAuthed() {
     const response = await authService.getAuthUser(token);
     if (response?.status === 401) {
       toastService.error(response.data)
+      cookies.remove('token')
       replace('/login');
       refresh();
     }

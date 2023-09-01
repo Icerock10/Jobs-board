@@ -3,7 +3,7 @@ import connectDB from '@/lib/db/connect-db';
 import { jwtService } from '@/lib/token/jwtService';
 import User from '@/lib/db/models/User';
 import bcrypt from 'bcrypt';
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse | unknown> {
   try {
     await connectDB();
     const { email, password } = await req.json();

@@ -16,8 +16,8 @@ export const Form = ({ isRegistration }: { isRegistration?: boolean }) => {
     <div className={styles.container}>
       <form
         action={async formData => {
-          const response = await signUpOrLoginAction(formData, isRegistration);
-          toastService.error(response);
+          const isErrorMessage = await signUpOrLoginAction(formData, isRegistration);
+          if(isErrorMessage) return toastService.error(isErrorMessage);
         }}
         className={styles.form}
       >

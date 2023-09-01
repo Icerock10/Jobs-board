@@ -5,7 +5,6 @@ import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { Theme, Themes } from '@/utils/types/types';
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useLocalStorage<Theme>('theme', Themes.DARK)
-
   return (
     <DarkModeContext.Provider value={theme}>
       <SetDarkModeContext.Provider value={setTheme}>
