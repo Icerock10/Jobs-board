@@ -13,20 +13,3 @@ export async function GET(req: NextRequest): Promise<NextResponse | unknown> {
     return NextResponse.json({ error: 'You are not authed' }, { status: 401 });
   }
 }
-
-
-
-// export async function GET(req: NextRequest): Promise<NextResponse | unknown> {
-//   try {
-//     await connectDB();
-//     const authHeader = req.headers.get('authorization');
-//     const token = authHeader?.startsWith('Bearer ') ? authHeader?.split(' ')[1] : '';
-//     if(token === 'undefined') return NextResponse.json({ error: 'Token was not provided' }, { status: 401 });
-//     const { email } = await jwtService.verify(token);
-//     if (email) {
-//       return NextResponse.json({ email });
-//     }
-//   } catch (error: unknown) {
-//     return NextResponse.json({ error: 'You are not authed' }, { status: 401 });
-//   }
-// }

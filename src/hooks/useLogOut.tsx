@@ -1,12 +1,14 @@
 'use client';
-import { removeTokenFromCookies } from '@/lib/db/_actions';
 import { useRouter } from 'next/navigation';
+import { useAppDispatch } from '@/hooks/reduxHooks';
+import { logOut as logOutAction } from '@/store/auth/actions';
+
 export const useLogOut = () => {
-  const { refresh, replace } = useRouter();
+  const { replace } = useRouter();
+  const dispatch = useAppDispatch()
   const logOut = () => {
-    void removeTokenFromCookies();
+    dispatch(logOutAction())
     replace('/login');
-    refresh();
   };
   return { logOut };
 };

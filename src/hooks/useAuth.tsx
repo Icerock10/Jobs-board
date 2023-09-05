@@ -1,26 +1,22 @@
 'use client';
 import { useEffect } from 'react';
-import { authService } from '@/lib/api-requests/auth-service';
-import { useRouter } from 'next/navigation';
-import { toastService } from '@/lib/toast/toastr-service';
+import { authUser } from '@/store/auth/actions';
 import cookies from 'js-cookie';
+import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks';
 
-export const Auth = ({ token }: { token: string }) => {
-  const { replace, refresh } = useRouter();
-  async function checkIfUserAuthed() {
-    const response = await authService.getAuthUser(token);
-    if (response?.status === 401) {
-      toastService.error(response.data)
-      cookies.remove('token')
-      replace('/login');
-      refresh();
-    }
-  }
-
+export const useAuth = () => {
+  const token = cookies.get('token')!;
+  const dispatch = useAppDispatch();
+  const { email, error, status } = useAppSelector(state => state.auth);
+  
   useEffect(() => {
-    void checkIfUserAuthed();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if(!token) return;
+    dispatch(authUser(token));
+  }, [dispatch, token]);
 
-  return <></>;
+  return {
+    email,
+    error,
+    status
+  };
 };

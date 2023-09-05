@@ -3,24 +3,10 @@ import Link from 'next/link';
 import { ProfileMenu } from '@/components/ProfileMenu/ProfileMenu';
 import styles from './Menu.module.scss';
 import clsx from 'clsx';
-import cookies from 'js-cookie';
-import { useEffect, useState } from 'react';
-import { authService } from '@/lib/api-requests/auth-service';
+import { useAuth } from '@/hooks/useAuth';
 
 export const Menu = ({ className }: { className?: string }) => {
-  const [email, setEmail] = useState(null)
-  const token = cookies.get('token')
-  useEffect(() => {
-    const fetchUser = async () => {
-        const response = await authService.getAuthUser(token)
-        if(response?.status === 401) {
-          return setEmail(null)
-        }
-        setEmail(response?.data?.email)
-    }
-    void fetchUser()
-  }, [token])
-  
+  const { email } = useAuth()
   return (
     <nav className={clsx(className, styles.nav, styles.hidden)}>
       <Link href={'/tasks'}>

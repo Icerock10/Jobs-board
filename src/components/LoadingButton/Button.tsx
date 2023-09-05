@@ -3,7 +3,7 @@ import { experimental_useFormStatus as useFormStatus } from 'react-dom';
 import styles from './Button.module.scss';
 import React from 'react';
 import clsx from 'clsx';
-import { SmallSpinner } from '@/components/Spinner/SmallSpinner';
+import { SmallSpinner } from '@/components/Spinner/Small/SmallSpinner';
 
 export const Button = ({ isLogin, isValid }: { isLogin: string; isValid?: boolean }) => {
   const { pending } = useFormStatus();

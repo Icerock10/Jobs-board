@@ -1,14 +1,14 @@
-import { Auth } from '@/hooks/useAuth';
+import { getAllJobs } from '@/lib/db/_actions';
 import { cookies } from 'next/headers';
-import { Test } from '@/components/Test/Test';
-export default async function Listings() {
-  const token = `${cookies().get('token')?.value}`;
-  
+import { Job } from '@/components/Listings/Job';
+export default async function ListingsPage() {
+  // here I'm going to fetch all listings
+  const token = cookies().get('token')?.value
+  const listings = await getAllJobs(token)
   return (
-    <div>
-      <Test />
-      Very Protected page!!!!!!
-      <Auth token={token}/>
-    </div>
+    <>
+      <div>Very Protected page!!!!!!</div>
+      <Job listings={listings}/>
+    </>
   );
 }

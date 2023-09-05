@@ -3,7 +3,7 @@ import { ThemeSwitcher } from '@/components/ThemeSwitcher/ThemeSwitcher';
 import { Menu } from '@/components/Menu/Menu';
 import ThemeProvider from '@/context/theme/ThemeProvider';
 
-export const Header = () => {
+export const Header = async () => {
   return (
     <header className={styles.header}>
       <section className={styles.header__section}>

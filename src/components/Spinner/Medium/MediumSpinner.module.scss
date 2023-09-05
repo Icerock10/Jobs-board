@@ -1,0 +1,18 @@
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 100%;
+  min-height: 40vh;
+}
+
+.medium {
+  @include m-spinner($primary-text-color)
+}
+
+[data-theme='light'] .medium {
+  @include m-spinner($primary-color);
+}

@@ -2,7 +2,8 @@
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { authService } from '@/lib/api-requests/auth-service';
-import { ResponseCookies } from 'next/dist/compiled/@edge-runtime/cookies';
+import { revalidatePath } from 'next/cache';
+
 export const signUpOrLoginAction = async (formData: FormData, isRegistration?: boolean) => {
   const { email, password } = Object.fromEntries(formData);
   const response = isRegistration
@@ -11,19 +12,19 @@ export const signUpOrLoginAction = async (formData: FormData, isRegistration?: b
   if (response?.status === 401) return response.data;
   const { token } = response?.data;
   cookies().set('token', token);
-  redirect('/jobs')
+  redirect('/jobs');
 };
-export const removeTokenFromCookies = async (): Promise<ResponseCookies> => {
-  return cookies().delete('token');
-};
-export const createJob = async (data: { location: string; level: string }) => {
-  try {
-    const response = await fetch('http://localhost:3000/api/job', {
-      method: 'POST',
-      body: JSON.stringify(data),
-    });
-    return await response.json();
-  } catch (e) {
-    console.log(e, 'error inside createJob');
+
+export const getAllJobs = async (token?: string) => {
+  const response = await authService.getListings(token);
+  if (response.status === 200) {
+    return response.data.listings;
   }
+  redirect('/login')
 };
+
+export const removeJob = async (id: string) => {
+  const token = cookies().get('token')?.value;
+  const response = await authService.deleteListing(id, token!)
+  revalidatePath('/jobs/listings')
+}
