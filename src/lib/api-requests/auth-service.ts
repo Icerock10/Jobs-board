@@ -64,8 +64,7 @@ export class AuthService {
   };
   getPublishedListings = async () => {
     try {
-      const { status, data } = await this.instance.get('/api/published');
-      return { status, data };
+      return await this.instance.get('/api/published');
     } catch (error) {
       return this.handleAxiosError(error) as AuthData;
     }
