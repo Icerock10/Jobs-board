@@ -23,9 +23,11 @@ export const getMyListings = async (token?: string) => {
   redirect('/login')
 };
 
-export const getPublishedListings = async () => {
+export const getPublished = async () => {
   const response = await authService.getPublishedListings()
-  return response.data.listings;
+  if(response.status === 200) {
+    return response?.data?.listings;
+  }
 };
 
 export const removeJob = async (id: string) => {

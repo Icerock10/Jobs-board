@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import { getPublishedListings } from '@/lib/db/_actions';
+import { getPublished } from '@/lib/db/_actions';
 import { Job } from '@/components/Jobs/Job';
 import styles from './listings/Listings.module.scss'
 export default async function Jobs() {
-  const listings = await getPublishedListings()
+  const listings = await getPublished()
   return (
     <section className={styles.container}>
       Jobs are here
