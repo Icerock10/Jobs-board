@@ -3,7 +3,6 @@ import { AuthData } from '@/utils/types/types';
 
 export class AuthService {
   protected readonly instance: AxiosInstance;
-  private token: string | undefined;
 
   public constructor(url: string) {
     this.instance = axios.create({
@@ -14,7 +13,6 @@ export class AuthService {
   }
 
   setToken = (token?: string) => {
-    this.token = token;
     this.instance.defaults.headers.common['authorization'] = `Bearer ${token}`;
   };
 
@@ -46,13 +44,12 @@ export class AuthService {
       return this.handleAxiosError(error);
     }
   };
-  getAuthUser = async (token?: string): Promise<AuthData> => {
+  getAuthUser = async (token: string): Promise<AuthData> => {
     this.setToken(token);
     try {
       const { status, data } = await this.instance.get('/api/auth');
       return { status, data };
     } catch (error) {
-      console.log(error);
       return this.handleAxiosError(error) as AuthData;
     }
   };
@@ -65,8 +62,16 @@ export class AuthService {
       return this.handleAxiosError(error) as AuthData;
     }
   };
+  getPublishedListings = async () => {
+    try {
+      const { status, data } = await this.instance.get('/api/published');
+      return { status, data };
+    } catch (error) {
+      return this.handleAxiosError(error) as AuthData;
+    }
+  }
   deleteListing = async (_id: string, token: string) => {
-    this.setToken(token)
+    this.setToken(token);
     try {
       const { data, status } = await this.instance.delete('/api/listings', { data: { _id } });
       return { data, status };

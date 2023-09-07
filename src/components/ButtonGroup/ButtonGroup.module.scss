@@ -1,0 +1,41 @@
+@import "@/styles/variables";
+@import "@/styles/mixins";
+
+
+.button_group {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.link {
+  height: 2.5rem;
+  min-width: 4.75rem;
+  border-radius: 0.3rem;
+  display: grid;
+  place-items: center;
+  @include custom-hover($hover-light);
+  &_bordered {
+    border: 1px solid #E2E8F0;
+  }
+}
+
+[data-theme='dark'] .link {
+  &_bordered {
+    border-color: $secondary-color;
+  }
+  @include custom-hover($hover-dark);
+}
+
+.button {
+  @include primary-button;
+  background-color: $primary-color;
+  color: $primary-text-color;
+}
+
+[data-theme='dark'] .button {
+  @include custom-hover($hover-light);
+  background-color: $primary-text-color;
+  color: $secondary-text-color;
+}

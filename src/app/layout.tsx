@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Test Next App',
+  title: 'Next Jobs App',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

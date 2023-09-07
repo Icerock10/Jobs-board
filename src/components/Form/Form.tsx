@@ -2,7 +2,7 @@
 import styles from './Form.module.scss';
 import Link from 'next/link';
 import clsx from 'clsx';
-import { Button } from '@/components/LoadingButton/Button';
+import { LoadingButton } from '@/components/LoadingButton/LoadingButton';
 import { signUpOrLoginAction } from '@/lib/db/_actions';
 import { Input } from '@/components/FormInput/Input';
 import { useValidation } from '@/hooks/useValidation';
@@ -42,7 +42,7 @@ export const Form = ({ isRegistration }: { isRegistration?: boolean }) => {
           >
             {isRegistration ? 'Login' : 'Sign Up'}
           </Link>
-          <Button isLogin={isLogin} isValid={isValid} />
+          <LoadingButton isLogin={isLogin} isValid={isValid} />
         </div>
       </form>
     </div>

@@ -4,9 +4,9 @@ import Listing from '@/lib/db/models/Listing';
 
 export async function POST(req: NextRequest): Promise<NextResponse | unknown> {
   try {
-    const { title, companyName, location, type } = await req.json();
+    const { ...rest } = await req.json();
     await connectDB();
-    const listing = await Listing.create({ title, companyName, location, type });
+    const listing = await Listing.create({ ...rest });
     return NextResponse.json({ listing });
   } catch (error: unknown) {
     return error;
@@ -16,7 +16,7 @@ export async function POST(req: NextRequest): Promise<NextResponse | unknown> {
 export async function GET(req: NextRequest): Promise<NextResponse | unknown> {
   try {
     await connectDB();
-    const listings = await Listing.find({});
+    const listings = await Listing.find({isPublished: false});
     return NextResponse.json({ listings });
   } catch (error: unknown) {
     return error;

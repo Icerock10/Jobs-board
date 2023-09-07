@@ -3,8 +3,8 @@ export enum Themes {
   DARK = 'dark',
 }
 
-export type AuthData<T = unknown> = {
-  data: { email: string } | T;
+export type AuthData = {
+  data: { email: string };
   status: number;
 }
 export type Extra = {

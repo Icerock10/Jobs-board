@@ -3,7 +3,7 @@ import { jwtService } from '@/lib/token/jwtService';
 
 export async function middleware(req: NextRequest) {
   const authHeader = req.headers.get('authorization');
-
+  
   if (authHeader?.startsWith('Bearer ')) {
     const token = authHeader?.split(' ')[1];
     if(token !== 'undefined') {

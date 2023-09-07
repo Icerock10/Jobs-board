@@ -57,3 +57,13 @@
   right: -0.5rem;
   font-size: 0.825rem;
 }
+
+@mixin primary-button {
+  border-radius: 0.3rem;
+  color: $primary-text-color;
+  height: 2.5rem;
+  min-width: 4.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -12,15 +12,20 @@ export const signUpOrLoginAction = async (formData: FormData, isRegistration?: b
   if (response?.status === 401) return response.data;
   const { token } = response?.data;
   cookies().set('token', token);
-  redirect('/jobs');
+  redirect('/jobs/listings');
 };
 
-export const getAllJobs = async (token?: string) => {
+export const getMyListings = async (token?: string) => {
   const response = await authService.getListings(token);
   if (response.status === 200) {
     return response.data.listings;
   }
   redirect('/login')
+};
+
+export const getPublishedListings = async () => {
+  const response = await authService.getPublishedListings()
+  return response.data.listings;
 };
 
 export const removeJob = async (id: string) => {

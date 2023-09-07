@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import cookies from 'js-cookie';
 import { authUser } from '@/store/auth/actions';
 import { IState } from '@/utils/types/types';
 import { logOut } from '@/store/auth/actions';
@@ -20,7 +19,6 @@ export const auth = createSlice({
     });
     builder.addCase(authUser.rejected, (state, { error }) => {
       state.status = 'rejected';
-      cookies.remove('token');
       state.email = null;
       state.error = error.message;
     });
@@ -29,7 +27,6 @@ export const auth = createSlice({
       state.email = data.email;
     })
     builder.addCase(logOut, state => {
-      cookies.remove('token')
       state.email = null
     })
   },

@@ -1,14 +1,18 @@
-import { getAllJobs } from '@/lib/db/_actions';
+import { getMyListings } from '@/lib/db/_actions';
 import { cookies } from 'next/headers';
-import { Job } from '@/components/Listings/Job';
+import { Job } from '@/components/Jobs/Job';
+import styles from './Listings.module.scss';
+import Link from 'next/link';
 export default async function ListingsPage() {
-  // here I'm going to fetch all listings
-  const token = cookies().get('token')?.value
-  const listings = await getAllJobs(token)
+  const token = cookies().get('token')?.value;
+  const listings = await getMyListings(token);
   return (
-    <>
-      <div>Very Protected page!!!!!!</div>
-      <Job listings={listings}/>
-    </>
+    <div className={styles.container}>
+      <div className={styles.container_title}>
+        <h1>My Job Listings</h1>
+        <Link href={token ? '/jobs/new' : '/login'}>Create Listing</Link>
+      </div>
+      <Job listings={listings} />
+    </div>
   );
 }

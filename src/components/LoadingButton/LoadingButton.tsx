@@ -5,10 +5,10 @@ import React from 'react';
 import clsx from 'clsx';
 import { SmallSpinner } from '@/components/Spinner/Small/SmallSpinner';
 
-export const Button = ({ isLogin, isValid }: { isLogin: string; isValid?: boolean }) => {
+export const LoadingButton = ({ isLogin, isValid }: { isLogin: string; isValid?: boolean }) => {
   const { pending } = useFormStatus();
   return (
-    <button disabled={!isValid} className={clsx(styles.submit__button, isValid ? styles.enabled : styles.disabled)}>
+    <button disabled={!isValid} className={clsx(styles.submit_button, isValid ? styles.enabled : styles.disabled)}>
       {pending ? <SmallSpinner /> : isLogin}
     </button>
   );

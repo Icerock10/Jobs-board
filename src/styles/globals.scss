@@ -18,12 +18,6 @@ body {
   background-color: $primary-text-color;
   color: $secondary-text-color;
 }
-[data-theme='light'] svg > path {
-  fill: $secondary-text-color;
-}
-svg > path {
-  fill: $primary-text-color;
-}
 a {
   color: inherit;
   text-decoration: none;
@@ -38,4 +32,8 @@ button {
 li {
   list-style: none;
   cursor: pointer;
+}
+
+h1 {
+  font-size: 2.8rem;
 }

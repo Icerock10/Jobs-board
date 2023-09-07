@@ -1,0 +1,61 @@
+@import '@/styles/mixins';
+@import '@/styles/variables';
+
+.job {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  &_wrapper {
+    flex: 0 0 32.333%;
+    border-radius: 0.5rem;
+    border: 1px solid $secondary-color;
+    padding: 1.5rem;
+  }
+  &_item {
+    display: flex;
+    justify-content: space-between;
+    & span {
+      color: $listings-text-primary;
+      font-size: smaller;
+    }
+  }
+}
+.title {
+  display: flex;
+  flex-direction: column;
+  & p {
+    padding-top: 1rem;
+    font-size: small;
+  }
+}
+.summary {
+  display: flex;
+  font-size: small;
+  gap: 0.3rem;
+  padding-top: 0.5rem;
+  & div {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    background-color: $secondary-color;
+    padding: 0.1rem 0.5rem;
+    border-radius: 0.5rem;
+  }
+}
+.location {
+  padding-top: 0.2rem;
+}
+.description {
+  padding: 1.3rem 0;
+}
+
+@media screen and (max-width: 1300px) {
+  .job_wrapper {
+    flex: 0 1 48%;
+  }
+}
+@media screen and (max-width: 860px) {
+  .job_wrapper {
+    flex: 1 1 auto;
+  }
+}

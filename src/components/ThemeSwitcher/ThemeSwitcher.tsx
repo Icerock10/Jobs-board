@@ -11,7 +11,7 @@ import { UseVisibility } from '@/hooks/useVisibility';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { ToastContainer } from 'react-toastify';
 
-export const ThemeSwitcher = () => {
+export const ThemeSwitcher = ({email}: {email?: string}) => {
   const { toggleTheme, isDarkMode } = UseThemeToggle();
   const { isMenuActive, toggleMenu, isBurgerMenuActive, toggleBurgerMenu } = UseVisibility();
   const { menuRef } = useClickOutside(toggleMenu, isMenuActive);
@@ -37,6 +37,7 @@ export const ThemeSwitcher = () => {
         <BurgerIcon />
         <div ref={burgerMenuRef}>
           <Menu
+            email={email}
             className={clsx(
               isBurgerMenuActive ? styles.switcher : styles.hidden,
               styles.switcher_center,
