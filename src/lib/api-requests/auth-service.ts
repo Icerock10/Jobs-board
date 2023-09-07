@@ -80,4 +80,4 @@ export class AuthService {
   };
 }
 
-export const authService = new AuthService('http://localhost:3000');
+export const authService = new AuthService('https://next-js-project-new-xcwp.vercel.app');
