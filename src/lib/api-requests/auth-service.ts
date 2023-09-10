@@ -87,4 +87,4 @@ export class AuthService {
   };
 }
 
-export const authService = new AuthService(process.env.BASE_FAKE_URL!);
+export const authService = new AuthService(process.env.BASE_URL!);
