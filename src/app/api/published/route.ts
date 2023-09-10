@@ -6,6 +6,7 @@ export async function GET(req: NextRequest): Promise<NextResponse | unknown> {
   try {
     await connectDB();
     const listings = await Listing.find({isPublished: true});
+    console.log(listings);
     return NextResponse.json({ listings });
   } catch (error: unknown) {
     return error;
