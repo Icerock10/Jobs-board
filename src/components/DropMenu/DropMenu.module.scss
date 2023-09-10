@@ -1,0 +1,26 @@
+@import "@/styles/variables";
+@import "@/styles/mixins";
+
+.dropdown {
+  @include custom-menu
+}
+
+.dropdown.active {
+  opacity: 1;
+  background-color: $primary-color;
+  @include custom-dark-border;
+  transition: opacity .2s;
+  pointer-events: auto;
+  & div {
+    padding: 0.5rem;
+    @include custom-hover($hover-dark)
+  }
+}
+
+[data-theme='light'] .dropdown {
+  background-color: $primary-text-color;
+  @include custom-light-border;
+  & div {
+    @include custom-hover($hover-light)
+  }
+}

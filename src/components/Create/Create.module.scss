@@ -1,0 +1,19 @@
+@import "@/styles/variables";
+@import "@/styles/mixins";
+
+.create {
+  @include custom-dark-border;
+  border-radius: 0.3rem;
+  padding: 0.7rem;
+  font-size: 0.9rem;
+  &:hover {
+    background-color: $hover-dark;
+  }
+}
+
+[data-theme='light'] .create {
+  @include custom-light-border;
+  &:hover {
+    background-color: $hover-light;
+  }
+}

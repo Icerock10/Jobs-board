@@ -11,7 +11,7 @@ import { UseVisibility } from '@/hooks/useVisibility';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { ToastContainer } from 'react-toastify';
 
-export const ThemeSwitcher = ({email}: {email?: string}) => {
+export const ThemeSwitcher = ({ email }: { email?: string }) => {
   const { toggleTheme, isDarkMode } = UseThemeToggle();
   const { isMenuActive, toggleMenu, isBurgerMenuActive, toggleBurgerMenu } = UseVisibility();
   const { menuRef } = useClickOutside(toggleMenu, isMenuActive);
@@ -20,26 +20,31 @@ export const ThemeSwitcher = ({email}: {email?: string}) => {
   return (
     <aside className={styles.container}>
       <ToastContainer theme={isDarkMode} />
-      <figure data-set='switcher' onClick={toggleMenu} className={clsx(isMenuActive ? styles.menu__active : '')}>
+      <figure
+        data-set="switcher"
+        onClick={toggleMenu}
+        className={clsx(isMenuActive && styles.menu__active)}
+      >
         {themeIcon}
         <div
           ref={menuRef}
-          className={clsx(isMenuActive ? styles.switcher : styles.hidden, styles.switcher_left)}
+          className={clsx(isMenuActive && styles.active, styles.switcher, styles.switcher__left)}
         >
-          <div onClick={() => toggleTheme(Themes.LIGHT)}>Light</div>
-          <div onClick={() => toggleTheme(Themes.DARK)}>Dark</div>
+          <div className={styles.switcher_toggleMenu} onClick={() => toggleTheme(Themes.LIGHT)}>Light</div>
+          <div className={styles.switcher_toggleMenu} onClick={() => toggleTheme(Themes.DARK)}>Dark</div>
         </div>
       </figure>
       <figure
         onClick={toggleBurgerMenu}
-        className={clsx(styles.burger, isBurgerMenuActive ? styles.menu__active : '')}
+        className={clsx(styles.burger, isBurgerMenuActive && styles.menu__active)}
       >
         <BurgerIcon />
         <div ref={burgerMenuRef}>
           <Menu
             email={email}
             className={clsx(
-              isBurgerMenuActive ? styles.switcher : styles.hidden,
+              isBurgerMenuActive && styles.burger_active,
+              styles.switcher,
               styles.switcher_center,
             )}
           />

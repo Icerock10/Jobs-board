@@ -5,7 +5,6 @@ class Toast {
   constructor() {
     this._instance = toast;
   }
-
   error(message: string) {
     return this._instance.error(message);
   }

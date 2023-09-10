@@ -2,8 +2,8 @@
 import styles from './Form.module.scss';
 import Link from 'next/link';
 import clsx from 'clsx';
-import { LoadingButton } from '@/components/LoadingButton/LoadingButton';
-import { signUpOrLoginAction } from '@/lib/db/_actions';
+import { FormButton } from '@/components/Button/FormButton/FormButton';
+import { signUpOrLoginAction } from '@/lib/db/server-actions';
 import { Input } from '@/components/FormInput/Input';
 import { useValidation } from '@/hooks/useValidation';
 import { toastService } from '@/lib/toast/toastr-service';
@@ -17,7 +17,7 @@ export const Form = ({ isRegistration }: { isRegistration?: boolean }) => {
       <form
         action={async formData => {
           const isErrorMessage = await signUpOrLoginAction(formData, isRegistration);
-          if(isErrorMessage) return toastService.error(isErrorMessage);
+          if (isErrorMessage) return toastService.error(isErrorMessage);
         }}
         className={styles.form}
       >
@@ -42,7 +42,7 @@ export const Form = ({ isRegistration }: { isRegistration?: boolean }) => {
           >
             {isRegistration ? 'Login' : 'Sign Up'}
           </Link>
-          <LoadingButton isLogin={isLogin} isValid={isValid} />
+          <FormButton isValid={isValid}>{isLogin}</FormButton>
         </div>
       </form>
     </div>

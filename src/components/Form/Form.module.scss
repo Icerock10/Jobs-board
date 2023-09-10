@@ -13,13 +13,13 @@
   max-width: 400px;
   height: auto;
   border-radius: 0.4rem;
-  border: 1px solid lightgray;
+  @include custom-light-border;
   padding: 1.5rem;
   box-shadow: 0 0 10px 5px #ebebeb;
 }
 [data-theme='dark'] .form {
   box-shadow: none;
-  border-color: $secondary-color;
+  @include custom-dark-border;
 }
 
 .text_sm {
@@ -48,13 +48,13 @@
   text-align: center;
   @include custom-hover($hover-light);
   &_bordered {
-    border: 1px solid #E2E8F0;
+    @include custom-light-border;
   }
 }
 
 [data-theme='dark'] .link {
   &_bordered {
-    border-color: $secondary-color;
+    @include custom-dark-border;
   }
   @include custom-hover($hover-dark);
 }

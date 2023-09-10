@@ -1,19 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
-import auth from '@/store/auth/authSlice';
-import { authService } from '@/lib/api-requests/auth-service';
+import visibility from '@/store/visibility/visibilitySlice';
 import logger from 'redux-logger';
+
 export const store = configureStore({
   reducer: {
-    auth,
+    visibility,
   },
   devTools: process.env.NODE_ENV !== 'production',
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
-      thunk: {
-        extraArgument: {
-          authService
-        },
-      },
       serializableCheck: false,
     }).concat(logger),
 });

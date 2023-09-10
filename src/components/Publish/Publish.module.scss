@@ -1,0 +1,47 @@
+@import "@/styles/variables";
+@import "@/styles/mixins";
+
+.cancel {
+  position: absolute;
+  right: 1rem;
+  width: fit-content;
+  opacity: .5;
+  &:hover {
+    opacity: .8;
+  }
+}
+
+.wrapper {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+.modal_header {
+  &__subtitle {
+    font-size: small;
+    color: $listings-text-primary;
+    padding: 0.5rem 0;
+  }
+}
+
+.modal_body {
+  font-size: .9rem;
+  line-height: 1.5rem;
+}
+.purchase {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: #E0E2E5;
+  color: $secondary-color;
+  font-weight: bolder;
+  &:hover {
+    opacity: .9;
+  }
+}
+
+[data-theme='light'] .purchase {
+  background-color: $secondary-color;
+  color: $primary-text-color;
+}
+

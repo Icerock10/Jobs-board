@@ -5,29 +5,62 @@
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+
   &_wrapper {
     flex: 0 0 32.333%;
     border-radius: 0.5rem;
-    border: 1px solid $secondary-color;
+    @include custom-dark-border;
     padding: 1.5rem;
   }
+
   &_item {
     display: flex;
-    justify-content: space-between;
-    & span {
-      color: $listings-text-primary;
-      font-size: smaller;
-    }
   }
 }
+
+.draft {
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.3rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background-color: $hover-light;
+  color: $secondary-text-color;
+}
+
+[data-theme='light'] .draft {
+  background-color: $secondary-text-color;
+  color: $primary-text-color;
+}
+[data-theme='light'] .job_wrapper {
+  @include custom-light-border;
+}
+
+.title_wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & h2 {
+    font-weight: 600;
+  }
+}
+
 .title {
   display: flex;
   flex-direction: column;
+  width: 100%;
+
   & p {
     padding-top: 1rem;
     font-size: small;
   }
 }
+
+.subtitle {
+  color: $listings-text-primary;
+  font-size: smaller;
+}
+
 .summary {
   display: flex;
   font-size: small;
@@ -37,23 +70,28 @@
     display: flex;
     align-items: center;
     gap: 0.2rem;
-    background-color: $secondary-color;
+    background-color: $hover-dark;
     padding: 0.1rem 0.5rem;
     border-radius: 0.5rem;
   }
 }
+[data-theme='light'] .summary div {
+  background-color: $hover-light;
+}
 .location {
   padding-top: 0.2rem;
 }
+
 .description {
   padding: 1.3rem 0;
 }
 
 @media screen and (max-width: 1300px) {
   .job_wrapper {
-    flex: 0 1 48%;
+    flex: 0 1 49%;
   }
 }
+
 @media screen and (max-width: 860px) {
   .job_wrapper {
     flex: 1 1 auto;

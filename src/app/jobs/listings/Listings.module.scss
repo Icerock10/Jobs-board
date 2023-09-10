@@ -7,15 +7,15 @@
   max-width: $container-lg;
   margin: 2rem auto;
   gap: 2rem;
-  padding: 0 2rem;
   &_title {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 1400px)  {
   .container {
-    padding: 0 0.5rem;
+    padding: 0 1rem;
   }
 }

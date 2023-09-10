@@ -4,10 +4,13 @@ import MoneyIcon from '@/../public/SVG/money.svg';
 import ScheduleIcon from '@/../public/SVG/schedule.svg';
 import RankIcon from '@/../public/SVG/job_ranking.svg';
 import { ButtonGroup } from '@/components/ButtonGroup/ButtonGroup';
-export const Job = ({ listings }: any) => {
+import { calculateDaysLeft } from '@/utils/helpers/compareDates';
+import { IListing } from '@/utils/types/types';
+import clsx from 'clsx';
+export const Job = ({ listings, hasPublicAccess }: {listings: IListing[], hasPublicAccess?: boolean}) => {
   return (
     <div className={styles.job}>
-      {listings?.map((listing: any, index: number) => {
+      {listings?.map((listing) => {
         const {
           title,
           _id,
@@ -23,9 +26,12 @@ export const Job = ({ listings }: any) => {
           <div className={styles.job_wrapper} key={_id}>
             <div className={styles.job_item}>
               <div className={styles.title}>
-                <h3>{title}</h3>
-                <span>{companyName}</span>
-                <span className={styles.location}>{location}</span>
+                <section className={styles.title_wrap}>
+                  <h2>{title}</h2>
+                  <span className={styles.draft}>{draft ? `Active - ${calculateDaysLeft(draft)}` : 'Draft'}</span>
+                </section>
+                <span className={styles.subtitle}>{companyName}</span>
+                <span className={clsx(styles.location, styles.subtitle)}>{location}</span>
                 <section className={styles.summary}>
                   <div>
                     <MoneyIcon /> {`$${salary}`}
@@ -39,10 +45,9 @@ export const Job = ({ listings }: any) => {
                   </div>
                 </section>
               </div>
-              <h4>{draft ?? 'Draft'}</h4>
             </div>
             <p className={styles.description}>{shortDescription}</p>
-            <ButtonGroup id={_id}/>
+            {hasPublicAccess ? <span>'View More'</span> : <ButtonGroup id={_id} title={title} draft={draft} />}
           </div>
         );
       })}

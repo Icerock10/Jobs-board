@@ -56,6 +56,8 @@
   padding: 0.2rem;
   right: -0.5rem;
   font-size: 0.825rem;
+  opacity: 0;
+  pointer-events: none;
 }
 
 @mixin primary-button {
@@ -66,4 +68,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@mixin custom-light-border {
+  border: 1px solid $light-border;
+}
+@mixin custom-dark-border {
+  border: 1px solid $dark-border;
 }

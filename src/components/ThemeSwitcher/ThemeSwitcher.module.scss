@@ -17,9 +17,8 @@
   }
   @include custom-menu;
   background-color: $primary-color;
-  border: 1px solid $secondary-color;
-
-  & div {
+  @include custom-dark-border;
+  &_toggleMenu {
     padding: 0.5rem;
     @include custom-hover($secondary-color)
   }
@@ -27,13 +26,19 @@
 .burger {
   display: none;
 }
-.hidden {
-  display: none;
+.burger_active {
+  opacity: 1;
+  transition: .2s;
+  pointer-events: auto;
+}
+.switcher.active {
+  opacity: 1;
+  transition: opacity .2s;
+  pointer-events: auto;
 }
 [data-theme='light'] .switcher {
   background-color: $primary-text-color;
-  border: 1px solid $hover-light;
-
+  @include custom-light-border;
   & div {
     @include custom-hover($hover-light)
   }
@@ -54,7 +59,7 @@
     display: block;
   }
   .switcher {
-    &_left {
+    &__left {
       right: 2rem;
     }
   }

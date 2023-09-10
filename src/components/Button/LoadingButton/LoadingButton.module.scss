@@ -1,0 +1,21 @@
+@import "@/styles/variables";
+@import "@/styles/mixins";
+
+.link {
+  height: 2.5rem;
+  min-width: 4.75rem;
+  border-radius: 0.3rem;
+  display: grid;
+  place-items: center;
+  @include custom-hover($hover-light);
+}
+
+[data-theme='dark'] .link {
+  @include custom-hover($hover-dark);
+}
+
+.disabled {
+  background-color: #868B94;
+  cursor: auto;
+  pointer-events: none;
+}

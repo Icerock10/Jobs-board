@@ -17,7 +17,6 @@ export async function middleware(req: NextRequest) {
       return NextResponse.json({ error: 'Token not found' }, { status: 401 });
     }
   }
-  
   return NextResponse.next();
 }
 

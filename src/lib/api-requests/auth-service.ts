@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { AuthData } from '@/utils/types/types';
+import { AuthResponse, ListingsResponse, TokenResponse, UpdatedListingResponse } from '@/utils/types/types';
 
 export class AuthService {
   protected readonly instance: AxiosInstance;
@@ -27,10 +27,7 @@ export class AuthService {
 
   register = async (email: FormDataEntryValue | null, password: FormDataEntryValue | null) => {
     try {
-      const { status, data } = await this.instance.post<{
-        status: number;
-        data: { token: string };
-      }>('/api/register', { email, password });
+      const { status, data } = await this.instance.post<TokenResponse>('/api/register', { email, password });
       return { status, data };
     } catch (error) {
       return this.handleAxiosError(error);
@@ -38,46 +35,56 @@ export class AuthService {
   };
   login = async (email: FormDataEntryValue | null, password: FormDataEntryValue | null) => {
     try {
-      const { status, data } = await this.instance.post('/api/login', { email, password });
+      const { status, data } = await this.instance.post<TokenResponse>('/api/login', { email, password });
       return { status, data };
     } catch (error) {
       return this.handleAxiosError(error);
     }
   };
-  getAuthUser = async (token: string): Promise<AuthData> => {
+  getAuthUser = async (token: string) => {
     this.setToken(token);
     try {
-      const { status, data } = await this.instance.get('/api/auth');
+      const { status, data } = await this.instance.get<AuthResponse>('/api/auth');
       return { status, data };
     } catch (error) {
-      return this.handleAxiosError(error) as AuthData;
+      return this.handleAxiosError(error);
     }
   };
   getListings = async (token?: string) => {
     this.setToken(token);
     try {
-      const { status, data } = await this.instance.get('/api/listings');
+      const { status, data } = await this.instance.get<ListingsResponse>('/api/listings');
       return { status, data };
     } catch (error) {
-      return this.handleAxiosError(error) as AuthData;
+      return this.handleAxiosError(error);
     }
   };
   getPublishedListings = async () => {
     try {
-      return await this.instance.get('/api/published');
+      const { status, data } = await this.instance.get<ListingsResponse>('/api/published');
+      return { status, data };
     } catch (error) {
-      return this.handleAxiosError(error) as AuthData;
+      return this.handleAxiosError(error);
     }
-  }
+  };
   deleteListing = async (_id: string, token: string) => {
     this.setToken(token);
     try {
       const { data, status } = await this.instance.delete('/api/listings', { data: { _id } });
       return { data, status };
     } catch (error) {
-      return this.handleAxiosError(error) as AuthData;
+      return this.handleAxiosError(error);
+    }
+  };
+  updateListing = async (_id: string, daysLeft: number, token: string) => {
+    this.setToken(token)
+    try {
+      const { data, status } = await this.instance.put<UpdatedListingResponse>('/api/listings', { _id, daysLeft });
+      return { data, status };
+    } catch (e) {
+      return this.handleAxiosError(e);
     }
   };
 }
 
-export const authService = new AuthService('https://next-js-project-new-xcwp.vercel.app');
+export const authService = new AuthService(process.env.BASE_FAKE_URL!);

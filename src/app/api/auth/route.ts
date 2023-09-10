@@ -5,7 +5,8 @@ import connectDB from '@/lib/db/connect-db';
 export async function GET(req: NextRequest): Promise<NextResponse | unknown> {
   try {
     await connectDB();
-    const email = 'dp021190dns@g,com'
+    const token = req.headers.get('authorization')?.split(' ')[1]!;
+    const { email } = await jwtService.verify(token)
     if (email) {
       return NextResponse.json({ email });
     }

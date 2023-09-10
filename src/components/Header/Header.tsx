@@ -2,18 +2,17 @@ import styles from './Header.module.scss';
 import { ThemeSwitcher } from '@/components/ThemeSwitcher/ThemeSwitcher';
 import { Menu } from '@/components/Menu/Menu';
 import ThemeProvider from '@/context/theme/ThemeProvider';
-import { cookies } from 'next/headers';
 import { authService } from '@/lib/api-requests/auth-service';
+import { cookiesService } from '@/lib/cookies/cookies-service';
+import { Logo } from '@/components/Logo/Logo';
 
 export const Header = async () => {
-  const token = cookies().get('token')?.value
+  const token = cookiesService.getToken()
   const response = token ? await authService.getAuthUser(token) : null;
   return (
     <header className={styles.header}>
       <section className={styles.header__section}>
-        <picture>
-          <h1>Logo</h1>
-        </picture>
+        <Logo />
         <aside className={styles.header_menu}>
           <ThemeProvider>
             <ThemeSwitcher email={response?.data?.email}/>

@@ -1,4 +1,7 @@
-.modal__container {
+@import "@/styles/variables";
+@import "@/styles/mixins";
+
+.modal_container {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -9,12 +12,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0;
+  pointer-events: none;
 }
-
+.modal_container.active {
+  opacity: 1;
+  transition: opacity .3s;
+  pointer-events: auto;
+}
 .modal {
-  width: 60vw;
-  height: 20rem;
-  background-color: #fff;
-  border-radius: 0.2rem;
-  border: 1px solid lightgray;
+  position: relative;
+  max-width: 32rem;
+  height: auto;
+  background-color: $primary-color;
+  border-radius: 0.6rem;
+  @include custom-dark-border;
+  padding: 1.5rem;
+}
+[data-theme='light'] .modal {
+  background-color: $primary-text-color;
+  @include custom-light-border;
 }

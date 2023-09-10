@@ -9,7 +9,6 @@
     display: flex;
     position: relative;
     justify-content: space-between;
-    padding: 0 2rem;
     align-items: center;
     max-width: $container-lg;
     margin: 0 auto;
@@ -25,4 +24,10 @@
 
 [data-theme='light'] .header {
   border-bottom: 1px solid $hover-light;
+}
+
+@media screen and (max-width: 650px) {
+  .header__section {
+    padding: 0 2.5rem;
+  }
 }
