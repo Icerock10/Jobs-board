@@ -47,7 +47,7 @@ export const Job = ({ listings, hasPublicAccess }: {listings: IListing[], hasPub
               </div>
             </div>
             <p className={styles.description}>{shortDescription}</p>
-            {hasPublicAccess ? <span>'View More'</span> : <ButtonGroup id={_id} title={title} draft={draft} />}
+            {hasPublicAccess ? <span>View More</span> : <ButtonGroup id={_id} title={title} draft={draft} />}
           </div>
         );
       })}
