@@ -3,10 +3,9 @@ import { toggleModal, setSuccessfulPurchase } from '@/store/visibility/visibilit
 import CrossIcon from '../../../public/SVG/cross.svg';
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks';
 import { publishOrExtendJob } from '@/lib/db/server-actions';
-import { useClickOutside } from '@/hooks/useClickOutside';
 
-export const Publish = ({ title, id, isDraft }: { title: string, id: string, isDraft: string }) => {
-  const { price, days } = useAppSelector(state => state.visibility);
+export const Publish = ({ isDraft }: { isDraft: string }) => {
+  const { price, days, title, id } = useAppSelector(state => state.visibility);
   const dispatch = useAppDispatch();
   const toggleModalAction = () => dispatch(toggleModal())
    const publishOrExtendJobAction = async () => {

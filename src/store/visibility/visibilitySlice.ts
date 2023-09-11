@@ -1,11 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toastService } from '@/lib/toast/toastr-service';
 
-const initialState: { isModalShown: boolean; price: null | number; days: null | number, status: string } = {
+const initialState: {
+  isModalShown: boolean;
+  price: null | number;
+  days: null | number;
+  status: string;
+  title: string;
+  id: string;
+} = {
   isModalShown: false,
   price: null,
   days: null,
-  status: 'Idle'
+  title: '',
+  id: '',
+  status: 'Idle',
 };
 
 export const visibility = createSlice({
@@ -15,10 +24,22 @@ export const visibility = createSlice({
     toggleModal(state) {
       state.isModalShown = !state.isModalShown;
     },
-    getSelectedPrice(state, { payload }: PayloadAction<{ price: number; days: number }>) {
+    getSelectedPrice(
+      state,
+      {
+        payload: { price, days, title, id },
+      }: PayloadAction<{
+        price: number;
+        days: number;
+        title: string;
+        id: string;
+      }>,
+    ) {
       state.isModalShown = true;
-      state.price = payload.price;
-      state.days = payload.days;
+      state.price = price;
+      state.days = days;
+      state.title = title;
+      state.id = id;
     },
     setSuccessfulPurchase(
       state,

@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { LoadingButton } from '@/components/Button/LoadingButton/LoadingButton';
 import { DropMenu } from '@/components/DropMenu/DropMenu';
 import { Modal } from '@/components/Modal/Modal';
-import { options } from '@/utils/helpers/options';
 import { Publish } from '@/components/Publish/Publish';
 import { removeJob } from '@/lib/db/server-actions';
 import { toastService } from '@/lib/toast/toastr-service';
@@ -32,10 +31,10 @@ export const ButtonGroup = ({ id, title, draft }: { id: string; title: string, d
         <button onClick={() => setIsOpen(!isOpen)} className={styles.button}>
           {isDraft}
         </button>
-        <DropMenu options={options} isOpen={isOpen} setIsOpen={setIsOpen} />
+        <DropMenu isOpen={isOpen} setIsOpen={setIsOpen} title={title} id={id}/>
       </div>
       <Modal>
-        <Publish title={title} id={id} isDraft={isDraft} />
+        <Publish isDraft={isDraft} />
       </Modal>
     </div>
   );
