@@ -33,7 +33,7 @@ export const getPublished = async () => {
 export const removeJob = async (id: string) => {
   const token = cookiesService.getToken()!;
   const response = await authService.deleteListing(id, token);
-  revalidatePath('/jobs/listings');
+  revalidatePath('/jobs');
   return response;
 };
 export const publishOrExtendJob = async (_id: string, daysLeft: number) => {
