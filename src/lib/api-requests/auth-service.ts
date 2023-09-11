@@ -1,5 +1,10 @@
 import axios, { AxiosInstance } from 'axios';
-import { AuthResponse, ListingsResponse, TokenResponse, UpdatedListingResponse } from '@/utils/types/types';
+import {
+  AuthResponse,
+  ListingsResponse,
+  TokenResponse,
+  UpdatedListingResponse,
+} from '@/utils/types/types';
 
 export class AuthService {
   protected readonly instance: AxiosInstance;
@@ -27,7 +32,10 @@ export class AuthService {
 
   register = async (email: FormDataEntryValue | null, password: FormDataEntryValue | null) => {
     try {
-      const { status, data } = await this.instance.post<TokenResponse>('/api/register', { email, password });
+      const { status, data } = await this.instance.post<TokenResponse>('/api/register', {
+        email,
+        password,
+      });
       return { status, data };
     } catch (error) {
       return this.handleAxiosError(error);
@@ -35,7 +43,10 @@ export class AuthService {
   };
   login = async (email: FormDataEntryValue | null, password: FormDataEntryValue | null) => {
     try {
-      const { status, data } = await this.instance.post<TokenResponse>('/api/login', { email, password });
+      const { status, data } = await this.instance.post<TokenResponse>('/api/login', {
+        email,
+        password,
+      });
       return { status, data };
     } catch (error) {
       return this.handleAxiosError(error);
@@ -77,9 +88,12 @@ export class AuthService {
     }
   };
   updateListing = async (_id: string, daysLeft: number, token: string) => {
-    this.setToken(token)
+    this.setToken(token);
     try {
-      const { data, status } = await this.instance.put<UpdatedListingResponse>('/api/listings', { _id, daysLeft });
+      const { data, status } = await this.instance.put<UpdatedListingResponse>('/api/listings', {
+        _id,
+        daysLeft,
+      });
       return { data, status };
     } catch (e) {
       return this.handleAxiosError(e);
@@ -87,4 +101,4 @@ export class AuthService {
   };
 }
 
-export const authService = new AuthService(process.env.BASE_URL!);
+export const authService = new AuthService('https://next-js-project-new-xcwp.vercel.app');
