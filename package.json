@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run install-packages && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "install-packages": "npm install"
   },
   "dependencies": {
     "@types/node": "20.4.9",
