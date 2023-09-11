@@ -101,4 +101,4 @@ export class AuthService {
   };
 }
 
-export const authService = new AuthService('https://next-js-project-new-xcwp-3tpc8j27w-icerock10.vercel.app');
+export const authService = new AuthService(process.env.BASE_URL!);
