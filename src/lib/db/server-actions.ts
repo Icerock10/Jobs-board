@@ -24,7 +24,7 @@ export const getMyListings = async (token?: string) => {
 };
 
 export const getPublished = async () => {
-  const response = await authService.getPublishedListings();
+  const response = await authService.getPublishedListings()
   if (response?.status === 200) {
     return response.data.listings;
   }
