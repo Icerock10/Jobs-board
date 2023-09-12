@@ -5,7 +5,7 @@ export const calculateDaysLeft = (dateObj: Date | string | number) => {
   const daysRemaining = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)); // 1000 ms * 60 s * 60 min
   if(daysRemaining <= 1) {
     const hoursRemaining = Math.ceil(timeDifference / (1000 * 60 * 60))
-    return hoursRemaining <= 0 ? 'Expired' : `${hoursRemaining} hours left`
+    return hoursRemaining <= 0 ? 'Expired' : `Active - ${hoursRemaining} hours left`
   }
-  return `${daysRemaining} days left`
+  return `Active - ${daysRemaining} days left`
 }

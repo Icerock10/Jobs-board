@@ -30,6 +30,9 @@ button {
   color: inherit;
   cursor: pointer;
 }
+label {
+  width: fit-content;
+}
 li {
   list-style: none;
   cursor: pointer;
@@ -37,4 +40,31 @@ li {
 
 h1 {
   font-size: 2.8rem;
+}
+
+input:focus {
+  outline: 2px solid #9aa8b7;
+  outline-offset: 0.125rem;
+}
+
+[data-theme='dark'] input:focus {
+  outline-color: $secondary-color;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: $container-lg;
+  margin: 2rem auto;
+  gap: 2rem;
+  &_title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 1400px)  {
+  .container {
+    padding: 0 1rem;
+  }
 }

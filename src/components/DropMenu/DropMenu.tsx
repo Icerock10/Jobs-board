@@ -1,7 +1,7 @@
 import styles from './DropMenu.module.scss';
 import clsx from 'clsx';
 import React from 'react';
-import { options } from '@/utils/helpers/options';
+import { options } from '@/utils/mocks/options';
 import { getSelectedPrice } from '@/store/visibility/visibilitySlice';
 import { useAppDispatch } from '@/hooks/reduxHooks';
 import { useClickOutside } from '@/hooks/useClickOutside';

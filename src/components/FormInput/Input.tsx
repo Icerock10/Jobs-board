@@ -1,13 +1,14 @@
 import React, { ChangeEvent } from 'react';
 import styles from './Input.module.scss';
 type InputProps = {
+  labelText: string;
   type: string;
   name: string;
-  handleChange: (fieldName: string, value: string) => void;
+  handleChange?: (fieldName: string, value: string) => void;
 };
 
-export const Input = ({ type, name, handleChange }: InputProps) => {
-  const upperCaseFirstChar = name.charAt(0).toUpperCase() + name.slice(1);
+export const Input = ({ labelText, type, name, handleChange = () => {} }: InputProps) => {
+  const upperCaseFirstChar = labelText.charAt(0).toUpperCase() + labelText.slice(1);
   return (
     <React.Fragment>
       <label htmlFor={name}>{upperCaseFirstChar}</label>

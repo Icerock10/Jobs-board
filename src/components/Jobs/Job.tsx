@@ -28,7 +28,7 @@ export const Job = ({ listings, hasPublicAccess }: {listings: IListing[], hasPub
               <div className={styles.title}>
                 <section className={styles.title_wrap}>
                   <h2>{title}</h2>
-                  <span className={styles.draft}>{draft ? `Active - ${calculateDaysLeft(draft)}` : 'Draft'}</span>
+                  <span className={styles.draft}>{draft ? `${calculateDaysLeft(draft)}` : 'Draft'}</span>
                 </section>
                 <span className={styles.subtitle}>{companyName}</span>
                 <span className={clsx(styles.location, styles.subtitle)}>{location}</span>

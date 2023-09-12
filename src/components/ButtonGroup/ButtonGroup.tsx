@@ -24,7 +24,7 @@ export const ButtonGroup = ({ id, title, draft }: { id: string; title: string, d
       <LoadingButton onClick={removeJobAction}>
         Delete
       </LoadingButton>
-      <Link className={clsx(styles.link, styles.link_bordered)} href={`/jobs/edit`}>
+      <Link className={clsx(styles.link, styles.link_bordered)} href={`/jobs/listings/${id}`}>
         Edit
       </Link>
       <div className={styles.extend}>

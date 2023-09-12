@@ -76,3 +76,19 @@
 @mixin custom-dark-border {
   border: 1px solid $dark-border;
 }
+
+@mixin menu-animation {
+  animation: growDown 200ms ease-in-out forwards;
+  transform-origin: top center;
+  @keyframes growDown {
+    0% {
+      transform: scaleY(0)
+    }
+    80% {
+      transform: scaleY(1.1)
+    }
+    100% {
+      transform: scaleY(1)
+    }
+  }
+}

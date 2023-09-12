@@ -3,15 +3,18 @@ import { toggleModal, setSuccessfulPurchase } from '@/store/visibility/visibilit
 import CrossIcon from '../../../public/SVG/cross.svg';
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks';
 import { publishOrExtendJob } from '@/lib/db/server-actions';
+import { useTransition } from 'react';
 
 export const Publish = ({ isDraft }: { isDraft: string }) => {
   const { price, days, title, id } = useAppSelector(state => state.visibility);
+  const [isPending, startTransition] = useTransition();
   const dispatch = useAppDispatch();
-  const toggleModalAction = () => dispatch(toggleModal())
-   const publishOrExtendJobAction = async () => {
-    const { errorMessage, successMessage } = await publishOrExtendJob(id, days!)
-    dispatch(setSuccessfulPurchase({errorMessage, successMessage}))
-  }
+  const toggleModalAction = () => dispatch(toggleModal());
+  const publishOrExtendJobAction = async () => {
+    const { errorMessage, successMessage } = await publishOrExtendJob(id, days!);
+    dispatch(setSuccessfulPurchase({ errorMessage, successMessage }));
+  };
+  
   return (
     <div className={styles.wrapper}>
       <section className={styles.modal_header}>
@@ -28,8 +31,8 @@ export const Publish = ({ isDraft }: { isDraft: string }) => {
         integration so it cannot accept payments. Clicking the pay button will emulate what would
         happen if you did make a successful payment.
       </p>
-      <button className={styles.purchase} onClick={publishOrExtendJobAction}>
-        Pay {`$${price}`}
+      <button disabled={isPending} className={styles.purchase} onClick={() => startTransition(publishOrExtendJobAction)}>
+        {isPending ? <span>Loading...</span> : `Pay $${price}`}
       </button>
     </div>
   );
