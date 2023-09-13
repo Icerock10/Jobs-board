@@ -7,15 +7,15 @@ import BurgerIcon from '../../../public/SVG/burger.svg';
 import { Menu } from '@/components/Menu/Menu';
 import { UseThemeToggle } from '@/hooks/useThemeToggler';
 import { Themes } from '@/utils/types/types';
-import { UseVisibility } from '@/hooks/useVisibility';
+import { useVisibility } from '@/hooks/useVisibility';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { ToastContainer } from 'react-toastify';
 
 export const ThemeSwitcher = ({ email }: { email?: string }) => {
   const { toggleTheme, isDarkMode } = UseThemeToggle();
-  const { isMenuActive, toggleMenu, isBurgerMenuActive, toggleBurgerMenu } = UseVisibility();
-  const { menuRef } = useClickOutside(toggleMenu, isMenuActive);
-  const { burgerMenuRef } = useClickOutside(toggleBurgerMenu, isBurgerMenuActive);
+  const { isSwitcherMenuActive, toggleMenu, isBurgerMenuActive, toggleBurger } = useVisibility();
+  const { switcherMenuRef } = useClickOutside(toggleMenu, isSwitcherMenuActive);
+  const { burgerMenuRef } = useClickOutside(toggleBurger, isBurgerMenuActive);
   const themeIcon = isDarkMode === Themes.DARK ? <MoonIcon /> : <SunIcon />;
   return (
     <aside className={styles.container}>
@@ -23,19 +23,19 @@ export const ThemeSwitcher = ({ email }: { email?: string }) => {
       <figure
         data-set="switcher"
         onClick={toggleMenu}
-        className={clsx(isMenuActive && styles.menu__active)}
+        className={clsx(isSwitcherMenuActive && styles.menu__active)}
       >
         {themeIcon}
         <div
-          ref={menuRef}
-          className={clsx(isMenuActive && styles.active, styles.switcher, styles.switcher__left)}
+          ref={switcherMenuRef}
+          className={clsx(isSwitcherMenuActive && styles.active, styles.switcher, styles.switcher__left)}
         >
           <div className={styles.switcher_toggleMenu} onClick={() => toggleTheme(Themes.LIGHT)}>Light</div>
           <div className={styles.switcher_toggleMenu} onClick={() => toggleTheme(Themes.DARK)}>Dark</div>
         </div>
       </figure>
       <figure
-        onClick={toggleBurgerMenu}
+        onClick={toggleBurger}
         className={clsx(styles.burger, isBurgerMenuActive && styles.menu__active)}
       >
         <BurgerIcon />

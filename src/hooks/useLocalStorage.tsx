@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 
 export function useLocalStorage<T>(key: string, fallbackValue: T) {
   const [value, setValue] = useState(fallbackValue);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const stored = localStorage.getItem(key);
     setValue(stored ? JSON.parse(stored) : fallbackValue);
   }, [fallbackValue, key]);
   
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.dataset.theme = String(value);
     localStorage.setItem(key, JSON.stringify(value));
   }, [key, value]);

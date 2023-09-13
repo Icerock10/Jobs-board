@@ -14,6 +14,7 @@ export const TextArea = ({fieldName, labelText}: TextAreaProps) => {
         className={clsx(styles.textarea)}
         name={fieldName}
         id={fieldName}
+        maxLength={200}
       ></textarea>
       {fieldName === 'shortDescription' && <p className={styles.tooltip}>Max 200 characters</p>}
     </div>

@@ -7,7 +7,7 @@ import { ButtonGroup } from '@/components/ButtonGroup/ButtonGroup';
 import { calculateDaysLeft } from '@/utils/helpers/compareDates';
 import { IListing } from '@/utils/types/types';
 import clsx from 'clsx';
-export const Job = ({ listings, hasPublicAccess }: {listings: IListing[], hasPublicAccess?: boolean}) => {
+export const Listings = ({ listings, hasPublicAccess }: {listings: IListing[], hasPublicAccess?: boolean}) => {
   return (
     <div className={styles.job}>
       {listings?.map((listing) => {
@@ -37,7 +37,8 @@ export const Job = ({ listings, hasPublicAccess }: {listings: IListing[], hasPub
                     <MoneyIcon /> {`$${salary}`}
                   </div>
                   <div>
-                    <ScheduleIcon /> {type}
+                    <ScheduleIcon />
+                    {type}
                   </div>
                   <div>
                     <RankIcon />

@@ -1,16 +1,16 @@
 import styles from './ButtonGroup.module.scss';
 import Link from 'next/link';
 import clsx from 'clsx';
-import { useState } from 'react';
 import { LoadingButton } from '@/components/Button/LoadingButton/LoadingButton';
 import { DropMenu } from '@/components/DropMenu/DropMenu';
 import { Modal } from '@/components/Modal/Modal';
 import { Publish } from '@/components/Publish/Publish';
 import { removeJob } from '@/lib/db/server-actions';
 import { toastService } from '@/lib/toast/toastr-service';
+import { useVisibility } from '@/hooks/useVisibility';
 
 export const ButtonGroup = ({ id, title, draft }: { id: string; title: string, draft: Date | number }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { toggleDraftMenu, isDraftMenuOpen } = useVisibility()
   const isDraft = draft ? 'Extend' : 'Publish';
   const removeJobAction = async () => {
     const response = await removeJob(id)
@@ -28,10 +28,10 @@ export const ButtonGroup = ({ id, title, draft }: { id: string; title: string, d
         Edit
       </Link>
       <div className={styles.extend}>
-        <button onClick={() => setIsOpen(!isOpen)} className={styles.button}>
+        <button tabIndex={-1} onClick={toggleDraftMenu} className={styles.button}>
           {isDraft}
         </button>
-        <DropMenu isOpen={isOpen} setIsOpen={setIsOpen} title={title} id={id}/>
+        <DropMenu isDraftMenuOpen={isDraftMenuOpen} toggleDraftMenu={toggleDraftMenu} title={title} id={id}/>
       </div>
       <Modal>
         <Publish isDraft={isDraft} />

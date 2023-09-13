@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 export const useValidation = (isRegister?: boolean) => {
-  const [isValid, setIsValid] = useState<boolean>(false);
+  const [isValid, setIsValid] = useState(false);
   const [fieldStates, setFieldStates] = useState({
     email: '',
     password: '',

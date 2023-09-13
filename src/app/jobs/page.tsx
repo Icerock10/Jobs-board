@@ -1,5 +1,5 @@
 import { getPublished } from '@/lib/db/server-actions';
-import { Job } from '@/components/Jobs/Job';
+import { Listings } from '@/components/Listings/Listings';
 import { CreateLink } from '@/components/CreateLink/CreateLink';
 export default async function Jobs() {
   const listings = await getPublished()
@@ -9,7 +9,7 @@ export default async function Jobs() {
         <h1>Jobs</h1>
         <CreateLink />
       </div>
-      <Job listings={listings} hasPublicAccess={true}/>
+      <Listings listings={listings} hasPublicAccess={true}/>
     </section>
   );
 }

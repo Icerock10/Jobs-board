@@ -1,5 +1,5 @@
 import { getMyListings } from '@/lib/db/server-actions';
-import { Job } from '@/components/Jobs/Job';
+import { Listings } from '@/components/Listings/Listings';
 import { cookiesService } from '@/lib/cookies/cookies-service';
 import { CreateLink } from '@/components/CreateLink/CreateLink';
 export default async function ListingsPage() {
@@ -11,7 +11,7 @@ export default async function ListingsPage() {
         <h1>My Job Listings</h1>
         <CreateLink />
       </div>
-      <Job listings={listings} />
+      <Listings listings={listings} />
     </div>
   );
 }

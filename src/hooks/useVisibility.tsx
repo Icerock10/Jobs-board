@@ -1,19 +1,29 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
+import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks';
+import {
+  toggleBurgerMenu,
+  toggleProfileMenu as toggleProfileMenuAction,
+  toggleSwitcherMenu,
+} from '@/store/visibility/visibilitySlice';
 
-export const UseVisibility = () => {
-  const [isMenuActive, setMenuActive] = useState<boolean>(false);
-  const [isBurgerMenuActive, setBurgerMenu] = useState<boolean>(false);
-  const [isProfileMenuShown, setIsProfileMenuShown] = useState<boolean>(false);
-  const toggleMenu = () => setMenuActive(!isMenuActive);
-  const toggleBurgerMenu = () => setBurgerMenu(!isBurgerMenuActive);
-  const toggleProfileMenu = () => setIsProfileMenuShown(!isProfileMenuShown);
-  
+export const useVisibility = () => {
+  const dispatch = useAppDispatch();
+  const { isProfileMenuShown, isSwitcherMenuActive, isBurgerMenuActive } = useAppSelector(
+    state => state.visibility,
+  );
+  const [isDraftMenuOpen, toggleDraftMenu] = useReducer((isOpen) => !isOpen, false);
+  const toggleMenu = () => dispatch(toggleSwitcherMenu());
+  const toggleBurger = () => dispatch(toggleBurgerMenu());
+  const toggleProfileMenu = () => dispatch(toggleProfileMenuAction());
+
   return {
-    isMenuActive,
+    isSwitcherMenuActive,
     toggleMenu,
     isBurgerMenuActive,
-    toggleBurgerMenu,
+    toggleBurger,
     toggleProfileMenu,
-    isProfileMenuShown
+    isProfileMenuShown,
+    isDraftMenuOpen,
+    toggleDraftMenu
   };
 };

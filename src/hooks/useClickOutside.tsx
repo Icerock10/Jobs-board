@@ -1,58 +1,60 @@
 import { useEffect, useRef, RefObject } from 'react';
 
 interface Refs {
-  menuRef: RefObject<HTMLDivElement>;
+  switcherMenuRef: RefObject<HTMLDivElement>;
   burgerMenuRef: RefObject<HTMLDivElement>;
   profileMenuRef: RefObject<HTMLDivElement>;
-  dropDownRef: RefObject<HTMLDivElement>;
+  draftMenuRef: RefObject<HTMLDivElement>;
   modalRef: RefObject<HTMLDivElement>;
+  selectMenuRef: RefObject<HTMLUListElement>;
 }
 
 export const useClickOutside = (callback: () => void, isMenuActive: boolean): Refs => {
-  const menuRef = useRef<HTMLDivElement>(null);
+  const switcherMenuRef = useRef<HTMLDivElement>(null);
   const burgerMenuRef = useRef<HTMLDivElement>(null);
   const profileMenuRef = useRef<HTMLDivElement>(null);
-  const dropDownRef = useRef<HTMLDivElement>(null)
+  const draftMenuRef = useRef<HTMLDivElement>(null)
   const modalRef = useRef<HTMLDivElement>(null)
+  const selectMenuRef = useRef<HTMLUListElement>(null)
   
   useEffect(() => {
     if (isMenuActive) {
+      document.body.style.pointerEvents = 'none';
       const handleClickOutside = (event: MouseEvent) => {
         const target = event.target as HTMLElement;
-        const isSwitcher = target.closest('figure')?.getAttribute('data-set') === 'switcher';
-        if (menuRef.current && !menuRef.current.contains(target)) {
-          if(isSwitcher) return;
+        if (switcherMenuRef.current && !switcherMenuRef.current.contains(target)) {
           callback();
         }
-        const isEmail = target.closest('div')?.textContent?.includes('@')
-        if (burgerMenuRef.current && !burgerMenuRef.current.contains(target) && !isEmail) {
-          if(isEmail) return;
+        if (burgerMenuRef.current && !burgerMenuRef.current.contains(target)) {
           callback();
         }
         if (profileMenuRef.current && !profileMenuRef.current.contains(target)) {
           callback();
         }
+        if (selectMenuRef.current && !selectMenuRef.current.contains(target)) {
+          callback();
+        }
         if (modalRef.current && target.getAttribute('class')?.includes('container')) {
           callback()
         }
-        const isButton = target.closest('button');
-        if (dropDownRef.current && !dropDownRef.current.contains(target)) {
-          if(isButton) return;
+        if (draftMenuRef.current && !draftMenuRef.current.contains(target)) {
           callback();
         }
       };
       document.addEventListener('click', handleClickOutside, true);
       return () => {
+        document.body.style.pointerEvents = 'auto';
         document.removeEventListener('click', handleClickOutside, true);
       };
     }
     return;
   }, [isMenuActive, callback]);
   return {
-    menuRef,
+    switcherMenuRef,
     burgerMenuRef,
     profileMenuRef,
-    dropDownRef,
-    modalRef
+    draftMenuRef,
+    modalRef,
+    selectMenuRef
   };
 };

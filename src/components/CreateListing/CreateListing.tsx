@@ -7,6 +7,7 @@ import { TextArea } from '@/components/TextArea/TextArea';
 import { useState } from 'react';
 export const CreateListing = () => {
   const [fieldValuePairs, setFieldValuePairs] = useState({});
+
   const handleChange = (field:string, value:string) => {
     const newFieldValuePair = { field, value };
     setFieldValuePairs((prevFieldValues) => ({
@@ -14,7 +15,6 @@ export const CreateListing = () => {
       [field]: value,
     }));
   }
-  console.log(fieldValuePairs);
   return (
     <form
       className={styles.form}
@@ -29,6 +29,7 @@ export const CreateListing = () => {
           <div key={index}>
             <Input handleChange={handleChange} labelText={labelText} type={isSalaryField ? 'number' : 'text'} name={fieldName} />
             {isSalaryField && <p className={styles.salary}>In USD</p>}
+            
           </div>
         )
       })}

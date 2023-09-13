@@ -6,17 +6,30 @@ import { getSelectedPrice } from '@/store/visibility/visibilitySlice';
 import { useAppDispatch } from '@/hooks/reduxHooks';
 import { useClickOutside } from '@/hooks/useClickOutside';
 
-export const DropMenu = ({ isOpen, setIsOpen, title, id }: {isOpen: boolean, setIsOpen: (arg: boolean) => void, title: string, id: string}) => {
+export const DropMenu = ({
+  isDraftMenuOpen,
+  toggleDraftMenu,
+  title,
+  id,
+}: {
+  isDraftMenuOpen: boolean;
+  toggleDraftMenu: () => void;
+  title: string;
+  id: string;
+}) => {
   const dispatch = useAppDispatch();
-  const openDropDown = () => setIsOpen(!isOpen);
-  const { dropDownRef } = useClickOutside(openDropDown, isOpen)
+  const { draftMenuRef } = useClickOutside(toggleDraftMenu, isDraftMenuOpen);
   return (
-    <div ref={dropDownRef} onClick={openDropDown} className={clsx(styles.dropdown, isOpen && styles.active)}>
+    <div
+      ref={draftMenuRef}
+      onClick={toggleDraftMenu}
+      className={clsx(styles.dropdown, isDraftMenuOpen && styles.active)}
+    >
       {options.map(({ days, price }, index) => {
-         return (
-          <React.Fragment key={index}>
-            <div onClick={() => dispatch(getSelectedPrice({price, days, title, id}))}>{days} Days {`$${price}`}</div>
-          </React.Fragment>
+        return (
+          <div key={index} onClick={() => dispatch(getSelectedPrice({ price, days, title, id }))}>
+            {days} Days {`$${price}`}
+          </div>
         );
       })}
     </div>
