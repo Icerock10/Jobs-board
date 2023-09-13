@@ -1,12 +1,18 @@
 @import "@/styles/variables";
 @import "@/styles/mixins";
 
-.create {
+
+.secondary_btn {
   @include custom-dark-border;
   @include secondary-button($hover-dark);
+  &__borderless {
+    border: none;
+  }
 }
-
-[data-theme='light'] .create {
+[data-theme='light'] .secondary_btn {
   @include custom-light-border;
   @include secondary-button($hover-light);
+  &__borderless {
+    border: none;
+  }
 }

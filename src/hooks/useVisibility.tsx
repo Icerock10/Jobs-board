@@ -12,6 +12,7 @@ export const useVisibility = () => {
     state => state.visibility,
   );
   const [isDraftMenuOpen, toggleDraftMenu] = useReducer((isOpen) => !isOpen, false);
+  const [isSelectMenuOpen, toggleSelectMenu] = useReducer((isOpen) => !isOpen, false);
   const toggleMenu = () => dispatch(toggleSwitcherMenu());
   const toggleBurger = () => dispatch(toggleBurgerMenu());
   const toggleProfileMenu = () => dispatch(toggleProfileMenuAction());
@@ -24,6 +25,8 @@ export const useVisibility = () => {
     toggleProfileMenu,
     isProfileMenuShown,
     isDraftMenuOpen,
-    toggleDraftMenu
+    toggleDraftMenu,
+    isSelectMenuOpen,
+    toggleSelectMenu
   };
 };

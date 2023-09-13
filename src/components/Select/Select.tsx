@@ -1,23 +1,28 @@
 import styles from './Select.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ArrowUp from '@/../public/SVG/chevron_up.svg';
 import ArrowDown from '@/../public/SVG/chevron_down.svg';
 import CheckMark from '@/../public/SVG/checkmark.svg';
 import clsx from 'clsx';
 import { capitalizeFirstLetter } from '@/utils/helpers/capitalizeFirstLetter';
 import { useClickOutside } from '@/hooks/useClickOutside';
+import { useVisibility } from '@/hooks/useVisibility';
 
-export const Select = ({ options, name }: any) => {
-  const [isOpen, setIsOpen] = useState(false);
+export type SelectProps = {
+  options: string[];
+  name: string;
+  handleChange: (field: string, value: string) => void;
+};
+
+export const Select = ({ options, name, handleChange }: SelectProps) => {
   const [selected, setSelected] = useState(options[0]);
-  const toggleSelectMenu = () => {
-    setIsOpen(!isOpen);
-  };
-  const { selectMenuRef } = useClickOutside(toggleSelectMenu, isOpen);
+  const { isSelectMenuOpen, toggleSelectMenu } = useVisibility();
+  const { selectMenuRef } = useClickOutside(toggleSelectMenu, isSelectMenuOpen);
 
-  const handleSelectChange = (option: any) => {
-    setSelected(option);
-  };
+  useEffect(() => {
+    handleChange(name, selected);
+  }, [selected, handleChange, name]);
+
   return (
     <>
       <label htmlFor={name}>{capitalizeFirstLetter(name)}</label>
@@ -30,15 +35,18 @@ export const Select = ({ options, name }: any) => {
         className={styles.select_button}
       >
         <span className={styles.select_button__text}>{selected}</span>
-        {isOpen ? <ArrowUp /> : <ArrowDown />}
+        {isSelectMenuOpen ? <ArrowUp /> : <ArrowDown />}
       </button>
       <input type="hidden" name={name} value={selected} />
-      <ul ref={selectMenuRef} className={clsx(styles.options, isOpen ? styles.active : '')}>
-        {options.map((option: any, i: number) => {
+      <ul
+        ref={selectMenuRef}
+        className={clsx(styles.options, isSelectMenuOpen ? styles.active : '')}
+      >
+        {options.map((option, i) => {
           return (
             <li
               onClick={() => {
-                handleSelectChange(option);
+                setSelected(option);
                 toggleSelectMenu();
               }}
               key={i}

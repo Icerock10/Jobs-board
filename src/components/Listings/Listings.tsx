@@ -10,7 +10,7 @@ import clsx from 'clsx';
 export const Listings = ({ listings, hasPublicAccess }: {listings: IListing[], hasPublicAccess?: boolean}) => {
   return (
     <div className={styles.job}>
-      {listings?.map((listing) => {
+      {listings.map((listing) => {
         const {
           title,
           _id,
