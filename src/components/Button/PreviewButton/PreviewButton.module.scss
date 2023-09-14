@@ -1,0 +1,16 @@
+@import "@/styles/variables";
+@import "@/styles/mixins";
+
+.preview {
+  @include primary-button;
+  @include custom-hover($hover-dark);
+  padding: 0 0.7rem;
+  background-color: $primary-color;
+  color: $primary-text-color;
+}
+
+[data-theme='dark'] .preview {
+  @include custom-hover($hover-light);
+  background-color: $primary-text-color;
+  color: $secondary-text-color;
+}

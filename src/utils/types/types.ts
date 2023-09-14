@@ -49,7 +49,7 @@ export interface IListing {
   shortDescription: string
   fullDescription: string
   isPublished: false
-  draft: Date
+  draft: Date | string | number
   _id: string
 }
 

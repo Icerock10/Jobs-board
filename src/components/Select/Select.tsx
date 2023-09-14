@@ -4,7 +4,7 @@ import ArrowUp from '@/../public/SVG/chevron_up.svg';
 import ArrowDown from '@/../public/SVG/chevron_down.svg';
 import CheckMark from '@/../public/SVG/checkmark.svg';
 import clsx from 'clsx';
-import { capitalizeFirstLetter } from '@/utils/helpers/capitalizeFirstLetter';
+import { formatFields } from '@/utils/helpers/formatFields';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { useVisibility } from '@/hooks/useVisibility';
 
@@ -18,14 +18,14 @@ export const Select = ({ options, name, handleChange }: SelectProps) => {
   const [selected, setSelected] = useState(options[0]);
   const { isSelectMenuOpen, toggleSelectMenu } = useVisibility();
   const { selectMenuRef } = useClickOutside(toggleSelectMenu, isSelectMenuOpen);
-
+  
   useEffect(() => {
     handleChange(name, selected);
   }, [selected, handleChange, name]);
 
   return (
     <>
-      <label htmlFor={name}>{capitalizeFirstLetter(name)}</label>
+      <label htmlFor={name}>{formatFields(name)}</label>
       <button
         id={name}
         onClick={e => {

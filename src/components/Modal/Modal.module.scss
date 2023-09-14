@@ -22,7 +22,8 @@
 }
 .modal {
   position: relative;
-  max-width: 32rem;
+  min-width: 32rem;
+  width: fit-content;
   height: auto;
   background-color: $primary-color;
   border-radius: 0.6rem;
@@ -32,4 +33,14 @@
 [data-theme='light'] .modal {
   background-color: $primary-text-color;
   @include custom-light-border;
+}
+
+.cancel {
+  position: absolute;
+  right: 1rem;
+  width: fit-content;
+  opacity: .5;
+  &:hover {
+    opacity: .8;
+  }
 }

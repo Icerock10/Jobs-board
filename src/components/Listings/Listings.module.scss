@@ -1,7 +1,7 @@
 @import '@/styles/mixins';
 @import '@/styles/variables';
 
-.job {
+.listings {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
@@ -31,7 +31,7 @@
   background-color: $secondary-text-color;
   color: $primary-text-color;
 }
-[data-theme='light'] .job_wrapper {
+[data-theme='light'] .listings_wrapper {
   @include custom-light-border;
 }
 
@@ -62,18 +62,7 @@
 }
 
 .summary {
-  display: flex;
-  font-size: small;
-  gap: 0.3rem;
-  padding-top: 0.5rem;
-  & div {
-    display: flex;
-    align-items: center;
-    gap: 0.2rem;
-    background-color: $hover-dark;
-    padding: 0.1rem 0.5rem;
-    border-radius: 0.5rem;
-  }
+  @include summary-section;
 }
 [data-theme='light'] .summary div {
   background-color: $hover-light;
@@ -85,15 +74,18 @@
 .description {
   padding: 1.3rem 0;
 }
-
+.listings_previewWrapper {
+  display: flex;
+  justify-content: flex-end;
+}
 @media screen and (max-width: 1300px) {
-  .job_wrapper {
+  .listings_wrapper {
     flex: 0 1 49%;
   }
 }
 
 @media screen and (max-width: 860px) {
-  .job_wrapper {
+  .listings_wrapper {
     flex: 1 1 auto;
   }
 }

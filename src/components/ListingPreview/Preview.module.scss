@@ -2,3 +2,46 @@
 @import "@/styles/mixins";
 
 
+.listings {
+  border-radius: 0.5rem;
+  @include custom-dark-border;
+  padding: 1.5rem;
+  max-width: 33%;
+
+  &_item {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+  }
+  &_modalView {
+    border: none;
+    padding: 0;
+    width: 40rem;
+    max-width: none;
+  }
+}
+
+.subtitle {
+  color: $listings-text-primary;
+  font-size: smaller;
+}
+
+.location {
+  padding: 0.2rem 0;
+}
+
+.summary {
+  @include summary-section;
+}
+
+.description {
+  padding: 1.3rem 0;
+  word-break: break-word;
+}
+.listings_footer {
+  display: flex;
+  flex-direction: column;
+  & button {
+    align-self: end;
+  }
+}

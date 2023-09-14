@@ -17,7 +17,7 @@ const typeOptions = ['Part Time', 'Full Time', 'Internship'];
 const experienceLevelOptions = ['Junior', 'Mid-Level', 'Senior'];
 const newListingsInputFields = [
   ['Title', 'title'],
-  ['Company Name', 'company'],
+  ['Company Name', 'companyName'],
   ['Location', 'location'],
   ['Application URL', 'url'],
   ['Salary', 'salary']

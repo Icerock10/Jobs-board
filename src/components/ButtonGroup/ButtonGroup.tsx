@@ -9,7 +9,7 @@ import { removeJob } from '@/lib/db/server-actions';
 import { toastService } from '@/lib/toast/toastr-service';
 import { useVisibility } from '@/hooks/useVisibility';
 
-export const ButtonGroup = ({ id, title, draft }: { id: string; title: string, draft: Date | number }) => {
+export const ButtonGroup = ({ id, title, draft }: { id: string; title: string, draft: Date | number | string }) => {
   const { toggleDraftMenu, isDraftMenuOpen } = useVisibility()
   const isDraft = draft ? 'Extend' : 'Publish';
   const removeJobAction = async () => {
@@ -19,6 +19,7 @@ export const ButtonGroup = ({ id, title, draft }: { id: string; title: string, d
     }
     toastService.error(response?.data)
   }
+  
   return (
     <div className={styles.button_group}>
       <LoadingButton onClick={removeJobAction}>
