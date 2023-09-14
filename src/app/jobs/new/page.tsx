@@ -1,4 +1,4 @@
-import { CreateListing } from '@/components/CreateListing/CreateListing';
+import { Listing } from '@/components/Listing/Listing';
 
 export default function Page() {
   return (
@@ -6,7 +6,7 @@ export default function Page() {
       <div className='container_title'>
         <h1>New Listing</h1>
       </div>
-      <CreateListing />
+      <Listing />
     </section>
   );
 }

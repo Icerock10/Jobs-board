@@ -4,6 +4,7 @@ import { IListing } from '@/utils/types/types';
 export type StateProps = {
   listing: IListing;
   isStateReset: boolean
+  isUrlFieldValid: boolean
 };
 
 const initialState: StateProps = {
@@ -22,6 +23,7 @@ const initialState: StateProps = {
     _id: '',
   },
   isStateReset: false,
+  isUrlFieldValid: false
 };
 
 export const preview = createSlice({
@@ -36,6 +38,12 @@ export const preview = createSlice({
         ...state.listing,
         [field]: value,
       };
+    },
+    getCurrentListing(state, { payload }: PayloadAction<IListing>) {
+      state.listing = payload;
+    },
+    setValidUrl(state) {
+      state.isUrlFieldValid = !state.isUrlFieldValid
     },
     resetListing(state) {
       state.isStateReset = !state.isStateReset;
@@ -53,9 +61,6 @@ export const preview = createSlice({
         draft: '',
         _id: '',
       }
-    },
-    getCurrentListing(state, { payload }: PayloadAction<IListing>) {
-      state.listing = payload;
     },
   },
 });

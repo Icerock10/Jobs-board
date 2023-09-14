@@ -55,8 +55,8 @@ export const Listings = ({ listings, hasPublicAccess }: { listings: IListing[], 
             </div>
             <p className={styles.description}>{shortDescription}</p>
             {hasPublicAccess ?
-              <div onClick={() => dispatch(getCurrentListing(listing))} className={styles.listings_previewWrapper}>
-                <PreviewButton>View More</PreviewButton>
+              <div className={styles.listings_previewWrapper}>
+                <div onClick={() => dispatch(getCurrentListing(listing))}><PreviewButton>View More</PreviewButton></div>
                 <Modal><Preview isModalPreview={true} /></Modal>
               </div>
               :

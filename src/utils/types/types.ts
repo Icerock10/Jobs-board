@@ -25,18 +25,6 @@ export type UpdatedListingResponse = {
     successMessage: string
   }
 }
-// export type Extra = {
-//   extra: {
-//     authService: {
-//       getAuthUser: (token: string) => Promise<AuthData>;
-//     };
-//   };
-// }
-// export type IState = {
-//   email: null | string;
-//   status: string;
-//   error?: string;
-// }
 
 export interface IListing {
   title: string;
@@ -48,7 +36,7 @@ export interface IListing {
   salary: number
   shortDescription: string
   fullDescription: string
-  isPublished: false
+  isPublished: boolean
   draft: Date | string | number
   _id: string
 }

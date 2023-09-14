@@ -11,6 +11,7 @@ type IVisibilityState = {
   isProfileMenuShown: boolean;
   isSwitcherMenuActive: boolean;
   isBurgerMenuActive: boolean;
+  isPreviewShown: boolean
 };
 
 const initialState: IVisibilityState = {
@@ -23,6 +24,7 @@ const initialState: IVisibilityState = {
   isProfileMenuShown: false,
   isSwitcherMenuActive: false,
   isBurgerMenuActive: false,
+  isPreviewShown: false
 };
 
 export const visibility = createSlice({
@@ -40,6 +42,9 @@ export const visibility = createSlice({
     },
     toggleSwitcherMenu(state) {
       state.isSwitcherMenuActive = !state.isSwitcherMenuActive;
+    },
+    togglePreview(state) {
+      state.isPreviewShown = !state.isPreviewShown
     },
     getSelectedPrice(
       state,
@@ -80,6 +85,7 @@ export const {
   setSuccessfulPurchase,
   toggleProfileMenu,
   toggleSwitcherMenu,
+  togglePreview
 } = visibility.actions;
 
 export default visibility.reducer;

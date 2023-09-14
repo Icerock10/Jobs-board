@@ -24,7 +24,7 @@ export const getMyListings = async (token?: string) => {
 };
 
 export const getPublished = async () => {
-  const response = await authService.getPublishedListings()
+  const response = await authService.getPublishedListings();
   if (response?.status === 200) {
     return response.data.listings;
   }
@@ -49,4 +49,23 @@ export const logOut = async () => {
   cookiesService.removeToken();
   redirect('/login');
   revalidatePath('/');
+};
+
+export const checkUrlValidity = async (url: string) => {
+  try {
+    const response = await fetch(url, { method: 'HEAD' });
+    if (response.ok) {
+      return true;
+    }
+  } catch (e) {
+    return false;
+  }
+};
+
+export const createListing = async (formData: FormData) => {
+  const token = cookiesService.getToken();
+  const convertFormDataToObject = Object.fromEntries(formData);
+  const response = await authService.createListingFromAxios(convertFormDataToObject, token);
+  revalidatePath('/jobs');
+  return response;
 };

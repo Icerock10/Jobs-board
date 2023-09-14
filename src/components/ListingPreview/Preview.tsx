@@ -3,8 +3,10 @@ import clsx from 'clsx';
 import MoneyIcon from '../../../public/SVG/money.svg';
 import ScheduleIcon from '../../../public/SVG/schedule.svg';
 import RankIcon from '../../../public/SVG/job_ranking.svg';
+import LinkIcon from '../../../public/SVG/link.svg';
 import { PreviewButton } from '@/components/Button/PreviewButton/PreviewButton';
 import { useAppSelector } from '@/hooks/reduxHooks';
+import Link from 'next/link';
 
 export const Preview = ({ isModalPreview }: { isModalPreview?: boolean }) => {
   const { listing } = useAppSelector(state => state.preview)
@@ -12,27 +14,28 @@ export const Preview = ({ isModalPreview }: { isModalPreview?: boolean }) => {
     <div className={clsx(styles.listings, isModalPreview && styles.listings_modalView)}>
       <div className={styles.listings_item}>
         <section className={styles.title_wrap}>
-          <h2>{listing?.title}</h2>
+          <h2>{listing.title}</h2>
         </section>
-        <span className={styles.subtitle}>{listing?.companyName}</span>
-        <span className={clsx(styles.location, styles.subtitle)}>{listing?.location}</span>
+        <span className={styles.subtitle}>{listing.companyName}</span>
+        <span className={clsx(styles.location, styles.subtitle)}>{listing.location}</span>
         <section className={styles.summary}>
           <div>
             <MoneyIcon />
-            {listing?.salary}
+            {listing.salary}
           </div>
           <div>
             <ScheduleIcon />
-            {listing?.type}
+            {listing.type}
           </div>
           <div>
             <RankIcon />
-            {listing?.experienceLevel}
+            {listing.experienceLevel}
           </div>
         </section>
+        {/*{isModalPreview && <Link className={styles.jobLink} href={listing.url}>Apply On Company Site <LinkIcon /></Link>}*/}
       </div>
       <div className={styles.listings_footer}>
-        <p className={styles.description}>{listing?.shortDescription}</p>
+        <p className={styles.description}>{isModalPreview ? listing.fullDescription : listing.shortDescription}</p>
         {isModalPreview ? null : <PreviewButton>View More</PreviewButton>}
       </div>
     </div>

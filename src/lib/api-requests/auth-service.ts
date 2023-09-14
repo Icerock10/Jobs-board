@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import {
-  AuthResponse,
+  AuthResponse, IListing,
   ListingsResponse,
   TokenResponse,
   UpdatedListingResponse,
@@ -99,6 +99,16 @@ export class AuthService {
       return this.handleAxiosError(e);
     }
   };
+  createListingFromAxios = async (listing: object, token?: string) => {
+    this.setToken(token)
+    try {
+      const { data, status } = await this.instance.post<IListing>('/api/listings', listing)
+      return { data, status }
+    }
+    catch (e) {
+      return this.handleAxiosError(e);
+    }
+  }
 }
 
 export const authService = new AuthService(process.env.BASE_URL!);

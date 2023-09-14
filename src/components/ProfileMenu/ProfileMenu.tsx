@@ -28,7 +28,7 @@ export const ProfileMenu = ({ email }: { email?: string }) => {
         <nav ref={profileMenuRef} className={clsx(styles.profile_menu, isProfileMenuShown && styles.active)}>
           <Link href={'/jobs/listings'} className={styles.hovered}>My Listings</Link>
           <div className={styles.divider}></div>
-          <div className={styles.hovered} onClick={logOut}>LogOut</div>
+          <div className={styles.hovered} onClick={() => logOut()}>LogOut</div>
         </nav>
     </aside>
   );
