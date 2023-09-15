@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IListing } from '@/utils/types/types';
 import { listing } from '@/utils/mocks/listing';
+import { validateUrl } from '@/utils/helpers/validateUrl';
 
 export type StateProps = {
   listing: IListing;
   isStateReset: boolean
   isUrlFieldValid: boolean,
-  isPreviewShown: boolean
+  isPreviewShown: boolean,
 };
 
 const initialState: StateProps = {
@@ -32,6 +33,9 @@ export const preview = createSlice({
     getCurrentListing(state, { payload }: PayloadAction<IListing>) {
       state.listing = payload;
     },
+    getValidUrl(state, { payload }) {
+      state.isUrlFieldValid = validateUrl(payload)
+    },
     setValidUrl(state) {
       state.isUrlFieldValid = !state.isUrlFieldValid;
     },
@@ -46,5 +50,11 @@ export const preview = createSlice({
   },
 });
 
-export const { fillListings, getCurrentListing, resetListingAndClosePreview, togglePreview } = preview.actions;
+export const {
+  fillListings,
+  getCurrentListing,
+  resetListingAndClosePreview,
+  togglePreview,
+  getValidUrl,
+} = preview.actions;
 export default preview.reducer;

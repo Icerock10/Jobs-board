@@ -61,10 +61,11 @@ export class AuthService {
       return this.handleAxiosError(error);
     }
   };
-  getListings = async (token?: string) => {
+  getListings = async (token?: string, id?: string) => {
+    const url = id ? `/api/listings?id=${id}` : '/api/listings';
     this.setToken(token);
     try {
-      const { status, data } = await this.instance.get<ListingsResponse>('/api/listings');
+      const { status, data } = await this.instance.get<ListingsResponse>(url);
       return { status, data };
     } catch (error) {
       return this.handleAxiosError(error);
@@ -78,7 +79,7 @@ export class AuthService {
       return this.handleAxiosError(error);
     }
   };
-  deleteListing = async (_id: string, token: string) => {
+  deleteListing = async (_id: string, token?: string) => {
     this.setToken(token);
     try {
       const { data, status } = await this.instance.delete('/api/listings', { data: { _id } });

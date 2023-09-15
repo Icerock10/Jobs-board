@@ -1,15 +1,15 @@
 @import "@/styles/variables";
 @import "@/styles/mixins";
 
-[data-theme='dark'] .input {
-  background-color: transparent;
-  color: $primary-text-color;
-  border-color: $secondary-color;
-}
-
 .input {
+  background-color: transparent;
   padding: 0.7rem;
   outline: none;
+  @include custom-dark-border;
   border-radius: 0.4rem;
-  border: 1px solid $light-border;
+  color: $primary-text-color;
+}
+[data-theme='light'] .input {
+  color: $primary-color;
+  @include custom-light-border;
 }

@@ -14,13 +14,25 @@ export const signUpOrLoginAction = async (formData: FormData, isRegistration?: b
   cookiesService.setToken(token);
 };
 
-export const getMyListings = async (token?: string) => {
+export const getMyListings = async () => {
+  const token = cookiesService.getToken()
   const response = await authService.getListings(token);
   if (response?.status === 200) {
-    return response.data.listings;
+    return response.data;
   }
+  revalidatePath('/')
   redirect('/login');
 };
+
+export const getListingById = async (_id: string) => {
+  const token = cookiesService.getToken()
+  const response = await authService.getListings(token, _id)
+  if (response?.status === 200) {
+    return response.data;
+  }
+  revalidatePath('/')
+  redirect('/login');
+}
 
 export const getPublished = async () => {
   const response = await authService.getPublishedListings();
@@ -30,7 +42,7 @@ export const getPublished = async () => {
 };
 
 export const removeJob = async (id: string) => {
-  const token = cookiesService.getToken()!;
+  const token = cookiesService.getToken();
   const response = await authService.deleteListing(id, token);
   revalidatePath('/jobs');
   return response;
@@ -55,7 +67,7 @@ export const updateEditableListing = async (formData: FormData, id: string) => {
   const token = cookiesService.getToken();
   const convertedFormData = Object.fromEntries(formData);
   const response = await authService.updateOneListing(id, convertedFormData, token)
-  revalidatePath('/jobs')
+  revalidatePath('/')
   return response;
 }
 
@@ -66,14 +78,3 @@ export const createListing = async (formData: FormData) => {
   revalidatePath('/jobs');
   return response;
 };
-
-// export const checkUrlValidity = async (url: string) => {
-//   try {
-//     const response = await fetch(url, { method: 'HEAD' });
-//     if (response.ok) {
-//       return true;
-//     }
-//   } catch (e) {
-//     return false;
-//   }
-// };

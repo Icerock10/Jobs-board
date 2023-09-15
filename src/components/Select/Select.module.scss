@@ -5,21 +5,27 @@
 .select_button {
   height: 2.46rem;
   border-radius: 0.4rem;
-  border: 1px solid $light-border;
+  @include custom-dark-border;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 0.7rem;
-
   & svg {
     opacity: .6;
   }
-
   &:focus {
-    outline: 2px solid #9aa8b7;
+    outline: 2px solid $dark-border;
     outline-offset: 0.125rem;
   }
 }
+
+[data-theme='light'] .select_button {
+  border-color: $light-border;
+  &:focus {
+    outline-color: #9aa8b7;
+  }
+}
+
 
 .select_button__text {
   font-size: small;
@@ -32,8 +38,8 @@
   padding: 0.3rem;
   width: 100%;
   z-index: 10;
-  background-color: $primary-text-color;
-  @include custom-light-border;
+  background-color: $primary-color;
+  @include custom-dark-border;
   border-radius: 0.4rem;
   font-size: 0.875rem;
   &_item {
@@ -44,8 +50,15 @@
     cursor: default;
     padding: 0.6rem 0.6rem;
     &:hover {
-      background-color: $hover-light;
+      background-color: $secondary-color;
     }
+  }
+}
+[data-theme='light'] .options {
+  background-color: $primary-text-color;
+  border-color: $light-border;
+  & li:hover {
+    background-color: $hover-light;
   }
 }
 .options.active {
@@ -56,23 +69,6 @@
 .options_item__checkmark {
   min-width: 1rem;
   opacity: .8;
-}
-
-[data-theme='dark'] .select_button {
-  border-color: $dark-border;
-  &:focus {
-    outline-color: $dark-border;
-  }
-  & svg {
-    color: #fff;
-  }
-}
-[data-theme='dark'] .options {
-  background-color: $primary-color;
-  border-color: $dark-border;
-  & li:hover {
-    background-color: $secondary-color;
-  }
 }
 
 

@@ -7,11 +7,11 @@
   border-radius: 0.3rem;
   display: grid;
   place-items: center;
-  @include custom-hover($hover-light);
+  @include custom-hover($hover-dark);
 }
 
-[data-theme='dark'] .link {
-  @include custom-hover($hover-dark);
+[data-theme='light'] .link {
+  @include custom-hover($hover-light);
 }
 
 .disabled {

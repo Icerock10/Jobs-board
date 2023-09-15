@@ -5,24 +5,16 @@ import { LoadingButton } from '@/components/Button/LoadingButton/LoadingButton';
 import { DropMenu } from '@/components/DropMenu/DropMenu';
 import { Modal } from '@/components/Modal/Modal';
 import { Publish } from '@/components/Publish/Publish';
-import { removeJob } from '@/lib/db/server-actions';
-import { toastService } from '@/lib/toast/toastr-service';
 import { useVisibility } from '@/hooks/useVisibility';
+import { useClientActions } from '@/hooks/useClientActions';
 
 export const ButtonGroup = ({ id, title, draft }: { id: string; title: string, draft: Date | number | string }) => {
   const { toggleDraftMenu, isDraftMenuOpen } = useVisibility()
   const isDraft = draft ? 'Extend' : 'Publish';
-  const removeJobAction = async () => {
-    const response = await removeJob(id)
-    if(response?.status === 200) {
-      toastService.success(response?.data?.successMessage)
-    }
-    toastService.error(response?.data)
-  }
-  
+  const { removeJobAction  } = useClientActions()
   return (
     <div className={styles.button_group}>
-      <LoadingButton onClick={removeJobAction}>
+      <LoadingButton onClick={() => removeJobAction(id)}>
         Delete
       </LoadingButton>
       <Link className={clsx(styles.link, styles.link_bordered)} href={`/jobs/listings/${id}`}>

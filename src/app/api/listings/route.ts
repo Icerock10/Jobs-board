@@ -25,7 +25,7 @@ export async function GET(req: NextRequest): Promise<NextResponse | unknown> {
       return NextResponse.json(listing);
     }
     const listings = await Listing.find({});
-    return NextResponse.json({ listings });
+    return NextResponse.json(listings);
   } catch (error: unknown) {
     return error;
   }
@@ -36,7 +36,7 @@ export async function PUT(req: NextRequest): Promise<NextResponse | unknown> {
     await connectDB();
     const { listing, _id, daysLeft } = await req.json();
     if (listing) {
-      const updatedListing = await Listing.findOne({ _id }).updateOne(listing)
+      const updatedListing = await Listing.findOne({ _id }).updateOne(listing);
       return NextResponse.json({ updatedListing, successMessage: 'Listing successfully updated' });
     }
     const currentDate = new Date();

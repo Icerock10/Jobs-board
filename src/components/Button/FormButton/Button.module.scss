@@ -9,12 +9,15 @@
   background-color: #868B94;
   cursor: auto;
 }
-[data-theme='dark'] .enabled {
-  @include custom-hover($hover-light);
+
+.enabled {
   background-color: $primary-text-color;
   color: $secondary-text-color;
+  @include custom-hover($hover-light);
 }
-.enabled {
+
+[data-theme='light'] .enabled {
+  @include custom-hover($hover-dark);
   background-color: $primary-color;
   color: $primary-text-color;
 }

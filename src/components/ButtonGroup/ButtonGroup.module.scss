@@ -7,6 +7,7 @@
   justify-content: flex-end;
   align-items: center;
   gap: 0.5rem;
+
   & button, a {
     font-size: 0.9rem;
   }
@@ -14,35 +15,38 @@
 
 .link {
   height: 2.5rem;
-  //min-width: 4.75rem;
   padding: 0 1rem;
   border-radius: 0.3rem;
   display: grid;
   place-items: center;
-  @include custom-hover($hover-light);
+  @include custom-hover($hover-dark);
+
   &_bordered {
-    border: 1px solid #E2E8F0;
+    border: 1px solid $secondary-color;
   }
 }
 
-[data-theme='dark'] .link {
+[data-theme='light'] .link {
   &_bordered {
-    border-color: $secondary-color;
+    border-color: #E2E8F0;
   }
-  @include custom-hover($hover-dark);
+
+  @include custom-hover($hover-light);
 }
 
 .button {
   @include primary-button;
+  background-color: $primary-text-color;
+  color: $secondary-text-color;
+  @include custom-hover($hover-light);
+}
+
+[data-theme='light'] .button {
   background-color: $primary-color;
+  @include custom-hover($hover-dark);
   color: $primary-text-color;
 }
 
-[data-theme='dark'] .button {
-  @include custom-hover($hover-light);
-  background-color: $primary-text-color;
-  color: $secondary-text-color;
-}
 .extend {
   position: relative;
 }

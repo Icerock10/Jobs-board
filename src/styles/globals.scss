@@ -43,12 +43,12 @@ h1 {
 }
 
 input:focus {
-  outline: 2px solid #9aa8b7;
+  outline: 2px solid $secondary-color;
   outline-offset: 0.125rem;
 }
 
-[data-theme='dark'] input:focus {
-  outline-color: $secondary-color;
+[data-theme='light'] input:focus {
+  outline-color: #9aa8b7;
 }
 .container {
   display: flex;

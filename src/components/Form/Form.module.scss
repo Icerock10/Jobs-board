@@ -13,13 +13,14 @@
   max-width: 400px;
   height: auto;
   border-radius: 0.4rem;
-  @include custom-light-border;
   padding: 1.5rem;
-  box-shadow: 0 0 10px 5px #ebebeb;
-}
-[data-theme='dark'] .form {
   box-shadow: none;
   @include custom-dark-border;
+}
+
+[data-theme='light'] .form {
+  box-shadow: 0 0 10px 5px #ebebeb;
+  @include custom-light-border;
 }
 
 .text_sm {
@@ -46,15 +47,18 @@
   padding: 0.6rem;
   border-radius: 0.3rem;
   text-align: center;
-  @include custom-hover($hover-light);
-  &_bordered {
-    @include custom-light-border;
-  }
-}
+  @include custom-hover($hover-dark);
 
-[data-theme='dark'] .link {
   &_bordered {
     @include custom-dark-border;
   }
-  @include custom-hover($hover-dark);
+}
+
+[data-theme='light'] .link {
+  &_bordered {
+    @include custom-light-border;
+  }
+
+  @include custom-hover($hover-light);
+
 }

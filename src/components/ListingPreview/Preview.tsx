@@ -3,8 +3,10 @@ import clsx from 'clsx';
 import MoneyIcon from '../../../public/SVG/money.svg';
 import ScheduleIcon from '../../../public/SVG/schedule.svg';
 import RankIcon from '../../../public/SVG/job_ranking.svg';
+import LinkIcon from '../../../public/SVG/link.svg';
 import { PreviewButton } from '@/components/Button/PreviewButton/PreviewButton';
 import { useAppSelector } from '@/hooks/reduxHooks';
+import Link from 'next/link';
 
 export const Preview = ({ isModalPreview }: { isModalPreview?: boolean }) => {
   const { listing } = useAppSelector(state => state.preview)
@@ -30,7 +32,7 @@ export const Preview = ({ isModalPreview }: { isModalPreview?: boolean }) => {
             {listing.experienceLevel}
           </div>
         </section>
-        {/*{isModalPreview && <Link className={styles.jobLink} href={listing.url}>Apply On Company Site <LinkIcon /></Link>}*/}
+        {isModalPreview && <Link className={styles.jobLink} href={!listing.url ? '#' : listing.url}>Apply On Company Site <LinkIcon /></Link>}
       </div>
       <div className={styles.listings_footer}>
         <p className={styles.description}>{isModalPreview ? listing.fullDescription : listing.shortDescription}</p>

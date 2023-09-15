@@ -8,7 +8,7 @@ import React, { useEffect } from 'react';
 import { resetListingAndClosePreview } from '@/store/preview/previewSlice';
 import { FormButton } from '@/components/Button/FormButton/FormButton';
 import { Preview } from '@/components/ListingPreview/Preview';
-import { useAppDispatch } from '@/hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks';
 import { useRouter } from 'next/navigation';
 import { DefaultButton } from '@/components/Button/DefaultButton/DefaultButton';
 import { Modal } from '@/components/Modal/Modal';
@@ -20,6 +20,7 @@ export const Listing = ({ listingFromDb }: { listingFromDb?: IListing }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { isPreviewShown, togglePreview } = useVisibility();
+  const { isUrlFieldValid } = useAppSelector(state => state.preview)
   const { collectListingsData, createOrUpdateListing } = useClientActions();
    useEffect(() => {
     listingFromDb ? dispatch(resetListingAndClosePreview(listingFromDb)) : dispatch(resetListingAndClosePreview());
@@ -65,7 +66,7 @@ export const Listing = ({ listingFromDb }: { listingFromDb?: IListing }) => {
         <div className={styles.button_group}>
           <DefaultButton handleClick={router.back}>Cancel</DefaultButton>
           <DefaultButton handleClick={togglePreview}>Show Preview</DefaultButton>
-          <FormButton isValid={true}>{listingFromDb ? 'Edit' : 'Submit'}</FormButton>
+          <FormButton isValid={isUrlFieldValid}>{listingFromDb ? 'Edit' : 'Submit'}</FormButton>
         </div>
       </form>
       <Modal>

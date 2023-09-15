@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
-import { fillListings } from '@/store/preview/previewSlice';
+import { fillListings, getValidUrl } from '@/store/preview/previewSlice';
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks';
-import { createListing, signUpOrLoginAction, updateEditableListing } from '@/lib/db/server-actions';
+import { createListing, removeJob, signUpOrLoginAction, updateEditableListing } from '@/lib/db/server-actions';
 import { toastService } from '@/lib/toast/toastr-service';
 import { useRouter } from 'next/navigation';
 export const useClientActions = () => {
@@ -11,8 +11,8 @@ export const useClientActions = () => {
   
   const collectListingsData = useCallback(async (field: string, value: string) => {
     if (!isStateReset) return;
-    console.log(field);
     const newFieldValuePair = { field, value };
+    if(field === 'url') dispatch(getValidUrl(value))
     dispatch(fillListings(newFieldValuePair));
   }, [dispatch, isStateReset]);
   
@@ -29,9 +29,17 @@ export const useClientActions = () => {
     if (isErrorMessage) return toastService.error(isErrorMessage);
     router.back()
   };
+  const removeJobAction = async (id: string) => {
+    const response = await removeJob(id)
+    if(response?.status === 200) {
+      toastService.success(response?.data?.successMessage)
+    }
+    toastService.error(response?.data)
+  }
   return {
     collectListingsData,
     createOrUpdateListing,
     submitRegistrationOrLoginForm,
+    removeJobAction
   };
 };

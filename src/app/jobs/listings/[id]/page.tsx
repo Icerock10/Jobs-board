@@ -1,7 +1,7 @@
 import { Listing } from '@/components/Listing/Listing';
+import { getListingById } from '@/lib/db/server-actions';
 export default async function Edit({params: { id }}: {params: {id: string}}) {
-  const response = await fetch(`http://localhost:3000/api/listings?id=${id}`, {method: 'GET', cache: 'no-cache'})
-  const [listing] = await response.json()
+  const [listing] = await getListingById(id)
   return (
     <section className='container'>
       <div className='container_title'>

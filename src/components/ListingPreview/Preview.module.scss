@@ -49,11 +49,14 @@
 }
 
 .jobLink {
-  @include primary-button;
+  display: flex;
+  align-items: center;
+  border-radius: 0.3rem;
+  color: $primary-text-color;
+  min-width: 4.75rem;
   @include custom-hover($hover-dark);
   padding: 0 0.7rem;
   background-color: $primary-color;
-  color: $primary-text-color;
   margin-top: 1rem;
   height: 2.29rem !important;
   font-size: 0.875rem;
