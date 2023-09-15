@@ -3,10 +3,8 @@ import clsx from 'clsx';
 import MoneyIcon from '../../../public/SVG/money.svg';
 import ScheduleIcon from '../../../public/SVG/schedule.svg';
 import RankIcon from '../../../public/SVG/job_ranking.svg';
-import LinkIcon from '../../../public/SVG/link.svg';
 import { PreviewButton } from '@/components/Button/PreviewButton/PreviewButton';
 import { useAppSelector } from '@/hooks/reduxHooks';
-import Link from 'next/link';
 
 export const Preview = ({ isModalPreview }: { isModalPreview?: boolean }) => {
   const { listing } = useAppSelector(state => state.preview)

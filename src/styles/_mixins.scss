@@ -65,9 +65,8 @@
   color: $primary-text-color;
   height: 2.5rem;
   min-width: 4.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
 }
 
 @mixin custom-light-border {
@@ -102,7 +101,7 @@
   }
 }
 
-@mixin summary-section {
+@mixin summary-section($bg-color) {
   display: flex;
   font-size: small;
   gap: 0.3rem;
@@ -111,7 +110,7 @@
     display: flex;
     align-items: center;
     gap: 0.2rem;
-    background-color: $hover-dark;
+    background-color: $bg-color;
     padding: 0.1rem 0.5rem;
     border-radius: 0.5rem;
   }

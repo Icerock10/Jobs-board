@@ -1,6 +1,6 @@
 import { Listing } from '@/components/Listing/Listing';
 
-export default function Page() {
+export default function New() {
   return (
     <section className='container'>
       <div className='container_title'>

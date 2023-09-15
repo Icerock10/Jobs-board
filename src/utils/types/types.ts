@@ -39,6 +39,7 @@ export interface IListing {
   isPublished: boolean
   draft: Date | string | number
   _id: string
+  [key: string]: any;
 }
 
 export type Theme = Themes.DARK | Themes.LIGHT;

@@ -8,7 +8,7 @@ export async function POST(req: NextRequest): Promise<NextResponse | unknown> {
     await connectDB();
     const listing = await Listing.create(listingData);
     if (listing) {
-      return NextResponse.json({ message: 'Successfully created' });
+      return NextResponse.json({ successMessage: 'Successfully created' });
     }
   } catch (error: unknown) {
     return error;
@@ -34,7 +34,11 @@ export async function GET(req: NextRequest): Promise<NextResponse | unknown> {
 export async function PUT(req: NextRequest): Promise<NextResponse | unknown> {
   try {
     await connectDB();
-    const { _id, daysLeft } = await req.json();
+    const { listing, _id, daysLeft } = await req.json();
+    if (listing) {
+      const updatedListing = await Listing.findOne({ _id }).updateOne(listing)
+      return NextResponse.json({ updatedListing, successMessage: 'Listing successfully updated' });
+    }
     const currentDate = new Date();
     const newDraftDate = new Date(currentDate.getTime() + daysLeft * 24 * 60 * 60 * 1000);
     const foundListing = await Listing.findOne({ _id }).updateOne({ isPublished: true, draft: newDraftDate });

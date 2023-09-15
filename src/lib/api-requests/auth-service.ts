@@ -87,13 +87,22 @@ export class AuthService {
       return this.handleAxiosError(error);
     }
   };
-  updateListing = async (_id: string, daysLeft: number, token: string) => {
+  updateListing = async (_id: string, daysLeft: number, token?: string) => {
     this.setToken(token);
     try {
       const { data, status } = await this.instance.put<UpdatedListingResponse>('/api/listings', {
         _id,
         daysLeft,
       });
+      return { data, status };
+    } catch (e) {
+      return this.handleAxiosError(e);
+    }
+  };
+  updateOneListing = async (_id: string, listing: object, token?: string) => {
+    this.setToken(token);
+    try {
+      const { data, status } = await this.instance.put<UpdatedListingResponse>('/api/listings', { _id, listing });
       return { data, status };
     } catch (e) {
       return this.handleAxiosError(e);

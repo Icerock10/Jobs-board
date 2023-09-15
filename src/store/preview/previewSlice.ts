@@ -1,29 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IListing } from '@/utils/types/types';
+import { listing } from '@/utils/mocks/listing';
 
 export type StateProps = {
   listing: IListing;
   isStateReset: boolean
-  isUrlFieldValid: boolean
+  isUrlFieldValid: boolean,
+  isPreviewShown: boolean
 };
 
 const initialState: StateProps = {
-  listing: {
-    title: '',
-    companyName: '',
-    location: '',
-    url: '',
-    type: '',
-    experienceLevel: '',
-    salary: 0,
-    shortDescription: '',
-    fullDescription: '',
-    isPublished: false,
-    draft: '',
-    _id: '',
-  },
+  listing,
   isStateReset: false,
-  isUrlFieldValid: false
+  isUrlFieldValid: false,
+  isPreviewShown: false,
 };
 
 export const preview = createSlice({
@@ -43,27 +33,18 @@ export const preview = createSlice({
       state.listing = payload;
     },
     setValidUrl(state) {
-      state.isUrlFieldValid = !state.isUrlFieldValid
+      state.isUrlFieldValid = !state.isUrlFieldValid;
     },
-    resetListing(state) {
+    resetListingAndClosePreview(state, { payload }: PayloadAction<IListing | undefined>) {
       state.isStateReset = !state.isStateReset;
-      state.listing = {
-        title: '',
-        companyName: '',
-        location: '',
-        url: '',
-        type: '',
-        experienceLevel: '',
-        salary: 0,
-        shortDescription: '',
-        fullDescription: '',
-        isPublished: false,
-        draft: '',
-        _id: '',
-      }
+      state.isPreviewShown = false;
+      state.listing = payload ? payload : listing;
+    },
+    togglePreview(state) {
+      state.isPreviewShown = !state.isPreviewShown;
     },
   },
 });
 
-export const { fillListings, getCurrentListing, resetListing } = preview.actions;
+export const { fillListings, getCurrentListing, resetListingAndClosePreview, togglePreview } = preview.actions;
 export default preview.reducer;

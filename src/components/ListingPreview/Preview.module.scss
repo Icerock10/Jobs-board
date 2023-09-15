@@ -4,7 +4,7 @@
 
 .listings {
   border-radius: 0.5rem;
-  @include custom-dark-border;
+  @include custom-light-border;
   padding: 1.5rem;
   max-width: 33%;
 
@@ -31,7 +31,10 @@
 }
 
 .summary {
-  @include summary-section;
+  @include summary-section($hover-light);
+}
+[data-theme='dark'] .summary {
+  @include summary-section($hover-dark);
 }
 .description {
   padding: 1.3rem 0;
@@ -63,4 +66,7 @@
   @include custom-hover($hover-light);
   background-color: $primary-text-color;
   color: $secondary-text-color;
+}
+[data-theme='dark'] .listings {
+  border-color: $dark-border;
 }

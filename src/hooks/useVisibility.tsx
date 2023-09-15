@@ -3,14 +3,16 @@ import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks';
 import {
   toggleBurgerMenu, toggleModal,
   toggleProfileMenu as toggleProfileMenuAction,
-  toggleSwitcherMenu, togglePreview as togglePreviewAction
+  toggleSwitcherMenu
 } from '@/store/visibility/visibilitySlice';
+import { togglePreview as togglePreviewAction } from '@/store/preview/previewSlice';
 
 export const useVisibility = () => {
   const dispatch = useAppDispatch();
-  const { isProfileMenuShown, isSwitcherMenuActive, isBurgerMenuActive, isModalShown, isPreviewShown } = useAppSelector(
+  const { isProfileMenuShown, isSwitcherMenuActive, isBurgerMenuActive, isModalShown } = useAppSelector(
     state => state.visibility,
   );
+  const { isPreviewShown } = useAppSelector(state => state.preview)
   const [isDraftMenuOpen, toggleDraftMenu] = useReducer((isOpen) => !isOpen, false);
   const [isSelectMenuOpen, toggleSelectMenu] = useReducer((isOpen) => !isOpen, false);
   const toggleMenu = () => dispatch(toggleSwitcherMenu());

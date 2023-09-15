@@ -62,10 +62,10 @@
 }
 
 .summary {
-  @include summary-section;
+  @include summary-section($hover-light);
 }
-[data-theme='light'] .summary div {
-  background-color: $hover-light;
+[data-theme='dark'] .summary {
+  @include summary-section($hover-dark);
 }
 .location {
   padding-top: 0.2rem;

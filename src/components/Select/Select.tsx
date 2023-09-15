@@ -7,22 +7,25 @@ import clsx from 'clsx';
 import { formatFields } from '@/utils/helpers/formatFields';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { useVisibility } from '@/hooks/useVisibility';
+import { IListing } from '@/utils/types/types';
 
 export type SelectProps = {
   options: string[];
   name: string;
   handleChange: (field: string, value: string) => void;
+  listingFromDb?: IListing
 };
 
-export const Select = ({ options, name, handleChange }: SelectProps) => {
-  const [selected, setSelected] = useState(options[0]);
+export const Select = ({ listingFromDb, options, name, handleChange }: SelectProps) => {
+  const [firstSelectOption] = options;
+  const [selected, setSelected] = useState(listingFromDb ? listingFromDb[name] : firstSelectOption);
   const { isSelectMenuOpen, toggleSelectMenu } = useVisibility();
   const { selectMenuRef } = useClickOutside(toggleSelectMenu, isSelectMenuOpen);
   
   useEffect(() => {
     handleChange(name, selected);
   }, [selected, handleChange, name]);
-
+  
   return (
     <>
       <label htmlFor={name}>{formatFields(name)}</label>
