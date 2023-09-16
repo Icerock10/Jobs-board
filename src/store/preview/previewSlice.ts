@@ -36,9 +36,6 @@ export const preview = createSlice({
     getValidUrl(state, { payload }) {
       state.isUrlFieldValid = validateUrl(payload)
     },
-    setValidUrl(state) {
-      state.isUrlFieldValid = !state.isUrlFieldValid;
-    },
     resetListingAndClosePreview(state, { payload }: PayloadAction<IListing | undefined>) {
       state.isStateReset = !state.isStateReset;
       state.isPreviewShown = false;

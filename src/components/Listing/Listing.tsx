@@ -5,7 +5,7 @@ import { Select } from '@/components/Select/Select';
 import { experienceLevelOptions, newListingsInputFields, typeOptions } from '@/utils/mocks/options';
 import { TextArea } from '@/components/TextArea/TextArea';
 import React, { useEffect } from 'react';
-import { resetListingAndClosePreview } from '@/store/preview/previewSlice';
+import { getValidUrl, resetListingAndClosePreview } from '@/store/preview/previewSlice';
 import { FormButton } from '@/components/Button/FormButton/FormButton';
 import { Preview } from '@/components/ListingPreview/Preview';
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks';
@@ -22,6 +22,7 @@ export const Listing = ({ listingFromDb }: { listingFromDb?: IListing }) => {
   const { isPreviewShown, togglePreview } = useVisibility();
   const { isUrlFieldValid } = useAppSelector(state => state.preview)
   const { collectListingsData, createOrUpdateListing } = useClientActions();
+  
    useEffect(() => {
     listingFromDb ? dispatch(resetListingAndClosePreview(listingFromDb)) : dispatch(resetListingAndClosePreview());
     return () => {

@@ -12,7 +12,7 @@ export const useClientActions = () => {
   const collectListingsData = useCallback(async (field: string, value: string) => {
     if (!isStateReset) return;
     const newFieldValuePair = { field, value };
-    if(field === 'url') dispatch(getValidUrl(value))
+    if (field === 'url') dispatch(getValidUrl(value));
     dispatch(fillListings(newFieldValuePair));
   }, [dispatch, isStateReset]);
   
@@ -25,21 +25,22 @@ export const useClientActions = () => {
     toastService.error(response?.data);
   };
   const submitRegistrationOrLoginForm = async (formData: FormData, isRegistration?: boolean) => {
-    const isErrorMessage = await signUpOrLoginAction(formData, isRegistration);
-    if (isErrorMessage) return toastService.error(isErrorMessage);
-    router.back()
+    const isErrorResponse = await signUpOrLoginAction(formData, isRegistration);
+    if (isErrorResponse) {
+      toastService.error(isErrorResponse);
+    }
   };
   const removeJobAction = async (id: string) => {
-    const response = await removeJob(id)
-    if(response?.status === 200) {
-      toastService.success(response?.data?.successMessage)
+    const response = await removeJob(id);
+    if (response?.status === 200) {
+      toastService.success(response?.data?.successMessage);
     }
-    toastService.error(response?.data)
-  }
+    toastService.error(response?.data);
+  };
   return {
     collectListingsData,
     createOrUpdateListing,
     submitRegistrationOrLoginForm,
-    removeJobAction
+    removeJobAction,
   };
 };

@@ -9,30 +9,35 @@ export const signUpOrLoginAction = async (formData: FormData, isRegistration?: b
   const response = isRegistration
     ? await authService.register(email, password)
     : await authService.login(email, password);
-  if (response?.status === 401) return response.data;
-  const { token } = response?.data;
-  cookiesService.setToken(token);
+  if(response?.status === 200) {
+    const { token } = response?.data;
+    if(token) {
+      cookiesService.setToken(token);
+      return redirect('/jobs/listings')
+    }
+  }
+  return response?.data;
 };
 
 export const getMyListings = async () => {
-  const token = cookiesService.getToken()
+  const token = cookiesService.getToken();
   const response = await authService.getListings(token);
   if (response?.status === 200) {
     return response.data;
   }
-  revalidatePath('/')
+  revalidatePath('/');
   redirect('/login');
 };
 
 export const getListingById = async (_id: string) => {
-  const token = cookiesService.getToken()
-  const response = await authService.getListings(token, _id)
+  const token = cookiesService.getToken();
+  const response = await authService.getListings(token, _id);
   if (response?.status === 200) {
     return response.data;
   }
-  revalidatePath('/')
+  revalidatePath('/');
   redirect('/login');
-}
+};
 
 export const getPublished = async () => {
   const response = await authService.getPublishedListings();
@@ -62,14 +67,13 @@ export const logOut = async () => {
   revalidatePath('/');
 };
 
-
 export const updateEditableListing = async (formData: FormData, id: string) => {
   const token = cookiesService.getToken();
   const convertedFormData = Object.fromEntries(formData);
-  const response = await authService.updateOneListing(id, convertedFormData, token)
-  revalidatePath('/')
+  const response = await authService.updateOneListing(id, convertedFormData, token);
+  revalidatePath('/');
   return response;
-}
+};
 
 export const createListing = async (formData: FormData) => {
   const token = cookiesService.getToken();
@@ -78,3 +82,10 @@ export const createListing = async (formData: FormData) => {
   revalidatePath('/jobs');
   return response;
 };
+
+export const getTokenAndRedirect = () => {
+  const token = cookiesService.getToken();
+  if(token) {
+    redirect('/jobs')
+  }
+}
