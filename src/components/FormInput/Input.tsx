@@ -1,31 +1,30 @@
-import React, { ChangeEvent, useState } from 'react';
+import React from 'react';
 import styles from './Input.module.scss';
-import { useAppSelector } from '@/hooks/reduxHooks';
-import { IListing } from '@/utils/types/types';
+import { EMAIL_PATTERN } from '@/utils/constants/constants';
 type InputProps = {
   labelText: string;
   type: string;
   name: string;
-  handleChange?: (fieldName: string, value: string) => void;
-  value: string
+  register: any;
+  watch?: any
 };
 
-export const Input = ({ labelText, type, name, handleChange = () => {}, value }: InputProps) => {
-  const [val, setVal] = useState(value)
+export const Input = ({ labelText, type, name, register, watch }: InputProps) => {
+  const isConfirm = name === 'confirm';
+  const isEmail = name === 'email';
+  
   return (
     <React.Fragment>
       <label htmlFor={name}>{labelText}</label>
       <input
-        className={styles.input}
-        onChange={(e: ChangeEvent<HTMLInputElement>) => {
-          setVal(e.target.value)
-          handleChange(name, e.target.value)
-        }}
-        name={name}
-        id={name}
-        max={90000}
         type={type}
-        value={val}
+        className={styles.input}
+        id={name}
+        {...register(name, {
+          required: { value: true, message: 'Field is Required' },
+          ...(isConfirm && { validate: (val: string) =>  watch('password') === val}),
+          ...(isEmail && {pattern: { value: EMAIL_PATTERN, message: 'Invalid Email' }})
+        })}
       />
     </React.Fragment>
   );

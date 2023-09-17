@@ -4,17 +4,23 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import { FormButton } from '@/components/Button/FormButton/FormButton';
 import { Input } from '@/components/FormInput/Input';
-import { useValidation } from '@/hooks/useValidation';
 import { useClientActions } from '@/hooks/useClientActions';
+import { useForm } from 'react-hook-form';
 
 export const Form = ({ isRegistration }: { isRegistration?: boolean }) => {
   const isLogin = isRegistration ? 'Sign up' : 'Log In';
-  const { isValid, handleFieldChange } = useValidation(isRegistration);
+  const {
+    handleSubmit,
+    formState: { isValid, isSubmitting },
+    watch,
+    register,
+  } = useForm();
+  
   const { submitRegistrationOrLoginForm } = useClientActions();
   return (
     <div className={styles.container}>
       <form
-        action={formData => submitRegistrationOrLoginForm(formData, isRegistration)}
+        onSubmit={handleSubmit((data) => submitRegistrationOrLoginForm(data, isRegistration))}
         className={styles.form}
       >
         <h2>{isLogin}</h2>
@@ -22,10 +28,10 @@ export const Form = ({ isRegistration }: { isRegistration?: boolean }) => {
           You can use any email and password to log in to the demo version
         </p>
         <div className={styles.input_group}>
-          <Input value='' handleChange={handleFieldChange} labelText='Email' name='email' type='text' />
-          <Input value='' handleChange={handleFieldChange} labelText='Password' name='password' type='password' />
+          <Input register={register} name='email' labelText='Email' type='text' />
+          <Input register={register} name='password' labelText='Password' type='password' />
           {isRegistration && (
-            <Input value='' handleChange={handleFieldChange} labelText='Confirm' name='confirm' type='password' />
+            <Input watch={watch} register={register} name='confirm' labelText='Confirm' type='password' />
           )}
         </div>
         <div className={styles.button_group}>
@@ -38,7 +44,7 @@ export const Form = ({ isRegistration }: { isRegistration?: boolean }) => {
           >
             {isRegistration ? 'Login' : 'Sign Up'}
           </Link>
-          <FormButton isValid={isValid}>{isLogin}</FormButton>
+          <FormButton isValid={isValid} isSubmitting={isSubmitting}>{isLogin}</FormButton>
         </div>
       </form>
     </div>

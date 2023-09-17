@@ -3,9 +3,10 @@ import { redirect } from 'next/navigation';
 import { authService } from '@/lib/api-requests/auth-service';
 import { revalidatePath } from 'next/cache';
 import { cookiesService } from '@/lib/cookies/cookies-service';
+import { FieldValues } from 'react-hook-form';
 
-export const signUpOrLoginAction = async (formData: FormData, isRegistration?: boolean) => {
-  const { email, password } = Object.fromEntries(formData);
+export const signUpOrLoginAction = async (formData: FieldValues, isRegistration?: boolean) => {
+  const { email, password } = formData;
   const response = isRegistration
     ? await authService.register(email, password)
     : await authService.login(email, password);

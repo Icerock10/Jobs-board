@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks';
 import { createListing, removeJob, signUpOrLoginAction, updateEditableListing } from '@/lib/db/server-actions';
 import { toastService } from '@/lib/toast/toastr-service';
 import { useRouter } from 'next/navigation';
+import { FieldValue, FieldValues } from 'react-hook-form';
 export const useClientActions = () => {
   const { isStateReset } = useAppSelector(state => state.preview);
   const router = useRouter();
@@ -24,7 +25,7 @@ export const useClientActions = () => {
     }
     toastService.error(response?.data);
   };
-  const submitRegistrationOrLoginForm = async (formData: FormData, isRegistration?: boolean) => {
+  const submitRegistrationOrLoginForm = async (formData: FieldValues, isRegistration?: boolean) => {
     const isErrorResponse = await signUpOrLoginAction(formData, isRegistration);
     if (isErrorResponse) {
       toastService.error(isErrorResponse);
