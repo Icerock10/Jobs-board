@@ -1,23 +1,20 @@
-import { useCallback } from 'react';
-import { fillListings, getValidUrl } from '@/store/preview/previewSlice';
-import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks';
 import { createListing, removeJob, signUpOrLoginAction, updateEditableListing } from '@/lib/db/server-actions';
 import { toastService } from '@/lib/toast/toastr-service';
 import { useRouter } from 'next/navigation';
-import { FieldValue, FieldValues } from 'react-hook-form';
+import { FieldValues } from 'react-hook-form';
+import { useAppDispatch } from '@/hooks/reduxHooks';
+import { getCurrent } from '@/store/preview/previewSlice';
+import { IListing } from '@/utils/types/types';
+import { useCallback } from 'react';
 export const useClientActions = () => {
-  const { isStateReset } = useAppSelector(state => state.preview);
   const router = useRouter();
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
   
-  const collectListingsData = useCallback(async (field: string, value: string) => {
-    if (!isStateReset) return;
-    const newFieldValuePair = { field, value };
-    if (field === 'url') dispatch(getValidUrl(value));
-    dispatch(fillListings(newFieldValuePair));
-  }, [dispatch, isStateReset]);
+  const getCurrentListing = useCallback((listing: IListing) => {
+    dispatch(getCurrent(listing))
+  }, [dispatch])
   
-  const createOrUpdateListing = async (formData: FormData, id?: string) => {
+  const createOrUpdateListing = async (formData: FieldValues, id?: string) => {
     const response = id ? await updateEditableListing(formData, id) : await createListing(formData);
     if (response?.status === 200) {
       toastService.success(response.data.successMessage);
@@ -39,9 +36,9 @@ export const useClientActions = () => {
     toastService.error(response?.data);
   };
   return {
-    collectListingsData,
     createOrUpdateListing,
     submitRegistrationOrLoginForm,
     removeJobAction,
+    getCurrentListing
   };
 };

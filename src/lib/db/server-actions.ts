@@ -68,18 +68,16 @@ export const logOut = async () => {
   revalidatePath('/');
 };
 
-export const updateEditableListing = async (formData: FormData, id: string) => {
+export const updateEditableListing = async (formData: FieldValues, id: string) => {
   const token = cookiesService.getToken();
-  const convertedFormData = Object.fromEntries(formData);
-  const response = await authService.updateOneListing(id, convertedFormData, token);
+  const response = await authService.updateOneListing(id, formData, token);
   revalidatePath('/');
   return response;
 };
 
-export const createListing = async (formData: FormData) => {
+export const createListing = async (formData: FieldValues) => {
   const token = cookiesService.getToken();
-  const convertFormDataToObject = Object.fromEntries(formData);
-  const response = await authService.createListingFromAxios(convertFormDataToObject, token);
+  const response = await authService.createListingFromAxios(formData, token);
   revalidatePath('/jobs');
   return response;
 };

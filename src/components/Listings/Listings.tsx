@@ -5,15 +5,17 @@ import ScheduleIcon from '@/../public/SVG/schedule.svg';
 import RankIcon from '@/../public/SVG/job_ranking.svg';
 import { ButtonGroup } from '@/components/ButtonGroup/ButtonGroup';
 import { calculateDaysLeft } from '@/utils/helpers/compareDates';
-import { getCurrentListing } from '@/store/preview/previewSlice';
 import { IListing } from '@/utils/types/types';
 import clsx from 'clsx';
 import { PreviewButton } from '@/components/Button/PreviewButton/PreviewButton';
 import { Modal } from '@/components/Modal/Modal';
 import { Preview } from '@/components/ListingPreview/Preview';
-import { useAppDispatch } from '@/hooks/reduxHooks';
+import { useAppSelector } from '@/hooks/reduxHooks';
+import { useClientActions } from '@/hooks/useClientActions';
 export const Listings = ({ listings, hasPublicAccess }: { listings: IListing[], hasPublicAccess?: boolean }) => {
-  const dispatch = useAppDispatch();
+  const stateListing = useAppSelector(state => state.preview.listing);
+  const { getCurrentListing } = useClientActions();
+  
   return (
     <div className={styles.listings}>
       {listings.map((listing) => {
@@ -56,8 +58,10 @@ export const Listings = ({ listings, hasPublicAccess }: { listings: IListing[], 
             <p className={styles.description}>{shortDescription}</p>
             {hasPublicAccess ?
               <div className={styles.listings_previewWrapper}>
-                <div onClick={() => dispatch(getCurrentListing(listing))}><PreviewButton>View More</PreviewButton></div>
-                <Modal><Preview isModalPreview={true} /></Modal>
+                <div onClick={() => getCurrentListing(listing)}><PreviewButton>View More</PreviewButton></div>
+                <Modal>
+                  <Preview isModalPreview={true} listing={stateListing} />
+                </Modal>
               </div>
               :
               <ButtonGroup id={_id} title={title} draft={draft} />}

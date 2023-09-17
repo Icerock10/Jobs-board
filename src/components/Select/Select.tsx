@@ -1,5 +1,5 @@
 import styles from './Select.module.scss';
-import { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ArrowUp from '@/../public/SVG/chevron_up.svg';
 import ArrowDown from '@/../public/SVG/chevron_down.svg';
 import CheckMark from '@/../public/SVG/checkmark.svg';
@@ -7,30 +7,26 @@ import clsx from 'clsx';
 import { formatFields } from '@/utils/helpers/formatFields';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { useVisibility } from '@/hooks/useVisibility';
-import { IListing } from '@/utils/types/types';
 
 export type SelectProps = {
   options: string[];
-  name: string;
-  handleChange: (field: string, value: string) => void;
-  listingFromDb?: IListing
+  fieldName: string;
+  register: any;
+  setValue: any
+  isDbField?: string
 };
 
-export const Select = ({ listingFromDb, options, name, handleChange }: SelectProps) => {
+export const Select = ({ options, fieldName, register, setValue, isDbField }: SelectProps) => {
   const [firstSelectOption] = options;
-  const [selected, setSelected] = useState(listingFromDb ? listingFromDb[name] : firstSelectOption);
+  const [selected, setSelected] = useState(isDbField ? isDbField : firstSelectOption);
   const { isSelectMenuOpen, toggleSelectMenu } = useVisibility();
   const { selectMenuRef } = useClickOutside(toggleSelectMenu, isSelectMenuOpen);
   
-  useEffect(() => {
-    handleChange(name, selected);
-  }, [selected, handleChange, name]);
-  
-  return (
+   return (
     <>
-      <label htmlFor={name}>{formatFields(name)}</label>
+      <label htmlFor={fieldName}>{formatFields(fieldName)}</label>
       <button
-        id={name}
+        id={fieldName}
         onClick={e => {
           e.preventDefault();
           toggleSelectMenu();
@@ -40,7 +36,7 @@ export const Select = ({ listingFromDb, options, name, handleChange }: SelectPro
         <span className={styles.select_button__text}>{selected}</span>
         {isSelectMenuOpen ? <ArrowUp /> : <ArrowDown />}
       </button>
-      <input type="hidden" name={name} value={selected} />
+      <input type="hidden" id={fieldName} {...register(fieldName)}/>
       <ul
         ref={selectMenuRef}
         className={clsx(styles.options, isSelectMenuOpen ? styles.active : '')}
@@ -50,6 +46,7 @@ export const Select = ({ listingFromDb, options, name, handleChange }: SelectPro
             <li
               onClick={() => {
                 setSelected(option);
+                setValue(fieldName, option)
                 toggleSelectMenu();
               }}
               key={i}
