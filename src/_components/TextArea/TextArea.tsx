@@ -1,6 +1,6 @@
 import styles from './TextArea.module.scss';
 import clsx from 'clsx';
-import { IListing } from '@/utils/types/types';
+import { IListing } from '@/_utils/types/types';
 import { UseFormRegister } from 'react-hook-form';
 
 export type TextAreaProps = {
