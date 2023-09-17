@@ -2,9 +2,9 @@
 import styles from './Form.module.scss';
 import Link from 'next/link';
 import clsx from 'clsx';
-import { FormButton } from '@/components/Button/FormButton/FormButton';
-import { Input } from '@/components/FormInput/Input';
-import { useClientActions } from '@/hooks/useClientActions';
+import { FormButton } from '@/_components/Button/FormButton/FormButton';
+import { Input } from '@/_components/FormInput/Input';
+import { useClientActions } from '@/_hooks/useClientActions';
 import { useForm } from 'react-hook-form';
 
 export const Form = ({ isRegistration }: { isRegistration?: boolean }) => {
