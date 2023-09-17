@@ -3,6 +3,8 @@ import clsx from 'clsx';
 import MoneyIcon from '../../../public/SVG/money.svg';
 import ScheduleIcon from '../../../public/SVG/schedule.svg';
 import RankIcon from '../../../public/SVG/job_ranking.svg';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm'
 import LinkIcon from '../../../public/SVG/link.svg';
 import { PreviewButton } from '@/components/Button/PreviewButton/PreviewButton';
 import { useAppSelector } from '@/hooks/reduxHooks';
@@ -35,7 +37,7 @@ export const Preview = ({ isModalPreview }: { isModalPreview?: boolean }) => {
         {isModalPreview && <Link className={styles.jobLink} href={!listing.url ? '#' : listing.url}>Apply On Company Site <LinkIcon /></Link>}
       </div>
       <div className={styles.listings_footer}>
-        <p className={styles.description}>{isModalPreview ? listing.fullDescription : listing.shortDescription}</p>
+        <div className={clsx(styles.description, styles.markdown)}>{isModalPreview ? <ReactMarkdown remarkPlugins={[remarkGfm]}>{listing.fullDescription}</ReactMarkdown> : listing.shortDescription}</div>
         {isModalPreview ? null : <PreviewButton>View More</PreviewButton>}
       </div>
     </div>

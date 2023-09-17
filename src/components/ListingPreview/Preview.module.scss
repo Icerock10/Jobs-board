@@ -47,7 +47,27 @@
     align-self: end;
   }
 }
-
+.markdown {
+  & li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem;
+    cursor: auto;
+    &::before {
+      content: '';
+      width: 0.5rem;
+      height: 0.5rem;
+      background-color: $secondary-color;
+      border-radius: 50%;
+    }
+  }
+}
+[data-theme='light'] .markdown {
+  & li::before {
+    background-color: $listings-text-primary;
+  }
+}
 .jobLink {
   display: flex;
   align-items: center;
