@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import connectDB from '@/lib/db/connect-db';
-import Listing from '@/lib/db/models/Listing';
+import connectDB from '@/_lib/db/connect-db';
+import Listing from '@/_lib/db/models/Listing';
 
 export const revalidate = 0;
 

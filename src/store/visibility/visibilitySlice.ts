@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { toastService } from '@/lib/toast/toastr-service';
+import { toastService } from '@/_lib/toast/toastr-service';
 
 type IVisibilityState = {
   isModalShown: boolean;

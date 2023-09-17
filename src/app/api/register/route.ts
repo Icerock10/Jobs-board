@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import connectDB from '@/lib/db/connect-db';
-import { jwtService } from '@/lib/token/jwtService';
-import User from '@/lib/db/models/User';
+import connectDB from '@/_lib/db/connect-db';
+import { jwtService } from '@/_lib/token/jwtService';
+import User from '@/_lib/db/models/User';
 import bcrypt from 'bcrypt';
 export async function POST(req: NextRequest): Promise<NextResponse | unknown> {
   try {

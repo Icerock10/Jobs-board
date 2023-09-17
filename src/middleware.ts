@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { jwtService } from '@/lib/token/jwtService';
+import { jwtService } from '@/_lib/token/jwtService';
 
 export async function middleware(req: NextRequest) {
   const authHeader = req.headers.get('authorization');

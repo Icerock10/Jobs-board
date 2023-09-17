@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { jwtService } from '@/lib/token/jwtService';
-import connectDB from '@/lib/db/connect-db';
+import { jwtService } from '@/_lib/token/jwtService';
+import connectDB from '@/_lib/db/connect-db';
 
 export async function GET(req: NextRequest): Promise<NextResponse | unknown> {
   try {

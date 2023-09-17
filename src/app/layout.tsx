@@ -1,7 +1,7 @@
 import '@/styles/globals.scss';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { Header } from '@/components/Header/Header';
+import { Header } from '@/_components/Header/Header';
 import { ReduxProvider } from '@/store/ReduxProvider';
 import 'react-toastify/dist/ReactToastify.css';
 

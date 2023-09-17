@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IListing } from '@/utils/types/types';
-import { listing } from '@/utils/mocks/listing';
+import { IListing } from '@/_utils/types/types';
+import { listing } from '@/_utils/mocks/listing';
 
 export type StateProps = {
   listing: IListing;
