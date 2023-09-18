@@ -1,4 +1,4 @@
-import { apiService } from '@/_lib/services/api-service';
+import { apiService } from '@/_lib/services/api/api-service';
 import { IListing, ListingsResponse, UpdatedListingResponse } from '@/_utils/types/types';
 
 class ListingsService {

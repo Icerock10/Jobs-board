@@ -1,10 +1,10 @@
 'use server';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
-import { cookiesService } from '@/_lib/cookies/cookies-service';
+import { cookiesService } from '@/_lib/services/cookies/cookies-service';
 import { FieldValues } from 'react-hook-form';
-import { userService } from '@/_lib/services/user-service';
-import { listingsService } from '@/_lib/services/listings-service';
+import { userService } from '@/_lib/services/api/user-service';
+import { listingsService } from '@/_lib/services/api/listings-service';
 
 export const signUpOrLoginAction = async (formData: FieldValues, isRegistration?: boolean) => {
   const { email, password } = formData;

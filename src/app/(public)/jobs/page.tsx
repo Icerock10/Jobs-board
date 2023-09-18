@@ -1,6 +1,6 @@
 import { Listings } from '@/_components/Listings/Listings';
 import { CreateLink } from '@/_components/CreateLink/CreateLink';
-import { listingsService } from '@/_lib/services/listings-service';
+import { listingsService } from '@/_lib/services/api/listings-service';
 export default async function Jobs() {
   const response = await listingsService.getAll()
   return (

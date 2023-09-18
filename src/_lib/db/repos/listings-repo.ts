@@ -1,6 +1,6 @@
 import { db } from '@/_lib/db/connect-db';
 import { IListing } from '@/_utils/types/types';
-import { createCustomError } from '@/_utils/helpers/server/customError';
+import { createCustomError } from '@/_utils/helpers/customError';
 import Listing from '@/_lib/db/models/Listing';
 import { setDraftFromDate } from '@/_utils/helpers/setDraftFromDate';
 import { UpdateResult } from 'mongodb';

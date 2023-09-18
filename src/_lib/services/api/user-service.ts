@@ -1,4 +1,4 @@
-import { apiService } from '@/_lib/services/api-service';
+import { apiService } from '@/_lib/services/api/api-service';
 import { AuthResponse, TokenResponse } from '@/_utils/types/types';
 
 class UserService {

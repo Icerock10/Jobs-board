@@ -2,9 +2,9 @@ import styles from './Header.module.scss';
 import { ThemeSwitcher } from '@/_components/ThemeSwitcher/ThemeSwitcher';
 import { Menu } from '@/_components/Menu/Menu';
 import ThemeProvider from '@/_context/theme/ThemeProvider';
-import { cookiesService } from '@/_lib/cookies/cookies-service';
+import { cookiesService } from '@/_lib/services/cookies/cookies-service';
 import { Logo } from '@/_components/Logo/Logo';
-import { userService } from '@/_lib/services/user-service';
+import { userService } from '@/_lib/services/api/user-service';
 
 export const Header = async () => {
   const token = cookiesService.getToken()

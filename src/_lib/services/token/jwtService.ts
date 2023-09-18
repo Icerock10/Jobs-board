@@ -1,5 +1,5 @@
 import * as jose from 'jose';
-import { getSecretEnv } from '@/_lib/token/getSecretEnv';
+import { getSecretEnv } from '@/_lib/services/token/getSecretEnv';
 class Jwt {
   private instance: typeof jose;
   public secret: Uint8Array;

@@ -1,7 +1,7 @@
 import { UserProps } from '@/_utils/types/types';
 import bcrypt from 'bcrypt';
-import { createCustomError } from '@/_utils/helpers/server/customError';
-import { jwtService } from '@/_lib/token/jwtService';
+import { createCustomError } from '@/_utils/helpers/customError';
+import { jwtService } from '@/_lib/services/token/jwtService';
 import { db } from '@/_lib/db/connect-db';
 
 
