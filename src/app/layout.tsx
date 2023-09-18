@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import '@/styles/globals.scss';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -13,13 +15,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-      <ReduxProvider>
-        <Header />
-        {children}
-      </ReduxProvider>
-      </body>
+    <html lang='en'>
+    <body className={inter.className}>
+    <ReduxProvider>
+      <Header />
+      {children}
+    </ReduxProvider>
+    </body>
     </html>
   );
 }
