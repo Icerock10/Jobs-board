@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google';
 import { Header } from '@/_components/Header/Header';
 import { ReduxProvider } from '@/store/ReduxProvider';
 import 'react-toastify/dist/ReactToastify.css';
-export const dynamic = 'force-dynamic';
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {

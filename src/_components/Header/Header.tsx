@@ -10,6 +10,7 @@ export const Header = async () => {
   const token = cookiesService.getToken()
   const response = await userService.getAuthUser(token);
   console.log(response);
+  console.log(token);
   return (
     <header className={styles.header}>
       <section className={styles.header__section}>
