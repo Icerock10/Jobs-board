@@ -1,6 +1,5 @@
 import { cookies } from 'next/headers';
 
-
 class Cookie {
   private instance: typeof cookies;
   constructor() {
