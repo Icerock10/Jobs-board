@@ -17,7 +17,7 @@ export const signUpOrLoginAction = async (formData: FieldValues, isRegistration?
     if(token) {
       const { email } = await jwtService.verify(token)
       cookiesService.setEmail(`${email}`)
-      // cookiesService.setToken(token);
+      cookiesService.setToken(token);
       return redirect('/listings')
     }
   }
