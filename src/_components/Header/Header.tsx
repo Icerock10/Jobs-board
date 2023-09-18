@@ -14,9 +14,7 @@ export const Header = async () => {
     <header className={styles.header}>
       <section className={styles.header__section}>
         <Logo />
-        Should be email{response?.data.email}
-        Token{token}
-        status{response?.status}
+        Should be email{JSON.stringify(response?.data)}
         <aside className={styles.header_menu}>
           <ThemeProvider>
             <ThemeSwitcher email={response?.data?.email}/>
