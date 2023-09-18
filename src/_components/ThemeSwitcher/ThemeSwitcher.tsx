@@ -10,8 +10,9 @@ import { Themes } from '@/_utils/types/types';
 import { useVisibility } from '@/_hooks/useVisibility';
 import { useClickOutside } from '@/_hooks/useClickOutside';
 import { ToastContainer } from 'react-toastify';
+import { JWTPayload } from 'jose';
 
-export const ThemeSwitcher = ({ email }: { email?: string }) => {
+export const ThemeSwitcher = ({ email }: { email?: unknown | null }) => {
   const { toggleTheme, isDarkMode } = UseThemeToggle();
   const { isSwitcherMenuActive, toggleMenu, isBurgerMenuActive, toggleBurger } = useVisibility();
   const { switcherMenuRef } = useClickOutside(toggleMenu, isSwitcherMenuActive);

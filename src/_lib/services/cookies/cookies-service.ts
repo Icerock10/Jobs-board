@@ -12,11 +12,8 @@ class Cookie {
   setToken(token: string) {
     return this.instance().set('token', token)
   }
-  removeAll() {
-    this.instance().getAll().forEach(cookie => this.instance().delete(cookie.name))
-  }
-  setEmail(email: string) {
-    return this.instance().set('email', email)
+  removeToken() {
+    return this.instance().delete('token')
   }
 }
 

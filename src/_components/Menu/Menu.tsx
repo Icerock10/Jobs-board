@@ -4,7 +4,7 @@ import { ProfileMenu } from '@/_components/ProfileMenu/ProfileMenu';
 import styles from './Menu.module.scss';
 import clsx from 'clsx';
 
-export const Menu = ({ className, email }: { className?: string; email?: string }) => {
+export const Menu = ({ className, email }: { className?: string; email?: unknown | null }) => {
   return (
     <nav className={clsx(className, styles.nav, styles.hidden)}>
       <Link href={'/tasks'}>Task Board</Link>
