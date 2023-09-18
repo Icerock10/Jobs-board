@@ -31,7 +31,7 @@ export const getSecuredListingsOrRedirect = async () => {
 export const deleteOneByIdAction = async (id: string) => {
   const token = cookiesService.getToken();
   const response = await listingsService.deleteOneById(id, token)
-  revalidatePath('/jobs');
+  revalidatePath('/');
   return response;
 };
 export const logOut = async () => {
@@ -44,7 +44,7 @@ export const logOut = async () => {
 export const createListingAndRevalidate = async (formData: FieldValues) => {
   const token = cookiesService.getToken();
   const response = await listingsService.create(formData, token)
-  revalidatePath('/jobs');
+  revalidatePath('/');
   return response;
 };
 
@@ -64,7 +64,7 @@ export const getTokenAndRedirect = () => {
 export const publishOrExtendListing = async (_id: string, daysLeft: number) => {
   const token = cookiesService.getToken();
   const response = await listingsService.publish(_id, daysLeft, token)
-    revalidatePath('/jobs');
+    revalidatePath('/');
     return response
 };
 
