@@ -1,17 +1,12 @@
 import styles from './Publish.module.scss';
-import { setSuccessfulPurchase } from '@/store/visibility/visibilitySlice';
-import { useAppDispatch, useAppSelector } from '@/_hooks/reduxHooks';
-import { publishOrExtendJob } from '@/_lib/db/server-actions';
+import { useAppSelector } from '@/_hooks/reduxHooks';
 import { useTransition } from 'react';
+import { useClientActions } from '@/_hooks/useClientActions';
 
 export const Publish = ({ isDraft }: { isDraft: string }) => {
   const { price, days, title, id } = useAppSelector(state => state.visibility);
   const [isPending, startTransition] = useTransition();
-  const dispatch = useAppDispatch();
-  const publishOrExtendJobAction = async () => {
-    const { errorMessage, successMessage } = await publishOrExtendJob(id, days!);
-    dispatch(setSuccessfulPurchase({ errorMessage, successMessage }));
-  };
+  const { publishOrExtendAndShowNotification } = useClientActions();
   
   return (
     <div className={styles.wrapper}>
@@ -26,7 +21,8 @@ export const Publish = ({ isDraft }: { isDraft: string }) => {
         integration so it cannot accept payments. Clicking the pay button will emulate what would
         happen if you did make a successful payment.
       </p>
-      <button disabled={isPending} className={styles.purchase} onClick={() => startTransition(publishOrExtendJobAction)}>
+      <button disabled={isPending} className={styles.purchase}
+              onClick={() => startTransition(() => publishOrExtendAndShowNotification(id, days!))}>
         {isPending ? <span>Loading...</span> : `Pay $${price}`}
       </button>
     </div>

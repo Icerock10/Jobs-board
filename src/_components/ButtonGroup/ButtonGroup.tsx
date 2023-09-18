@@ -11,10 +11,10 @@ import { useClientActions } from '@/_hooks/useClientActions';
 export const ButtonGroup = ({ id, title, draft }: { id: string; title: string, draft: Date | number | string }) => {
   const { toggleDraftMenu, isDraftMenuOpen } = useVisibility()
   const isDraft = draft ? 'Extend' : 'Publish';
-  const { removeJobAction  } = useClientActions()
+  const { removeListingAndShowToast  } = useClientActions()
   return (
     <div className={styles.button_group}>
-      <LoadingButton onClick={() => removeJobAction(id)}>
+      <LoadingButton onClick={() => removeListingAndShowToast(id)}>
         Delete
       </LoadingButton>
       <Link className={clsx(styles.link, styles.link_bordered)} href={`/listings/${id}`}>

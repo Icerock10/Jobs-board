@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { toastService } from '@/_lib/toast/toastr-service';
 
 type IVisibilityState = {
   isModalShown: boolean;
@@ -58,18 +57,6 @@ export const visibility = createSlice({
       state.title = title;
       state.id = id;
     },
-    setSuccessfulPurchase(
-      state,
-      {
-        payload: { errorMessage, successMessage },
-      }: PayloadAction<{
-        successMessage: string;
-        errorMessage: string;
-      }>,
-    ) {
-      state.isModalShown = false;
-      errorMessage ? toastService.error(errorMessage) : toastService.success(successMessage);
-    },
   },
 });
 
@@ -77,7 +64,6 @@ export const {
   toggleModal,
   toggleBurgerMenu,
   getSelectedPrice,
-  setSuccessfulPurchase,
   toggleProfileMenu,
   toggleSwitcherMenu,
 } = visibility.actions;

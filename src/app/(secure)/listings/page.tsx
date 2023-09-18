@@ -1,8 +1,8 @@
-import { getMyListings } from '@/_lib/db/server-actions';
+import { getSecuredListingsOrRedirect } from '@/_lib/server-actions/server-actions';
 import { Listings } from '@/_components/Listings/Listings';
 import { CreateLink } from '@/_components/CreateLink/CreateLink';
 export default async function ListingsPage() {
-  const listings = await getMyListings();
+  const listings = await getSecuredListingsOrRedirect();
   return (
     <div className='container'>
       <div className='container_title'>

@@ -8,6 +8,10 @@ export type TokenResponse = {
     token: string;
   };
 }
+export type UserProps = {
+  email: string;
+  password: string;
+}
 export type ListingsResponse = {
   status: number;
   data: {

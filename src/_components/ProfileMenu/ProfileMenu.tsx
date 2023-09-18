@@ -5,7 +5,8 @@ import { useVisibility } from '@/_hooks/useVisibility';
 import { useClickOutside } from '@/_hooks/useClickOutside';
 import { useScreenSize } from '@/_hooks/useScreenSize';
 import Link from 'next/link';
-import { logOut } from '@/_lib/db/server-actions';
+import { logOut } from '@/_lib/server-actions/server-actions';
+
 export const ProfileMenu = ({ email }: { email?: string }) => {
   const { toggleProfileMenu, isProfileMenuShown } = useVisibility();
   const { profileMenuRef } = useClickOutside(toggleProfileMenu, isProfileMenuShown);

@@ -18,7 +18,7 @@ export const Listings = ({ listings, hasPublicAccess }: { listings: IListing[], 
   
   return (
     <div className={styles.listings}>
-      {listings.map((listing) => {
+      {listings?.map((listing) => {
         const {
           title,
           _id,

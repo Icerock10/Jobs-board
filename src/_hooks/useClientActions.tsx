@@ -1,4 +1,9 @@
-import { createListing, removeJob, signUpOrLoginAction, updateEditableListing } from '@/_lib/db/server-actions';
+import {
+  createListingAndRevalidate,
+  deleteOneByIdAction, publishOrExtendListing,
+  signUpOrLoginAction,
+  updateOneByIdAndRevalidate,
+} from '@/_lib/server-actions/server-actions';
 import { toastService } from '@/_lib/toast/toastr-service';
 import { useRouter } from 'next/navigation';
 import { FieldValues } from 'react-hook-form';
@@ -6,6 +11,7 @@ import { useAppDispatch } from '@/_hooks/reduxHooks';
 import { getCurrent } from '@/store/preview/previewSlice';
 import { IListing } from '@/_utils/types/types';
 import { useCallback } from 'react';
+import { toggleModal } from '@/store/visibility/visibilitySlice';
 export const useClientActions = () => {
   const router = useRouter();
   const dispatch = useAppDispatch()
@@ -15,12 +21,13 @@ export const useClientActions = () => {
   }, [dispatch])
   
   const createOrUpdateListing = async (formData: FieldValues, id?: string) => {
-    const response = id ? await updateEditableListing(formData, id) : await createListing(formData);
+    const response = id ? await updateOneByIdAndRevalidate(formData, id) : await createListingAndRevalidate(formData);
     if (response?.status === 200) {
-      toastService.success(response.data.successMessage);
+      toastService.success(response.data.message);
       router.back();
     }
-    toastService.error(response?.data);
+    router.replace('/login')
+    toastService.error(response?.data.error);
   };
   const submitRegistrationOrLoginForm = async (formData: FieldValues, isRegistration?: boolean) => {
     const isErrorResponse = await signUpOrLoginAction(formData, isRegistration);
@@ -28,17 +35,27 @@ export const useClientActions = () => {
       toastService.error(isErrorResponse);
     }
   };
-  const removeJobAction = async (id: string) => {
-    const response = await removeJob(id);
+  const removeListingAndShowToast = async (id: string) => {
+    const response = await deleteOneByIdAction(id);
     if (response?.status === 200) {
-      toastService.success(response?.data?.successMessage);
+      toastService.success(response.data.message);
     }
-    toastService.error(response?.data);
+    toastService.error(response?.data.error);
   };
+  const publishOrExtendAndShowNotification = async (id: string, days: number) => {
+    const response = await publishOrExtendListing(id, days);
+    dispatch(toggleModal())
+    if(response?.status === 200) {
+      toastService.success(response.data.message)
+    }
+    toastService.error(response?.data.error)
+  };
+  
   return {
     createOrUpdateListing,
     submitRegistrationOrLoginForm,
-    removeJobAction,
-    getCurrentListing
+    removeListingAndShowToast,
+    getCurrentListing,
+    publishOrExtendAndShowNotification
   };
 };

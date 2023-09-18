@@ -2,13 +2,13 @@ import styles from './Header.module.scss';
 import { ThemeSwitcher } from '@/_components/ThemeSwitcher/ThemeSwitcher';
 import { Menu } from '@/_components/Menu/Menu';
 import ThemeProvider from '@/_context/theme/ThemeProvider';
-import { authService } from '@/_lib/api-requests/auth-service';
 import { cookiesService } from '@/_lib/cookies/cookies-service';
 import { Logo } from '@/_components/Logo/Logo';
+import { userService } from '@/_lib/services/user-service';
 
 export const Header = async () => {
   const token = cookiesService.getToken()
-  const response = token ? await authService.getAuthUser(token) : null;
+  const response = token ? await userService.getAuthUser(token) : null;
   return (
     <header className={styles.header}>
       <section className={styles.header__section}>

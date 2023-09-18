@@ -1,4 +1,4 @@
-import mongoose, { Model } from 'mongoose';
+import mongoose from 'mongoose';
 import { IListing } from '@/_utils/types/types';
 
 const listingSchema = new mongoose.Schema<IListing>({
