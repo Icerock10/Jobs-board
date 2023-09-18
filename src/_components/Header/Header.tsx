@@ -9,6 +9,7 @@ import { userService } from '@/_lib/services/api/user-service';
 export const Header = async () => {
   const token = cookiesService.getToken()
   const response = token ? await userService.getAuthUser(token) : null;
+  console.log(response);
   return (
     <header className={styles.header}>
       <section className={styles.header__section}>
