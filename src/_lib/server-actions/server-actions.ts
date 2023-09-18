@@ -5,6 +5,7 @@ import { cookiesService } from '@/_lib/services/cookies/cookies-service';
 import { FieldValues } from 'react-hook-form';
 import { userService } from '@/_lib/services/api/user-service';
 import { listingsService } from '@/_lib/services/api/listings-service';
+import { jwtService } from '@/_lib/services/token/jwtService';
 
 export const signUpOrLoginAction = async (formData: FieldValues, isRegistration?: boolean) => {
   const { email, password } = formData;
@@ -14,9 +15,9 @@ export const signUpOrLoginAction = async (formData: FieldValues, isRegistration?
   if(response?.status === 200) {
     const { token } = response?.data;
     if(token) {
-      const response = await userService.getAuthUser(token)
-      cookiesService.setToken(token);
-      cookiesService.setEmail(response?.data?.email)
+      const { email } = await jwtService.verify(token)
+      cookiesService.setEmail(email)
+      // cookiesService.setToken(token);
       return redirect('/listings')
     }
   }
