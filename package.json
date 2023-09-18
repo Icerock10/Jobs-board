@@ -27,6 +27,7 @@
     "@reduxjs/toolkit": "^1.9.5",
     "@svgr/webpack": "^8.0.1",
     "@types/bcrypt": "^5.0.0",
+    "@types/js-cookie": "^3.0.4",
     "@types/redux-logger": "^3.0.9",
     "bcrypt": "^5.1.1",
     "clsx": "^2.0.0",
