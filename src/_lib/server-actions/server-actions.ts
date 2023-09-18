@@ -36,8 +36,8 @@ export const deleteOneByIdAction = async (id: string) => {
 };
 export const logOut = async () => {
   cookiesService.removeToken();
-  redirect('/login');
   revalidatePath('/');
+  redirect('/login');
 };
 
 export const createListingAndRevalidate = async (formData: FieldValues) => {
