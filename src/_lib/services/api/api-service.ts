@@ -21,7 +21,6 @@ class ApiService {
   setToken(token?: string) {
     this.instance.defaults.headers.common['authorization'] = `Bearer ${token}`;
   }
-  
   getInstance() {
     return this.instance;
   }
