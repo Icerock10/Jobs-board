@@ -25,7 +25,7 @@ class UserService {
       return apiService.handleAxiosError(error);
     }
   };
-  getAuthUser = async (token: string) => {
+  getAuthUser = async (token?: string) => {
     apiService.setToken(token);
     try {
       const { status, data } = await this.axiosInstance.get<AuthResponse>('/api/user/auth');
