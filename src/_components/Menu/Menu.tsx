@@ -5,7 +5,6 @@ import styles from './Menu.module.scss';
 import clsx from 'clsx';
 
 export const Menu = ({ className, email }: { className?: string; email?: string }) => {
-  console.log(email, 'from MENU');
   return (
     <nav className={clsx(className, styles.nav, styles.hidden)}>
       <Link href={'/tasks'}>Task Board</Link>
