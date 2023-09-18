@@ -12,13 +12,13 @@ export const signUpOrLoginAction = async (formData: FieldValues, isRegistration?
   const response = isRegistration
     ? await userService.register(email, password)
     : await userService.login(email, password);
-  if(response?.status === 200) {
+  if (response?.status === 200) {
     const { token } = response?.data;
-    if(token) {
-      const { email } = await jwtService.verify(token)
-      cookiesService.setEmail(`${email}`)
+    if (token) {
+      const { email } = await jwtService.verify(token);
+      cookiesService.setEmail(`${email}`);
       cookiesService.setToken(token);
-      return redirect('/listings')
+      return redirect('/listings');
     }
   }
   return response?.data;
@@ -26,54 +26,53 @@ export const signUpOrLoginAction = async (formData: FieldValues, isRegistration?
 
 export const getSecuredListingsOrRedirect = async () => {
   const token = cookiesService.getToken()!;
-  const response = await listingsService.getAllSecured(token)
+  const response = await listingsService.getAllSecured(token);
   if (response?.status === 200) return response.data;
-    revalidatePath('/');
-    redirect('/login');
+  revalidatePath('/');
+  redirect('/login');
 };
 export const deleteOneByIdAction = async (id: string) => {
   const token = cookiesService.getToken();
-  const response = await listingsService.deleteOneById(id, token)
+  const response = await listingsService.deleteOneById(id, token);
   revalidatePath('/');
   return response;
 };
 export const logOut = async () => {
-  cookiesService.removeToken();
+  cookiesService.removeAll();
   redirect('/login');
   revalidatePath('/');
 };
 
-
 export const createListingAndRevalidate = async (formData: FieldValues) => {
   const token = cookiesService.getToken();
-  const response = await listingsService.create(formData, token)
+  const response = await listingsService.create(formData, token);
   revalidatePath('/');
   return response;
 };
 
 export const updateOneByIdAndRevalidate = async (formData: FieldValues, id: string) => {
   const token = cookiesService.getToken();
-  const response = await listingsService.updateOneById(id, formData, token)
+  const response = await listingsService.updateOneById(id, formData, token);
   revalidatePath('/');
   return response;
 };
 
 export const getTokenAndRedirect = () => {
   const token = cookiesService.getToken();
-  if(token) {
-    redirect('/jobs')
+  if (token) {
+    redirect('/jobs');
   }
-}
+};
 export const publishOrExtendListing = async (_id: string, daysLeft: number) => {
   const token = cookiesService.getToken();
-  const response = await listingsService.publish(_id, daysLeft, token)
-    revalidatePath('/');
-    return response
+  const response = await listingsService.publish(_id, daysLeft, token);
+  revalidatePath('/');
+  return response;
 };
 
 export const getListingById = async (id: string) => {
   const token = cookiesService.getToken();
-  const response = await listingsService.getOneById(token, id)
+  const response = await listingsService.getOneById(token, id);
   if (response?.status === 200) {
     return response.data;
   }

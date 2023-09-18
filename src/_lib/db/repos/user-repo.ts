@@ -8,7 +8,6 @@ import { db } from '@/_lib/db/connect-db';
 type IRepository<T> = {
   login(body: T): Promise<{ token: string }>
   register(body: T): Promise<{ token: string }>
-  auth(token: string): Promise<string>
 }
 
 class UserRepository implements IRepository<UserProps> {
@@ -41,14 +40,6 @@ class UserRepository implements IRepository<UserProps> {
     }
     const token = await jwtService.generate(email);
     return { token };
-  }
-  
-  async auth(token: string): Promise<string> {
-    const { email } = await jwtService.verify(token);
-    if(!email) {
-      createCustomError('You are not authed', 401)
-    }
-    return email as string
   }
 }
 
