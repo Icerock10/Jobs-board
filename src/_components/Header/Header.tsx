@@ -5,7 +5,6 @@ import ThemeProvider from '@/_context/theme/ThemeProvider';
 import { Logo } from '@/_components/Logo/Logo';
 import { cookies } from 'next/headers';
 import { userService } from '@/_lib/services/api/user-service';
-export const dynamic = 'force-dynamic';
 export const Header = async () => {
   const token = cookies().get('token')?.value;
   const response = await userService.getAuthUser(token)
