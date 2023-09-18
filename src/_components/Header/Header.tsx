@@ -4,19 +4,18 @@ import { Menu } from '@/_components/Menu/Menu';
 import ThemeProvider from '@/_context/theme/ThemeProvider';
 import { Logo } from '@/_components/Logo/Logo';
 import { cookies } from 'next/headers';
-import { userService } from '@/_lib/services/api/user-service';
+
 export const Header = async () => {
-  const token = cookies().get('token')?.value;
-  const response = await userService.getAuthUser(token)
+  const email = cookies().get('email')?.value;
   return (
     <header className={styles.header}>
       <section className={styles.header__section}>
         <Logo />
         <aside className={styles.header_menu}>
           <ThemeProvider>
-            <ThemeSwitcher email={response?.data?.email}/>
+            <ThemeSwitcher email={email}/>
           </ThemeProvider>
-          <Menu email={response?.data?.email}/>
+          <Menu email={email}/>
         </aside>
       </section>
     </header>

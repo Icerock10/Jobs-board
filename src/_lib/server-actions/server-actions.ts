@@ -14,7 +14,9 @@ export const signUpOrLoginAction = async (formData: FieldValues, isRegistration?
   if(response?.status === 200) {
     const { token } = response?.data;
     if(token) {
+      const response = await userService.getAuthUser(token)
       cookiesService.setToken(token);
+      cookiesService.setEmail(response?.data?.email)
       return redirect('/listings')
     }
   }

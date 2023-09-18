@@ -13,7 +13,11 @@ class Cookie {
     return this.instance().set('token', token)
   }
   removeToken() {
-    return this.instance().delete('token')
+    this.instance().delete('token')
+    this.instance().delete('email')
+  }
+  setEmail(email: string) {
+    return this.instance().set('email', email)
   }
 }
 
