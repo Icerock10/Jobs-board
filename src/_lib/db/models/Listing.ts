@@ -12,6 +12,7 @@ const listingSchema = new mongoose.Schema<IListing>({
   shortDescription: String,
   fullDescription: String,
   isPublished: Boolean,
+  isHidden: Boolean,
   draft: Date
 });
 

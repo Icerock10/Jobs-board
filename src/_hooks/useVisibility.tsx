@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useCallback, useReducer } from 'react';
 import { useAppDispatch, useAppSelector } from '@/_hooks/reduxHooks';
 import {
   toggleBurgerMenu, toggleModal,
@@ -19,7 +19,9 @@ export const useVisibility = () => {
   const toggleBurger = () => dispatch(toggleBurgerMenu());
   const toggleProfileMenu = () => dispatch(toggleProfileMenuAction());
   const toggleModalAction = () => dispatch(toggleModal());
-  const togglePreview = () => dispatch(togglePreviewAction())
+  const togglePreview = useCallback(() => {
+    dispatch(togglePreviewAction());
+  }, [dispatch])
 
   return {
     isSwitcherMenuActive,

@@ -22,6 +22,7 @@ export const TextArea = ({ fieldName, labelText, register }: TextAreaProps) => {
         })}
       ></textarea>
       {fieldName === 'shortDescription' && <p className={styles.tooltip}>Max 200 characters</p>}
+      {fieldName === 'fullDescription' && <p className={styles.tooltip}>Supports Full Markdown</p>}
     </div>
   );
 };

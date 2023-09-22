@@ -20,7 +20,10 @@ const newListingsInputFields = [
   ['Company Name', 'companyName'],
   ['Location', 'location'],
   ['Application URL', 'url'],
-  ['Salary', 'salary']
+  ['Salary', 'salary'],
 ];
 
-export { typeOptions, options, experienceLevelOptions, newListingsInputFields  }
+const typeOptionsWithAny = ['Any', ...typeOptions];
+const levelOptionsWithAny = ['Any', ...experienceLevelOptions]
+
+export { typeOptions, options, experienceLevelOptions, newListingsInputFields, typeOptionsWithAny, levelOptionsWithAny };

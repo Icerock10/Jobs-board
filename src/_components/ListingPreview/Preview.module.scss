@@ -2,11 +2,16 @@
 @import "@/styles/mixins";
 
 
+.preview {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
 .listings {
   border-radius: 0.5rem;
   @include custom-light-border;
   padding: 1.5rem;
-  max-width: 33%;
+  width: auto;
 
   &_item {
     display: flex;
@@ -92,4 +97,15 @@
 }
 [data-theme='dark'] .listings {
   border-color: $dark-border;
+}
+
+@media screen and (max-width: 1300px) {
+  .preview {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 800px) {
+  .preview {
+    grid-template-columns: 1fr;
+  }
 }

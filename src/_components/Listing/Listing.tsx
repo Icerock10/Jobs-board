@@ -4,7 +4,7 @@ import { Input } from '@/_components/FormInput/Input';
 import { Select } from '@/_components/Select/Select';
 import { experienceLevelOptions, newListingsInputFields, typeOptions } from '@/_utils/mocks/options';
 import { TextArea } from '@/_components/TextArea/TextArea';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { FormButton } from '@/_components/Button/FormButton/FormButton';
 import { Preview } from '@/_components/ListingPreview/Preview';
 import { useRouter } from 'next/navigation';
@@ -30,8 +30,18 @@ export const Listing = ({ listingFromDb }: { listingFromDb?: IListing }) => {
       type: listingFromDb ? listingFromDb.type : typeOptions[0],
       experienceLevel: listingFromDb ? listingFromDb.experienceLevel :  experienceLevelOptions[0],
       ...listingFromDb || '',
+      salary: 0
     },
   });
+  
+  useEffect(() => {
+    return () => {
+      if(isPreviewShown) {
+        togglePreview()
+      }
+    }
+  }, [isPreviewShown, togglePreview])
+  
   const watchListingFields = useCallback(() => watch(), [watch]);
 
   return (

@@ -9,6 +9,7 @@ export const listing = {
   shortDescription: '',
   fullDescription: '',
   isPublished: false,
+  isHidden: false,
   draft: '',
   _id: '',
 };

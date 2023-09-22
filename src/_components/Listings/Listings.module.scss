@@ -31,6 +31,7 @@
   background-color: $secondary-text-color;
   color: $primary-text-color;
 }
+
 [data-theme='light'] .listings_wrapper {
   @include custom-light-border;
 }
@@ -64,9 +65,11 @@
 .summary {
   @include summary-section($hover-dark);
 }
+
 [data-theme='light'] .summary {
   @include summary-section($hover-light);
 }
+
 .location {
   padding-top: 0.2rem;
 }
@@ -74,10 +77,12 @@
 .description {
   padding: 1.3rem 0;
 }
+
 .listings_previewWrapper {
   display: flex;
   justify-content: flex-end;
 }
+
 @media screen and (max-width: 1300px) {
   .listings_wrapper {
     flex: 0 1 49%;
@@ -88,4 +93,23 @@
   .listings_wrapper {
     flex: 1 1 auto;
   }
+}
+
+.listings_btnGroup {
+  display: flex;
+  & button {
+    display: flex;
+    padding: 0.875rem;
+    @include custom-hover($hover-dark);
+    border-radius: 50% !important;
+    transition: background-color .3s;
+  }
+}
+
+.hidden {
+  opacity: .7;
+  display: none;
+}
+.showHidden {
+  display: block;
 }

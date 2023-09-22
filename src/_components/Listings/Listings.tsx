@@ -2,6 +2,9 @@
 import styles from './Listings.module.scss';
 import MoneyIcon from '@/../public/SVG/money.svg';
 import ScheduleIcon from '@/../public/SVG/schedule.svg';
+import NotVisibleIcon from '@/../public/SVG/not_visible.svg';
+import VisibleIcon from '@/../public/SVG/visible.svg';
+import Heart from '@/../public/SVG/heart.svg';
 import RankIcon from '@/../public/SVG/job_ranking.svg';
 import { ButtonGroup } from '@/_components/ButtonGroup/ButtonGroup';
 import { calculateDaysLeft } from '@/_utils/helpers/compareDates';
@@ -10,15 +13,23 @@ import clsx from 'clsx';
 import { PreviewButton } from '@/_components/Button/PreviewButton/PreviewButton';
 import { Modal } from '@/_components/Modal/Modal';
 import { Preview } from '@/_components/ListingPreview/Preview';
-import { useAppSelector } from '@/_hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '@/_hooks/reduxHooks';
 import { useClientActions } from '@/_hooks/useClientActions';
+import { useEffect } from 'react';
+import { setHidden, setListings } from '@/store/preview/previewSlice';
 export const Listings = ({ listings, hasPublicAccess }: { listings: IListing[], hasPublicAccess?: boolean }) => {
   const stateListing = useAppSelector(state => state.preview.listing);
+  const { arrayOfListings, showHidden } = useAppSelector(state => state.preview);
+  const dispatch = useAppDispatch();
   const { getCurrentListing } = useClientActions();
+  
+  useEffect(() => {
+    dispatch(setListings(listings));
+  }, [dispatch, listings]);
   
   return (
     <div className={styles.listings}>
-      {listings?.map((listing) => {
+      {arrayOfListings?.map((listing) => {
         const {
           title,
           _id,
@@ -29,20 +40,28 @@ export const Listings = ({ listings, hasPublicAccess }: { listings: IListing[], 
           salary,
           experienceLevel,
           shortDescription,
+          isHidden,
         } = listing;
         return (
-          <div className={styles.listings_wrapper} key={_id}>
+          <div className={clsx(styles.listings_wrapper, isHidden && styles.hidden, showHidden && styles.showHidden)} key={_id}>
             <div className={styles.listings_item}>
               <div className={styles.title}>
                 <section className={styles.title_wrap}>
                   <h2>{title}</h2>
-                  <span className={styles.draft}>{draft ? `${calculateDaysLeft(draft)}` : 'Draft'}</span>
+                  {hasPublicAccess ?
+                    <div className={styles.listings_btnGroup}>
+                      <button onClick={() => dispatch(setHidden(_id))}>{isHidden ? <VisibleIcon /> :
+                        <NotVisibleIcon />}</button>
+                      <button><Heart /></button>
+                    </div>
+                    :
+                    <span className={styles.draft}>{draft ? `${calculateDaysLeft(draft)}` : 'Draft'}</span>}
                 </section>
                 <span className={styles.subtitle}>{companyName}</span>
                 <span className={clsx(styles.location, styles.subtitle)}>{location}</span>
                 <section className={styles.summary}>
                   <div>
-                    <MoneyIcon /> {`$${salary}`}
+                    <MoneyIcon /> {`$${salary.toLocaleString()}`}
                   </div>
                   <div>
                     <ScheduleIcon />

@@ -26,7 +26,7 @@ export const Input = ({ labelText, type, name, register, watch }: InputProps) =>
           required: { value: true, message: 'Field is Required' },
           ...(isConfirm && { validate: (val: string) =>  watch('password') === val}),
           ...(isEmail && {pattern: { value: EMAIL_PATTERN, message: 'Invalid Email' }}),
-          ...(isURL && {validate: (url: string) => validateUrl(url)})
+          ...(isURL && {validate: (url: string) => validateUrl(url)}),
         })}
       />
     </React.Fragment>

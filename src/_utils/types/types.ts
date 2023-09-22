@@ -40,7 +40,8 @@ export interface IListing {
   salary: number
   shortDescription: string
   fullDescription: string
-  isPublished: boolean
+  isPublished: boolean,
+  isHidden: boolean,
   draft: Date | string | number
   _id: string
   [key: string]: any;

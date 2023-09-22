@@ -42,7 +42,7 @@ export const logOut = async () => {
 
 export const createListingAndRevalidate = async (formData: FieldValues) => {
   const token = cookiesService.getToken();
-  const response = await listingsService.create(formData, token);
+  const response = await listingsService.create({ ...formData, isPublished: false, isHidden: false }, token);
   revalidatePath('/');
   return response;
 };
