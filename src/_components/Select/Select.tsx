@@ -1,5 +1,4 @@
 import styles from './Select.module.scss';
-import React, { useState } from 'react';
 import ArrowUp from '@/../public/SVG/chevron_up.svg';
 import ArrowDown from '@/../public/SVG/chevron_down.svg';
 import CheckMark from '@/../public/SVG/checkmark.svg';
@@ -7,6 +6,7 @@ import clsx from 'clsx';
 import { formatFields } from '@/_utils/helpers/formatFields';
 import { useClickOutside } from '@/_hooks/useClickOutside';
 import { useVisibility } from '@/_hooks/useVisibility';
+import { useSelect } from '@/_hooks/useSelect';
 
 export type SelectProps = {
   options: string[];
@@ -17,12 +17,12 @@ export type SelectProps = {
 };
 
 export const Select = ({ options, fieldName, register, setValue, isDbField }: SelectProps) => {
-  const [firstSelectOption] = options;
-  const [selected, setSelected] = useState(isDbField ? isDbField : firstSelectOption);
   const { isSelectMenuOpen, toggleSelectMenu } = useVisibility();
   const { selectMenuRef } = useClickOutside(toggleSelectMenu, isSelectMenuOpen);
+  const [firstOption] = options;
+  const { selected, changeSelectValue } = useSelect(firstOption, isDbField)
   
-   return (
+  return (
     <>
       <label htmlFor={fieldName}>{formatFields(fieldName)}</label>
       <button
@@ -36,7 +36,7 @@ export const Select = ({ options, fieldName, register, setValue, isDbField }: Se
         <span className={styles.select_button__text}>{selected}</span>
         {isSelectMenuOpen ? <ArrowUp /> : <ArrowDown />}
       </button>
-      <input type="hidden" id={fieldName} {...register(fieldName)}/>
+      <input type='hidden' id={fieldName} {...register(fieldName)} />
       <ul
         ref={selectMenuRef}
         className={clsx(styles.options, isSelectMenuOpen ? styles.active : '')}
@@ -45,8 +45,8 @@ export const Select = ({ options, fieldName, register, setValue, isDbField }: Se
           return (
             <li
               onClick={() => {
-                setSelected(option);
-                setValue(fieldName, option)
+                changeSelectValue(option);
+                setValue(fieldName, option);
                 toggleSelectMenu();
               }}
               key={i}

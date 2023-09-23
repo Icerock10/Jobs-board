@@ -3,27 +3,32 @@ import { Input } from '@/_components/FormInput/Input';
 import { useForm } from 'react-hook-form';
 import { IListing } from '@/_utils/types/types';
 import styles from './FilterListings.module.scss';
-import { useAppDispatch } from '@/_hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '@/_hooks/reduxHooks';
 import { typeOptionsWithAny, levelOptionsWithAny } from '@/_utils/mocks/options';
 import { filterListing } from '@/store/preview/previewSlice';
 import { useEffect } from 'react';
 import { Select } from '@/_components/Select/Select';
+import { useClientActions } from '@/_hooks/useClientActions';
 
 export const FilterListings = () => {
+  const { resetFilters } = useClientActions();
   const dispatch = useAppDispatch();
   const {
     watch,
     register,
-    setValue
+    setValue,
+    reset,
   } = useForm<IListing>({
     defaultValues: {
-      salary: 0
+      salary: 0,
     },
   });
-    const watchAll = watch();
-    useEffect(() => {
-    dispatch(filterListing(watchAll))
-  }, [dispatch, watchAll])
+  const watchAll = watch();
+  
+  useEffect(() => {
+    dispatch(filterListing(watchAll));
+  }, [dispatch, watchAll]);
+  
   return (
     <div className={styles.filters}>
       <div className={styles.filters_item}>
@@ -51,7 +56,7 @@ export const FilterListings = () => {
           </div>
         </div>
         <div className={styles.filters_reset}>
-          <button>Reset</button>
+          <button onClick={() => resetFilters(reset)}>Reset</button>
         </div>
       </div>
     </div>

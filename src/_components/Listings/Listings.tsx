@@ -16,12 +16,13 @@ import { Preview } from '@/_components/ListingPreview/Preview';
 import { useAppDispatch, useAppSelector } from '@/_hooks/reduxHooks';
 import { useClientActions } from '@/_hooks/useClientActions';
 import { useEffect } from 'react';
-import { setHidden, setListings } from '@/store/preview/previewSlice';
+import { setListings } from '@/store/preview/previewSlice';
 export const Listings = ({ listings, hasPublicAccess }: { listings: IListing[], hasPublicAccess?: boolean }) => {
   const stateListing = useAppSelector(state => state.preview.listing);
   const { arrayOfListings, showHidden } = useAppSelector(state => state.preview);
+  
   const dispatch = useAppDispatch();
-  const { getCurrentListing } = useClientActions();
+  const { getCurrentListing, setHiddenAndWriteToLocalStorage, setLikeAndWriteToLocalStorage } = useClientActions();
   
   useEffect(() => {
     dispatch(setListings(listings));
@@ -41,18 +42,21 @@ export const Listings = ({ listings, hasPublicAccess }: { listings: IListing[], 
           experienceLevel,
           shortDescription,
           isHidden,
+          isLiked
         } = listing;
         return (
-          <div className={clsx(styles.listings_wrapper, isHidden && styles.hidden, showHidden && styles.showHidden)} key={_id}>
+          <div className={clsx(styles.listings_wrapper, isHidden && styles.hidden, showHidden && styles.showHidden)}
+               key={_id}>
             <div className={styles.listings_item}>
               <div className={styles.title}>
                 <section className={styles.title_wrap}>
                   <h2>{title}</h2>
                   {hasPublicAccess ?
                     <div className={styles.listings_btnGroup}>
-                      <button onClick={() => dispatch(setHidden(_id))}>{isHidden ? <VisibleIcon /> :
-                        <NotVisibleIcon />}</button>
-                      <button><Heart /></button>
+                      <button onClick={() => setHiddenAndWriteToLocalStorage(_id)}>
+                        {isHidden ? <VisibleIcon /> : <NotVisibleIcon />}
+                      </button>
+                      <button onClick={() => setLikeAndWriteToLocalStorage(_id)}><Heart className={clsx(isLiked && styles.heart)} /></button>
                     </div>
                     :
                     <span className={styles.draft}>{draft ? `${calculateDaysLeft(draft)}` : 'Draft'}</span>}

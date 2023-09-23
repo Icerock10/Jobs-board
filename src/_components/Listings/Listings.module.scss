@@ -105,7 +105,12 @@
     transition: background-color .3s;
   }
 }
-
+.heart {
+  color: red;
+  & path {
+    fill: red;
+  }
+}
 .hidden {
   opacity: .7;
   display: none;
