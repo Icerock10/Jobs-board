@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IListing } from '@/_utils/types/types';
 import { listing } from '@/_utils/mocks/listing';
 import { getListingsStorageFields } from '@/_utils/helpers/getListingsHiddenFields';
+import { getFilteredListings } from '@/_utils/helpers/getFilteredListings';
 
 export type StateProps = {
   listing: IListing;
@@ -47,40 +48,12 @@ export const preview = createSlice({
       });
       state.originalArray = [...state.arrayOfListings];
     },
-    filterListing(state, { payload: { title, location, type, experienceLevel, salary, hidden, favorites } }) {
-      let filteredArray = [...state.originalArray];
-      if (title) {
-        filteredArray = filteredArray.filter(item =>
-          item.title.toLowerCase().includes(title.toLowerCase()),
-        );
-      }
-      if (favorites) {
-        filteredArray = filteredArray.filter(item => item.isLiked)
-      }
-      if (salary) {
-        filteredArray = filteredArray.filter(item =>
-          item.salary > Number(salary),
-        );
-      }
-      if (type) {
-        filteredArray = filteredArray.filter(item =>
-          type === 'Any' ? item : item.type.includes(type),
-        );
-      }
-      if (experienceLevel) {
-        filteredArray = filteredArray.filter(item =>
-          experienceLevel === 'Any' ? item : item.experienceLevel.includes(experienceLevel),
-        );
-      }
-      if (location) {
-        filteredArray = filteredArray.filter(item =>
-          item.location.toLowerCase().includes(location.toLowerCase()),
-        );
-      }
+    filterListing(state, { payload }) {
+      const filteredArray = getFilteredListings(state.originalArray, payload);
       return {
         ...state,
         arrayOfListings: filteredArray,
-        showHidden: hidden,
+        showHidden: payload.hidden,
         isReset: false,
       };
     },
