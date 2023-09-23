@@ -4,7 +4,7 @@ import { useTransition } from 'react';
 import { useClientActions } from '@/_hooks/useClientActions';
 
 export const Publish = ({ isDraft }: { isDraft: string }) => {
-  const { price, days, title, id } = useAppSelector(state => state.visibility);
+  const { price, days, title, id } = useAppSelector(state => state.preview.publishData);
   const [isPending, startTransition] = useTransition();
   const { publishOrExtendAndShowNotification } = useClientActions();
   

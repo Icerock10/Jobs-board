@@ -1,27 +1,19 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 type IVisibilityState = {
   isModalShown: boolean;
-  price: null | number;
-  days: null | number;
-  status: string;
-  title: string;
-  id: string;
   isProfileMenuShown: boolean;
   isSwitcherMenuActive: boolean;
   isBurgerMenuActive: boolean;
+  isPreviewShown: boolean
 };
 
 const initialState: IVisibilityState = {
   isModalShown: false,
-  price: null,
-  days: null,
-  title: '',
-  id: '',
-  status: 'Idle',
   isProfileMenuShown: false,
   isSwitcherMenuActive: false,
   isBurgerMenuActive: false,
+  isPreviewShown: false,
 };
 
 export const visibility = createSlice({
@@ -40,22 +32,8 @@ export const visibility = createSlice({
     toggleSwitcherMenu(state) {
       state.isSwitcherMenuActive = !state.isSwitcherMenuActive;
     },
-    getSelectedPrice(
-      state,
-      {
-        payload: { price, days, title, id },
-      }: PayloadAction<{
-        price: number;
-        days: number;
-        title: string;
-        id: string;
-      }>,
-    ) {
-      state.isModalShown = true;
-      state.price = price;
-      state.days = days;
-      state.title = title;
-      state.id = id;
+    togglePreview(state) {
+      state.isPreviewShown = !state.isPreviewShown;
     },
   },
 });
@@ -63,9 +41,9 @@ export const visibility = createSlice({
 export const {
   toggleModal,
   toggleBurgerMenu,
-  getSelectedPrice,
   toggleProfileMenu,
   toggleSwitcherMenu,
+  togglePreview,
 } = visibility.actions;
 
 export default visibility.reducer;

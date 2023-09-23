@@ -2,6 +2,7 @@ import { useLayoutEffect, useState } from 'react';
 
 export function useLocalStorage<T>(key: string, fallbackValue: T) {
   const [value, setValue] = useState(fallbackValue);
+  
   useLayoutEffect(() => {
     const stored = localStorage.getItem(key);
     setValue(stored ? JSON.parse(stored) : fallbackValue);

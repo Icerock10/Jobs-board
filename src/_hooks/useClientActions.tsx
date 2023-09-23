@@ -9,7 +9,6 @@ import { useRouter } from 'next/navigation';
 import { FieldValues, UseFormReset } from 'react-hook-form';
 import { useAppDispatch } from '@/_hooks/reduxHooks';
 import {
-  filterListing,
   getCurrent,
   setHidden,
   setLike,
@@ -69,13 +68,7 @@ export const useClientActions = () => {
   }, [dispatch]);
   
   const resetFilters = useCallback((reset: UseFormReset<IListing>) => {
-    reset({
-      title: '',
-      location: '',
-      salary: 0,
-      favorites: false,
-      hidden: false,
-    });
+    reset();
     dispatch(resetAction());
   }, [dispatch]);
   

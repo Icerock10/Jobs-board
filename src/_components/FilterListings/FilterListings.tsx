@@ -21,6 +21,12 @@ export const FilterListings = () => {
   } = useForm<IListing>({
     defaultValues: {
       salary: 0,
+      title: '',
+      location: '',
+      type: 'Any',
+      experienceLevel: 'Any',
+      favorites: false,
+      hidden: false,
     },
   });
   const watchAll = watch();

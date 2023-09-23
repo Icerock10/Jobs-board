@@ -5,21 +5,22 @@ import {
   toggleProfileMenu as toggleProfileMenuAction,
   toggleSwitcherMenu,
 } from '@/store/visibility/visibilitySlice';
-import { togglePreview as togglePreviewAction } from '@/store/preview/previewSlice';
+import { togglePreview as togglePreviewAction } from '@/store/visibility/visibilitySlice';
 
 export const useVisibility = () => {
   const dispatch = useAppDispatch();
   const { isProfileMenuShown, isSwitcherMenuActive, isBurgerMenuActive, isModalShown } = useAppSelector(
     state => state.visibility,
   );
-  const { isPreviewShown } = useAppSelector(state => state.preview);
+  const { isPreviewShown } = useAppSelector(state => state.visibility);
   const [isDraftMenuOpen, toggleDraftMenu] = useReducer((isOpen) => !isOpen, false);
   const [isSelectMenuOpen, toggleSelectMenu] = useReducer((isOpen) => !isOpen, false);
   const toggleMenu = () => dispatch(toggleSwitcherMenu());
   const toggleBurger = () => dispatch(toggleBurgerMenu());
   const toggleProfileMenu = () => dispatch(toggleProfileMenuAction());
   const toggleModalAction = () => dispatch(toggleModal());
-  const togglePreview = () => dispatch(togglePreviewAction());
+  
+  const togglePreview = useCallback(() => dispatch(togglePreviewAction()), [dispatch]);
   
   return {
     isSwitcherMenuActive,

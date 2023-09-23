@@ -1,5 +1,5 @@
 import { IListing } from '@/_utils/types/types';
-export const getListingsHiddenFields = (listings: IListing) => {
+export const getListingsStorageFields = (listings: IListing) => {
   const storedHiddenIds = JSON.parse(localStorage.getItem('hidden') || '[]');
   const storedLikedIds = JSON.parse(localStorage.getItem('liked') || '[]');
   return listings.map((item: IListing) => ({
