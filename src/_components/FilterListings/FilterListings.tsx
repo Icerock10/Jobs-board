@@ -3,7 +3,7 @@ import { Input } from '@/_components/FormInput/Input';
 import { useForm } from 'react-hook-form';
 import { IListing } from '@/_utils/types/types';
 import styles from './FilterListings.module.scss';
-import { useAppDispatch, useAppSelector } from '@/_hooks/reduxHooks';
+import { useAppDispatch } from '@/_hooks/reduxHooks';
 import { typeOptionsWithAny, levelOptionsWithAny } from '@/_utils/mocks/options';
 import { filterListing } from '@/store/preview/previewSlice';
 import { useEffect } from 'react';
@@ -55,9 +55,7 @@ export const FilterListings = () => {
             <Input labelText='Show Hidden' type='checkbox' name='hidden' register={register} />
           </div>
         </div>
-        <div className={styles.filters_reset}>
-          <button onClick={() => resetFilters(reset)}>Reset</button>
-        </div>
+          <button className={styles.filters_reset} onClick={() => resetFilters(reset)}>Reset</button>
       </div>
     </div>
   );

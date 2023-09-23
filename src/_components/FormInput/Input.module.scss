@@ -13,3 +13,7 @@
   color: $primary-color;
   @include custom-light-border;
 }
+
+.input[type='checkbox']:focus {
+  outline-color: transparent;
+}

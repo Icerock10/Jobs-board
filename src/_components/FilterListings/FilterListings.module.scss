@@ -45,6 +45,13 @@
     color: $secondary-text-color;
   }
 }
+[data-theme='light'] .filters_reset {
+  background-color: $secondary-text-color;
+  color: $primary-text-color;
+  &:hover {
+    opacity: .8;
+  }
+}
 
 @media screen and (max-width: 1000px) {
   .filters {

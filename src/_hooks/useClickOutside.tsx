@@ -13,9 +13,9 @@ export const useClickOutside = (callback: () => void, isMenuActive: boolean): Re
   const switcherMenuRef = useRef<HTMLDivElement>(null);
   const burgerMenuRef = useRef<HTMLDivElement>(null);
   const profileMenuRef = useRef<HTMLDivElement>(null);
-  const draftMenuRef = useRef<HTMLDivElement>(null)
-  const modalRef = useRef<HTMLDivElement>(null)
-  const selectMenuRef = useRef<HTMLUListElement>(null)
+  const draftMenuRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const selectMenuRef = useRef<HTMLUListElement>(null);
   
   useEffect(() => {
     if (isMenuActive) {
@@ -35,7 +35,7 @@ export const useClickOutside = (callback: () => void, isMenuActive: boolean): Re
           callback();
         }
         if (modalRef.current && target.getAttribute('class')?.includes('container')) {
-          callback()
+          callback();
         }
         if (draftMenuRef.current && !draftMenuRef.current.contains(target)) {
           callback();
@@ -55,6 +55,6 @@ export const useClickOutside = (callback: () => void, isMenuActive: boolean): Re
     profileMenuRef,
     draftMenuRef,
     modalRef,
-    selectMenuRef
+    selectMenuRef,
   };
 };
