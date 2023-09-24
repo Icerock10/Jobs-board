@@ -1,0 +1,32 @@
+@import "@/styles/variables";
+@import "@/styles/mixins";
+
+.table {
+  width: 100%;
+  @include custom-light-border;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.875rem;
+}
+
+.table_head {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) 0.5fr;
+  border-bottom: 1px solid $light-border;
+  padding: 0.8rem;
+  &__item {
+    color: #1E293B;
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+    cursor: pointer;
+  }
+}
+ .table_body {
+   display: grid;
+   grid-template-columns: repeat(4, 1fr) 0.5fr;
+   padding: 1.4rem 0.8rem;
+}
+ .table_body:not(:last-child) {
+   border-bottom: 1px solid $light-border;
+ }

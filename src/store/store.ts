@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import visibility from '@/store/visibility/visibilitySlice';
 import preview from '@/store/preview/previewSlice';
+import tasks from '@/store/tasks/taskSlice';
 import logger from 'redux-logger';
 
 export const store = configureStore({
   reducer: {
     visibility,
-    preview
+    preview,
+    tasks
   },
   devTools: process.env.NODE_ENV !== 'production',
   middleware: getDefaultMiddleware =>

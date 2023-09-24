@@ -4,10 +4,11 @@ import MoneyIcon from '@/../public/SVG/money.svg';
 import ScheduleIcon from '@/../public/SVG/schedule.svg';
 import RankIcon from '@/../public/SVG/job_ranking.svg';
 import clsx from 'clsx';
+
 export const Skeleton = () => {
   return (
     <div className={styles.gridContainer}>
-      {[...Array(6)].map((_, i) => {
+      {[...Array(9)].map((_, i) => {
         return (
           <div key={i} className={styles.gridContainer_item}>
             <div className={styles.item_heading}></div>
