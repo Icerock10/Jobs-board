@@ -30,3 +30,34 @@
  .table_body:not(:last-child) {
    border-bottom: 1px solid $light-border;
  }
+
+ .dots {
+   position: relative;
+ }
+ // menu section
+  .menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    z-index: 10;
+    @include custom-light-border;
+    padding: 0.2rem;
+    top: 2rem;
+    left: -6.7rem;
+    &_item {
+      height: 2rem;
+      width: 7rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.2rem 0.5rem;
+      &:hover {
+        @include custom-hover($hover-light);
+      }
+    }
+  }
+  .menu_active {
+    pointer-events: auto;
+    display: block;
+  }
+// menu ends
