@@ -1,13 +1,12 @@
-import { CreateLink } from '@/_components/CreateLink/CreateLink';
 import { ReactNode } from 'react';
+import { Listing } from '@/_components/Listing/Listing';
 export default function Layout({children}: {children: ReactNode}) {
   return (
-    <div className='container'>
+    <section className='container'>
       <div className='container_title'>
-        <h1>My Job Listings</h1>
-        <CreateLink />
+        <h1>Edit Listing</h1>
       </div>
       {children}
-    </div>
+    </section>
   )
 }

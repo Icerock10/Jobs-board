@@ -17,7 +17,7 @@ export const ButtonGroup = ({ id, title, draft }: { id: string; title: string, d
       <LoadingButton onClick={() => removeListingAndShowToast(id)}>
         Delete
       </LoadingButton>
-      <Link className={clsx(styles.link, styles.link_bordered)} href={`/listings/${id}`}>
+      <Link className={clsx(styles.link, styles.link_bordered)} href={`/edit/${id}`}>
         Edit
       </Link>
       <div className={styles.extend}>

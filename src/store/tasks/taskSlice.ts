@@ -1,66 +1,67 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { current } from '@reduxjs/toolkit';
 
 interface Task {
   title: string;
-  todo: string;
+  status: string;
   priority: string;
   category: string;
   _id: string;
   isTaskMenuShown: boolean;
+  
+  [key: string]: any;
 }
 
-const initialState: { tasks: Task[] } = {
-  tasks: [
-    {
-      title: 'My cool Title',
-      todo: 'Todo',
-      priority: 'High',
-      category: 'Work',
-      _id: 'as1dfh23gg234add2',
-      isTaskMenuShown: false,
-    },
-    {
-      title: 'Title 2',
-      todo: 'Todo 2',
-      priority: 'High',
-      category: 'Work',
-      _id: 'as1dfh23gg234aaaa',
-      isTaskMenuShown: false,
-    },
-    {
-      title: 'Title 3',
-      todo: 'Todo 3',
-      priority: 'High',
-      category: 'Work',
-      _id: 'as1dfhaaaadd23gg234aaaa',
-      isTaskMenuShown: false,
-    },
-    {
-      title: 'Title 4',
-      todo: 'Todo 4',
-      priority: 'High',
-      category: 'Work',
-      _id: 'as1dfhaaaadd23gg234aaaasds1132323',
-      isTaskMenuShown: false,
-    },
-  ],
+const initialState: { tasks: Task[], currentId?: string, originalTasks: Task[] } = {
+  tasks: [],
+  originalTasks: [],
+  currentId: '',
 };
 
 export const tasks = createSlice({
   name: 'tasks',
   initialState,
   reducers: {
+    loadTasksMock: (state, {payload}) => {
+      state.tasks = payload;
+      state.originalTasks = payload;
+    },
     showTaskMenu: (state, { payload }) => {
-      payload
-        ? state.tasks.map(task => task._id === payload ? task.isTaskMenuShown = !task.isTaskMenuShown : task)
-        : state.tasks.map(task => task.isTaskMenuShown = false);
+      if (payload) {
+        state.currentId = payload;
+        state.tasks.map(task => task._id === payload ? task.isTaskMenuShown = !task.isTaskMenuShown : task);
+        return;
+      }
+      state.tasks.map(task => task.isTaskMenuShown = false);
     },
     deleteTask: (state, { payload }) => {
       state.tasks = state.tasks.filter(task => task._id !== payload);
     },
+    setTasksAttributes: (state, { payload: { currentId, menu, dropDownMenu } }) => {
+      const lowerCasedMenu = menu.toLowerCase();
+      state.tasks.map(task => ({
+        task: task._id === currentId ? (task.hasOwnProperty(lowerCasedMenu) ? task[lowerCasedMenu] = dropDownMenu : task) : task,
+      }));
+    },
+    sortByCriteria: (state, { payload }) => {
+      const customOrder = ['Low', 'Medium', 'High'];
+      state.tasks = state.tasks.sort((a, b) => {
+        const aIndex = customOrder.indexOf(a.priority);
+        const bIndex = customOrder.indexOf(b.priority);
+        if (payload.targetText === 'Desc') {
+          return aIndex - bIndex;
+        } else if (payload.targetText === 'Asc') {
+          return bIndex - aIndex;
+        }
+        return 0;
+      });
+    },
+    resetSort:(state) => {
+      state.tasks = state.originalTasks;
+    }
   },
 });
 
-export const { showTaskMenu, deleteTask } = tasks.actions;
+export const { resetSort, showTaskMenu, deleteTask, setTasksAttributes, sortByCriteria, loadTasksMock } = tasks.actions;
 
 export default tasks.reducer;
