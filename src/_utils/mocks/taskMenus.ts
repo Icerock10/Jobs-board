@@ -1,14 +1,14 @@
-export const taskMenusMock = [
+export const taskFields = [
   {
-    menu: 'Status',
+    field: 'Status',
     dropDownMenus: ['Todo', 'In Progress', 'Done'],
   },
   {
-    menu: 'Priority',
+    field: 'Priority',
     dropDownMenus: ['High', 'Medium', 'Low'],
   },
   {
-    menu: 'Category',
+    field: 'Category',
     dropDownMenus: ['Work', 'Personal'],
   },
 ];

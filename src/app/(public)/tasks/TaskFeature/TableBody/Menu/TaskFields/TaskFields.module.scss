@@ -1,0 +1,16 @@
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
+.menu_item {
+    position: relative;
+    height: 2rem;
+    width: 7rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.2rem 0.5rem;
+
+    &:hover {
+      @include custom-hover($hover-light);
+    }
+}

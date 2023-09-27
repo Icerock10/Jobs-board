@@ -1,0 +1,43 @@
+@import "@/styles/variables";
+@import "@/styles/mixins";
+
+.table_head {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) 0.5fr;
+  border-bottom: 1px solid $light-border;
+  padding: 0.8rem;
+
+  &__item {
+    color: #a2a8c1;
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    padding: 0.4rem;
+    border-radius: 0.3rem;
+    width: fit-content;
+    &:hover {
+      @include custom-hover($hover-dark);
+      color: $primary-text-color;
+    }
+    &_active {
+      background-color: $hover-dark;
+      color: $primary-text-color;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .table_head {
+    min-width: 30rem;
+  }
+}
+
+[data-theme='light'] .table_head__item {
+  @include custom-hover($hover-light);
+  &_active {
+    background-color: $hover-light;
+  }
+  color: $secondary-color;
+}

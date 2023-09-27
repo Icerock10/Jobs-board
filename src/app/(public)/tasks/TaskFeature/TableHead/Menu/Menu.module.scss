@@ -1,0 +1,56 @@
+@import "@/styles/variables";
+@import "@/styles/mixins";
+
+.sort {
+  display: none;
+  padding: 0.3rem;
+  background-color: $primary-color;
+  @include custom-dark-border;
+  flex-direction: column;
+  position: absolute;
+  gap: 0.4rem;
+  z-index: 10;
+  width: 8rem;
+  border-radius: 0.5rem;
+  top: 2rem;
+  left: 0;
+  & div {
+    padding: 0.5rem;
+    pointer-events: auto;
+    &:hover {
+      @include custom-hover($hover-dark);
+    }
+    & svg {
+      opacity: 0.3;
+      width: 1rem;
+      height: 1rem;
+    }
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  &_active {
+    display: flex;
+  }
+}
+
+.divider::after {
+  content: '';
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  background-color: $dark-border;
+  bottom: 2.55rem;
+  left: 0;
+}
+
+[data-theme='light'] .sort {
+  @include custom-light-border;
+  & div:hover {
+    @include custom-hover($hover-light);
+  }
+  background-color: #fff;
+}
+[data-theme='light'] .divider::after {
+  background-color: $light-border;
+}

@@ -1,3 +1,4 @@
+import { MediumSpinner } from '@/_components/Spinner/Medium/MediumSpinner';
 export default function Loading() {
-  return <div>Loading...</div>
+  return <MediumSpinner />
 }

@@ -1,0 +1,47 @@
+@import "@/styles/variables";
+@import "@/styles/mixins";
+
+.status {
+  position: absolute;
+  left: 7rem;
+  padding: 0.2rem;
+  opacity: 0;
+  pointer-events: none;
+  top: 0.2rem;
+  width: 9rem;
+  background-color: #fff;
+  @include custom-light-border;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+
+  &_item {
+    padding: 0.5rem;
+    @include custom-hover($hover-light);
+    display: flex;
+    align-items: center;
+    & span {
+      margin-left: 0.5rem;
+    }
+  }
+  &_marker::before {
+    content: '';
+    position: relative;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: $primary-color;
+  }
+
+  &_active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .status {
+    right: 7rem;
+    left: auto;
+  }
+}

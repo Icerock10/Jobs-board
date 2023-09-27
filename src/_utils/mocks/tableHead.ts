@@ -1,0 +1,1 @@
+export const tableHeadMock = ['Title', 'Status', 'Priority', 'Category'];

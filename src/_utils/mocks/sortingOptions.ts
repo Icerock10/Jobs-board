@@ -1,0 +1,1 @@
+export const sortingOptions = ['Asc', 'Desc', 'Clear Sort'];

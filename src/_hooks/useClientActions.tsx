@@ -18,6 +18,8 @@ import { IListing } from '@/_utils/types/types';
 import { useCallback } from 'react';
 import { toggleModal } from '@/store/visibility/visibilitySlice';
 import { manageLocalStorageItems } from '@/_utils/helpers/manageLocalStorageItems';
+import { resetSort, sortBy } from '@/store/tasks/taskSlice';
+import { getCustomOrders } from '@/_utils/helpers/getCustomOrder';
 export const useClientActions = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -72,6 +74,15 @@ export const useClientActions = () => {
     dispatch(resetAction());
   }, [dispatch]);
   
+  const clearSort = () => dispatch(resetSort());
+  const sortByCriteria = (sortingOption: string, criteria: string) => {
+    dispatch(sortBy({
+      customOrder: getCustomOrders(criteria) || [],
+      sortingOption,
+      sortCriteria: criteria.toLowerCase(),
+    }));
+  };
+  
   return {
     createOrUpdateListing,
     submitRegistrationOrLoginForm,
@@ -81,5 +92,7 @@ export const useClientActions = () => {
     setHiddenAndWriteToLocalStorage,
     setLikeAndWriteToLocalStorage,
     resetFilters,
+    clearSort,
+    sortByCriteria
   };
 };
