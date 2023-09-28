@@ -8,29 +8,29 @@
   opacity: 0;
   pointer-events: none;
   top: 0.2rem;
-  width: 9rem;
-  background-color: #fff;
-  @include custom-light-border;
+  width: 8rem;
+  background-color: $primary-color;
+  @include custom-dark-border;
   display: flex;
   flex-direction: column;
   border-radius: 0.5rem;
 
   &_item {
     padding: 0.5rem;
-    @include custom-hover($hover-light);
+    @include custom-hover($hover-dark);
     display: flex;
     align-items: center;
     & span {
-      margin-left: 0.5rem;
+      margin-left: 1.2rem;
     }
   }
   &_marker::before {
     content: '';
-    position: relative;
+    position: absolute;
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
-    background-color: $primary-color;
+    background-color: $primary-text-color;
   }
 
   &_active {
@@ -43,5 +43,16 @@
   .status {
     right: 7rem;
     left: auto;
+  }
+}
+
+[data-theme='light'] .status {
+  background-color: $primary-text-color;
+  @include custom-light-border;
+  &_item {
+    @include custom-hover($hover-light);
+  }
+  &_marker::before {
+    background-color: $primary-color;
   }
 }

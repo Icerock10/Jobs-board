@@ -8,6 +8,7 @@
   & figure {
     @include custom-hover($secondary-color);
     padding: 0.5rem;
+    cursor: pointer;
   }
 }
 

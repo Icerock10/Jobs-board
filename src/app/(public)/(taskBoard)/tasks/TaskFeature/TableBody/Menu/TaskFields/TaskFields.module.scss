@@ -9,8 +9,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.2rem 0.5rem;
-
-    &:hover {
-      @include custom-hover($hover-light);
-    }
+    @include custom-hover($hover-dark);
+}
+[data-theme='light'] .menu_item {
+    @include custom-hover($hover-light);
 }

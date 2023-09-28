@@ -1,0 +1,49 @@
+@import "@/styles/variables";
+@import "@/styles/mixins";
+
+.menu {
+  display: none;
+  position: absolute;
+  border-radius: .5rem;
+  background-color: $primary-color;
+  z-index: 10;
+  @include custom-dark-border;
+  padding: 0.2rem;
+  top: 2rem;
+  left: -6.7rem;
+
+  &_item {
+    position: relative;
+    height: 2rem;
+    width: 7rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.2rem 0.5rem;
+    @include custom-hover($hover-dark);
+  }
+}
+.divider::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background-color: $dark-border;
+  left: 0;
+  bottom: 1.9rem;
+}
+.menu_active {
+  pointer-events: auto;
+  display: block;
+  @include menu-animation;
+}
+[data-theme='light'] .menu {
+  @include custom-light-border;
+  background-color: #fff;
+  &_item {
+    @include custom-hover($hover-light);
+  }
+}
+[data-theme='light'] .divider::after {
+  background-color: $light-border;
+}

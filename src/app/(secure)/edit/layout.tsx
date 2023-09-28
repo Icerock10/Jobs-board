@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { Listing } from '@/_components/Listing/Listing';
 export default function Layout({children}: {children: ReactNode}) {
   return (
     <section className='container'>

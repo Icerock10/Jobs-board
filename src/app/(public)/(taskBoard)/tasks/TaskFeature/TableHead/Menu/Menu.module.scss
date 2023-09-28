@@ -3,16 +3,16 @@
 
 .sort {
   display: none;
-  padding: 0.3rem;
+  padding: 0.2rem;
+  gap: 0.2rem;
   background-color: $primary-color;
   @include custom-dark-border;
   flex-direction: column;
   position: absolute;
-  gap: 0.4rem;
   z-index: 10;
   width: 8rem;
   border-radius: 0.5rem;
-  top: 2rem;
+  top: 2.2rem;
   left: 0;
   & div {
     padding: 0.5rem;
@@ -31,16 +31,19 @@
   }
   &_active {
     display: flex;
+    @include menu-animation;
   }
 }
-
+.cross {
+  margin-top: 0.3rem;
+}
 .divider::after {
   content: '';
   width: 100%;
   height: 1px;
   position: absolute;
   background-color: $dark-border;
-  bottom: 2.55rem;
+  bottom: 2.58rem;
   left: 0;
 }
 

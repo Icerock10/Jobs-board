@@ -8,6 +8,7 @@
 .dropdown.active {
   opacity: 1;
   background-color: $primary-color;
+  cursor: pointer;
   @include custom-dark-border;
   transition: opacity .2s;
   pointer-events: auto;

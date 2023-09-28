@@ -1,5 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, current } from '@reduxjs/toolkit';
 import { mockTasksData } from '@/_utils/mocks/tasks';
+import { manageLocalStorageItems } from '@/_utils/helpers/manageLocalStorageItems';
+
 
 interface Task {
   title: string;
@@ -8,12 +10,15 @@ interface Task {
   category: string;
   _id: string;
   isTaskMenuShown: boolean;
+  
   [key: string]: any;
 }
 
+const storageTasks = localStorage.getItem('tasks');
+
 const initialState: { tasks: Task[], currentId?: string, originalTasks: Task[] } = {
-  tasks: mockTasksData,
-  originalTasks: mockTasksData,
+  tasks: storageTasks ? JSON.parse(storageTasks) : [],
+  originalTasks: storageTasks ? JSON.parse(storageTasks) : [],
   currentId: '',
 };
 
@@ -31,6 +36,20 @@ export const tasks = createSlice({
     },
     deleteTask: (state, { payload }) => {
       state.tasks = state.tasks.filter(task => task._id !== payload);
+    },
+    createTask: (state, { payload }) => {
+      manageLocalStorageItems('tasks', payload)
+      return {
+        ...state,
+        tasks: [...state.tasks, payload],
+      };
+    },
+    editTask: (state, { payload }) => {
+      const taskIndex = state.tasks.findIndex(task => task._id === payload._id);
+      if(taskIndex !== -1) {
+        state.tasks[taskIndex] = payload
+        state.originalTasks = [...state.tasks]
+      }
     },
     setTasksAttributes: (state, { payload: { currentId, field, dropDownMenu } }) => {
       const lowerCasedField = field.toLowerCase();
@@ -61,6 +80,6 @@ export const tasks = createSlice({
   },
 });
 
-export const { resetSort, showTaskMenu, deleteTask, setTasksAttributes, sortBy } = tasks.actions;
+export const { resetSort, editTask, showTaskMenu, deleteTask, setTasksAttributes, sortBy, createTask } = tasks.actions;
 
 export default tasks.reducer;

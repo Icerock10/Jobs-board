@@ -20,11 +20,12 @@ export const Menu = ({ isSelected, toggleSelectedSortMenu, criteria }: {
       {sortingOptions.map(sortingOption => {
         const isSortingOption = sortingOption.includes('Clear');
         const hasDescOption = sortingOption === 'Desc';
+        const hasAscOption = sortingOption === 'Asc';
         return (
-          <div className={clsx(hasDescOption ? styles.divider : '')}
+          <div className={clsx(hasDescOption ? styles.divider : '', isSortingOption && styles.cross)}
                onClick={() => isSortingOption ? clearSort() : sortByCriteria(sortingOption, criteria)}
                key={sortingOption}>
-            {sortingOption === 'Asc' && <TopArrow />}
+            {hasAscOption && <TopArrow />}
             {hasDescOption && <DownArrow />}
             {isSortingOption && <CrossIcon />}
             {sortingOption}

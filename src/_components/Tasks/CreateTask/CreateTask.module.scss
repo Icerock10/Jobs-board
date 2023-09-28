@@ -1,0 +1,15 @@
+@import "@/styles/variables";
+@import "@/styles/mixins";
+
+.create {
+  @include custom-dark-border;
+  @include secondary-button($hover-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+[data-theme='light'] .create {
+  @include custom-light-border;
+  @include secondary-button($hover-light);
+}

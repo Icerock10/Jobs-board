@@ -1,12 +1,15 @@
 @import "@/styles/variables";
 @import "@/styles/mixins";
 
+
+.table_head__hovered:hover {
+  background-color:  $table-hover;
+}
 .table_head {
   display: grid;
   grid-template-columns: repeat(4, 1fr) 0.5fr;
   border-bottom: 1px solid $light-border;
   padding: 0.8rem;
-
   &__item {
     color: #a2a8c1;
     display: flex;
@@ -18,7 +21,7 @@
     border-radius: 0.3rem;
     width: fit-content;
     &:hover {
-      @include custom-hover($hover-dark);
+      background-color: $table-item-hover;
       color: $primary-text-color;
     }
     &_active {
@@ -40,4 +43,7 @@
     background-color: $hover-light;
   }
   color: $secondary-color;
+}
+[data-theme='light'] .table_head__hovered:hover {
+  background-color: $table-light-hover;
 }

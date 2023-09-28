@@ -1,20 +1,19 @@
 import '@/styles/globals.scss';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Open_Sans } from 'next/font/google';
 import { Header } from '@/_components/Header/Header';
 import { ReduxProvider } from '@/store/ReduxProvider';
 import 'react-toastify/dist/ReactToastify.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const openSans = Open_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+})
 
-export const metadata: Metadata = {
-  title: 'Next Listings App',
-};
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en'>
-    <body className={inter.className}>
+    <body className={openSans.className}>
     <ReduxProvider>
       <Header />
       {children}

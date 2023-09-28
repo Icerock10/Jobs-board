@@ -28,22 +28,20 @@ export const Listing = ({ listingFromDb }: { listingFromDb?: IListing }) => {
   } = useForm<IListing>({
     defaultValues: {
       type: listingFromDb ? listingFromDb.type : typeOptions[0],
-      experienceLevel: listingFromDb ? listingFromDb.experienceLevel :  experienceLevelOptions[0],
+      experienceLevel: listingFromDb ? listingFromDb.experienceLevel : experienceLevelOptions[0],
       ...listingFromDb || '',
-      salary: 0
+      salary: 0,
     },
   });
   
   useEffect(() => {
     return () => {
-      if(isPreviewShown) {
-        togglePreview()
-      }
-    }
-  }, [isPreviewShown, togglePreview])
+      togglePreview();
+    };
+  }, [togglePreview]);
   
   const watchListingFields = useCallback(() => watch(), [watch]);
-
+  
   return (
     <React.Fragment>
       <form
