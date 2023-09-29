@@ -12,3 +12,14 @@
     flex-direction: column;
   }
 }
+.button {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 1rem;
+}
+
+@media screen and (max-width: 650px) {
+  .form {
+    grid-template-columns: 1fr;
+  }
+}

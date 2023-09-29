@@ -19,7 +19,7 @@ export const useVisibility = () => {
   const toggleBurger = () => dispatch(toggleBurgerMenu());
   const toggleProfileMenu = () => dispatch(toggleProfileMenuAction());
   const toggleModalAction = () => dispatch(toggleModal());
-  
+
   const togglePreview = useCallback(() => dispatch(togglePreviewAction()), [dispatch]);
   
   return {

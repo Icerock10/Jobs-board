@@ -7,8 +7,9 @@ import { Select } from '@/_components/Select/Select';
 import { Input } from '@/_components/FormInput/Input';
 import { useAppDispatch } from '@/_hooks/reduxHooks';
 import { createTask, editTask } from '@/store/tasks/taskSlice';
-import { useId } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/navigation';
+import { FormButton } from '@/_components/Button/FormButton/FormButton';
 
 interface Task {
   title: string;
@@ -44,33 +45,36 @@ export const TaskForm = ({ foundTask }: { foundTask?: Task }) => {
       category: categoryMenus[0],
     },
   });
-  const id = useId();
   const createOrEditTask = (data: FieldValues) => {
      const newTask = {
       ...data,
-      _id: id,
+      _id: uuidv4(),
     };
     foundTask ? dispatch(editTask({...foundTask, ...data})) : dispatch(createTask(newTask));
   };
   
   return (
-    <form className={styles.form} onSubmit={handleSubmit(createOrEditTask)}>
-      <div>
-        <Input labelText={'Title'} type='text' name='title' register={register} />
+    <form onSubmit={handleSubmit(createOrEditTask)}>
+      <div className={styles.form}>
+        <div>
+          <Input labelText={'Title'} type='text' name='title' register={register} />
+        </div>
+        <div><Select options={statusMenus} isDbField={foundTask?.status} fieldName={status.toLowerCase()}
+                     register={register}
+                     setValue={setValue} />
+        </div>
+        <div><Select options={priorityMenus} isDbField={foundTask?.priority} fieldName={priority.toLowerCase()}
+                     register={register}
+                     setValue={setValue} />
+        </div>
+        <div><Select options={categoryMenus} isDbField={foundTask?.category} fieldName={categoryField.toLowerCase()}
+                     register={register}
+                     setValue={setValue} />
+        </div>
       </div>
-      <div><Select options={statusMenus} isDbField={foundTask?.status} fieldName={status.toLowerCase()}
-                   register={register}
-                   setValue={setValue} />
-      </div>
-      <div><Select options={priorityMenus} isDbField={foundTask?.priority} fieldName={priority.toLowerCase()}
-                   register={register}
-                   setValue={setValue} />
-      </div>
-      <div><Select options={categoryMenus} isDbField={foundTask?.category} fieldName={categoryField.toLowerCase()}
-                   register={register}
-                   setValue={setValue} />
-      </div>
-      <button onClick={router.back}>{isEdit}</button>
+        <div className={styles.button} onClick={router.back}>
+          <FormButton isValid={isValid} isSubmitting={isSubmitting}>{isEdit}</FormButton>
+        </div>
     </form>
   );
 };

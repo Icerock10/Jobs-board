@@ -9,6 +9,7 @@ interface Refs {
   selectMenuRef: RefObject<HTMLUListElement>;
   taskMenuRef: RefObject<HTMLDivElement>;
   sortMenuRef: RefObject<HTMLDivElement>;
+  introRef: RefObject<HTMLDivElement>;
 }
 
 export const useClickOutside = (callback: () => void, isMenuActive: boolean): Refs => {
@@ -20,6 +21,7 @@ export const useClickOutside = (callback: () => void, isMenuActive: boolean): Re
   const selectMenuRef = useRef<HTMLUListElement>(null);
   const taskMenuRef = useRef<HTMLDivElement>(null);
   const sortMenuRef = useRef<HTMLDivElement>(null);
+  const introRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     if (isMenuActive) {
@@ -50,6 +52,9 @@ export const useClickOutside = (callback: () => void, isMenuActive: boolean): Re
         if (sortMenuRef.current && !sortMenuRef.current.contains(target)) {
           callback();
         }
+        if (introRef.current && !introRef.current.contains(target)) {
+          callback();
+        }
       };
       document.addEventListener('click', handleClickOutside);
       return () => {
@@ -67,6 +72,7 @@ export const useClickOutside = (callback: () => void, isMenuActive: boolean): Re
     modalRef,
     selectMenuRef,
     taskMenuRef,
-    sortMenuRef
+    sortMenuRef,
+    introRef
   };
 };

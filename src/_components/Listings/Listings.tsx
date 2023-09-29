@@ -17,10 +17,11 @@ import { useAppDispatch, useAppSelector } from '@/_hooks/reduxHooks';
 import { useClientActions } from '@/_hooks/useClientActions';
 import { useEffect } from 'react';
 import { setListings } from '@/store/preview/previewSlice';
+
 export const Listings = ({ listings, hasPublicAccess }: { listings: IListing[], hasPublicAccess?: boolean }) => {
   const stateListing = useAppSelector(state => state.preview.listing);
   const { arrayOfListings, showHidden } = useAppSelector(state => state.preview);
-  
+  const { isIntroShown } = useAppSelector(state => state.visibility)
   const dispatch = useAppDispatch();
   const { getCurrentListing, setHiddenAndWriteToLocalStorage, setLikeAndWriteToLocalStorage } = useClientActions();
   
@@ -82,7 +83,7 @@ export const Listings = ({ listings, hasPublicAccess }: { listings: IListing[], 
             {hasPublicAccess ?
               <div className={styles.listings_previewWrapper}>
                 <div onClick={() => getCurrentListing(listing)}><PreviewButton>View More</PreviewButton></div>
-                <Modal>
+                 <Modal>
                   <Preview isModalPreview={true} listing={stateListing} />
                 </Modal>
               </div>

@@ -4,6 +4,7 @@ import preview from '@/store/preview/previewSlice';
 import tasks from '@/store/tasks/taskSlice';
 import logger from 'redux-logger';
 
+
 export const store = configureStore({
   reducer: {
     visibility,
@@ -14,7 +15,7 @@ export const store = configureStore({
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(logger),
+    }).concat(logger)
 });
 
 export type RootState = ReturnType<typeof store.getState>;

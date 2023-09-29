@@ -29,7 +29,7 @@ module.exports = {
     return [
       {
         source: '/',
-        destination: '/jobs',
+        destination: '/tasks',
         permanent: true,
       },
     ];

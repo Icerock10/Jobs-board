@@ -5,12 +5,14 @@ import ThemeProvider from '@/_context/theme/ThemeProvider';
 import { Logo } from '@/_components/Logo/Logo';
 import { cookies } from 'next/headers';
 import { jwtService } from '@/_lib/services/token/jwtService';
+import { Intro } from '@/_components/Intro/Intro';
 
 export const Header = async () => {
   const token = cookies().get('token')?.value;
   const response = token ? await jwtService.verify(token) : null;
   return (
     <header className={styles.header}>
+      <Intro />
       <section className={styles.header__section}>
         <Logo />
         <aside className={styles.header_menu}>
