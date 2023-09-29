@@ -72,8 +72,8 @@ export const TaskForm = ({ foundTask }: { foundTask?: Task }) => {
                      setValue={setValue} />
         </div>
       </div>
-        <div className={styles.button} onClick={router.back}>
-          <FormButton isValid={isValid} isSubmitting={isSubmitting}>{isEdit}</FormButton>
+        <div className={styles.button} >
+          <FormButton handleClick={router.back} isValid={isValid} isSubmitting={isSubmitting}>{isEdit}</FormButton>
         </div>
     </form>
   );

@@ -30,7 +30,7 @@ export const Listing = ({ listingFromDb }: { listingFromDb?: IListing }) => {
       type: listingFromDb ? listingFromDb.type : typeOptions[0],
       experienceLevel: listingFromDb ? listingFromDb.experienceLevel : experienceLevelOptions[0],
       ...listingFromDb || '',
-      salary: 0,
+      salary: listingFromDb?.salary || 0,
     },
   });
   
