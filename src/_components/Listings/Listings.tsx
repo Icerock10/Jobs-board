@@ -21,7 +21,6 @@ import { setListings } from '@/store/preview/previewSlice';
 export const Listings = ({ listings, hasPublicAccess }: { listings: IListing[], hasPublicAccess?: boolean }) => {
   const stateListing = useAppSelector(state => state.preview.listing);
   const { arrayOfListings, showHidden } = useAppSelector(state => state.preview);
-  const { isIntroShown } = useAppSelector(state => state.visibility)
   const dispatch = useAppDispatch();
   const { getCurrentListing, setHiddenAndWriteToLocalStorage, setLikeAndWriteToLocalStorage } = useClientActions();
   
