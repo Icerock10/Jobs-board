@@ -17,7 +17,7 @@ import { useForm } from 'react-hook-form';
 
 export const Listing = ({ listingFromDb }: { listingFromDb?: IListing }) => {
   const router = useRouter();
-  const { isPreviewShown, togglePreview, isIntroShown } = useVisibility();
+  const { isPreviewShown, togglePreview } = useVisibility();
   const { createOrUpdateListing } = useClientActions();
   const {
     handleSubmit,
