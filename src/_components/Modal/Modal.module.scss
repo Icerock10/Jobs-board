@@ -2,18 +2,7 @@
 @import "@/styles/mixins";
 
 .modal_container {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  backdrop-filter: blur(0.2rem);
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  pointer-events: none;
+  @include modal-container
 }
 .modal_container.active {
   opacity: 1;
@@ -34,7 +23,9 @@
   background-color: $primary-text-color;
   @include custom-light-border;
 }
-
+[data-theme='light'] .modal_container {
+  background-color: rgba(0, 0, 0, 0.1);
+}
 .cancel {
   position: absolute;
   right: 1rem;

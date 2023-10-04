@@ -7,7 +7,6 @@ export const getFilteredListings = (listings: IListing[], {
   salary,
   favorites,
 }: IListing) => {
-  console.log(type, experienceLevel);
   return listings.filter(item => {
     if (experienceLevel && experienceLevel !== 'Any' && !item.experienceLevel.includes(experienceLevel)) {
       return false;

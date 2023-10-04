@@ -1,12 +1,13 @@
 import { v4 as uuidv4 } from 'uuid';
 
-export const mockTasksData = [{
-  title: 'My cool Title',
-  status: 'Todo',
-  priority: 'High',
-  category: 'Work',
-  _id: uuidv4(),
-},
+export const mockTasksData = [
+  {
+    title: 'My cool Title',
+    status: 'Todo',
+    priority: 'High',
+    category: 'Work',
+    _id: uuidv4(),
+  },
   {
     title: 'Title 2',
     status: 'In Progress',
@@ -27,4 +28,5 @@ export const mockTasksData = [{
     priority: 'High',
     category: 'Personal',
     _id: uuidv4(),
-  }];
+  },
+];

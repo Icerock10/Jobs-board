@@ -1,41 +1,33 @@
 import { db } from '@/_lib/db/connect-db';
-import { IListing } from '@/_utils/types/types';
+import { IListing, ListingRepoTypes } from '@/_utils/types/types';
 import { createCustomError } from '@/_utils/helpers/customError';
 import Listing from '@/_lib/db/models/Listing';
 import { setDraftFromDate } from '@/_utils/helpers/setDraftFromDate';
 import { UpdateResult } from 'mongodb';
+import { ErrorMessage, HttpStatus } from '@/_utils/enums/enums';
 
 
-type IRepository<T> = {
-  getPublished(isPublished: boolean): Promise<IListing[]>
-  create(listingData: IListing): Promise<IListing[]>
-  updateById(body: {}): Promise<UpdateResult>
-  deleteById(id: string): Promise<void>
-  getOneById(id: string): Promise<IListing[]>
-  publishOne(id: string, daysLeft: number): Promise<UpdateResult>
-}
-
-class ListingRepository implements IRepository<IListing> {
+class ListingRepository implements ListingRepoTypes<IListing> {
   private instance = db.Listing;
   
   async getPublished(): Promise<IListing[]> {
     const listings = await this.instance.find({isPublished: true})
     if(!listings.length) {
-      createCustomError('Server error', 500)
+      createCustomError(ErrorMessage.SERVER_ERROR, HttpStatus.SERVER_ERROR)
     }
     return listings;
   }
   async getAll(): Promise<IListing[]> {
     const listings = await this.instance.find({})
     if(!listings.length) {
-      createCustomError('Listings was not found', 500)
+      createCustomError(ErrorMessage.NOT_FOUND_LISTING, HttpStatus.BAD_REQUEST)
     }
     return listings;
   }
   async create(listingData: IListing): Promise<IListing[]> {
     const listing = await this.instance.create(listingData);
     if(!listing) {
-      createCustomError('Something went wrong', 500)
+      createCustomError(ErrorMessage.SERVER_ERROR, HttpStatus.SERVER_ERROR)
     }
     return listing
   }
@@ -45,14 +37,14 @@ class ListingRepository implements IRepository<IListing> {
   async updateById({_id, listing}: any): Promise<UpdateResult> {
     const updatedListing = await Listing.findOne({ _id }).updateOne(listing);
     if(!updatedListing) {
-      createCustomError('Listing was not found', 400)
+      createCustomError(ErrorMessage.NOT_FOUND_LISTING, HttpStatus.BAD_REQUEST)
     }
     return updatedListing;
   }
   async getOneById(_id: string): Promise<IListing[]> {
     const listing = await this.instance.find({_id})
     if(!listing) {
-      createCustomError('Listing was not found', 400)
+      createCustomError(ErrorMessage.NOT_FOUND_LISTING, HttpStatus.BAD_REQUEST)
     }
     return listing;
   }

@@ -1,4 +1,4 @@
-import { useCallback, useReducer } from 'react';
+import { useCallback, useEffect, useReducer, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/_hooks/reduxHooks';
 import {
   toggleBurgerMenu, toggleModal,
@@ -6,6 +6,7 @@ import {
   toggleSwitcherMenu,
 } from '@/store/visibility/visibilitySlice';
 import { togglePreview as togglePreviewAction } from '@/store/visibility/visibilitySlice';
+import { StorageKey } from '@/_utils/enums/enums';
 
 export const useVisibility = () => {
   const dispatch = useAppDispatch();
@@ -19,7 +20,7 @@ export const useVisibility = () => {
   const toggleBurger = () => dispatch(toggleBurgerMenu());
   const toggleProfileMenu = () => dispatch(toggleProfileMenuAction());
   const toggleModalAction = () => dispatch(toggleModal());
-
+  
   const togglePreview = useCallback(() => dispatch(togglePreviewAction()), [dispatch]);
   
   return {

@@ -1,19 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IListing } from '@/_utils/types/types';
-import { listing } from '@/_utils/mocks/listing';
+import { IListing, PreviewState } from '@/_utils/types/types';
+import { listing } from '@/_utils/constants/constants';
 import { getListingsStorageFields } from '@/_utils/helpers/getListingsHiddenFields';
 import { getFilteredListings } from '@/_utils/helpers/getFilteredListings';
 
-export type StateProps = {
-  listing: IListing;
-  arrayOfListings: IListing[]
-  originalArray: IListing[]
-  showHidden: boolean
-  isReset: boolean
-  publishData: { price: number | null, days: number | null, title: string, id: string }
-};
 
-const initialState: StateProps = {
+
+const initialState: PreviewState = {
   listing,
   arrayOfListings: [],
   originalArray: [],

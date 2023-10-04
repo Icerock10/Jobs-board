@@ -17,9 +17,11 @@ import {
 import { IListing } from '@/_utils/types/types';
 import { useCallback } from 'react';
 import { toggleModal } from '@/store/visibility/visibilitySlice';
-import { manageLocalStorageItems } from '@/_utils/helpers/manageLocalStorageItems';
-import { resetSort, sortBy } from '@/store/tasks/taskSlice';
+import { resetSort, sortByCustomOrder } from '@/store/tasks/taskSlice';
 import { getCustomOrders } from '@/_utils/helpers/getCustomOrder';
+import { storageService } from '@/_lib/services/localStorage/storage-service';
+import { AppPath, StorageKey } from '@/_utils/enums/enums';
+
 export const useClientActions = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -33,7 +35,7 @@ export const useClientActions = () => {
       toastService.success(response.data.message);
       router.back();
     }
-    router.replace('/login');
+    router.replace(AppPath.LOGIN);
     toastService.error(response?.data.error);
   };
   const submitRegistrationOrLoginForm = async (formData: FieldValues, isRegistration?: boolean) => {
@@ -61,12 +63,12 @@ export const useClientActions = () => {
   
   const setHiddenAndWriteToLocalStorage = useCallback((_id: string) => {
     dispatch(setHidden(_id));
-    manageLocalStorageItems('hidden', _id);
+    storageService.manageHiddenOrLikedIds(StorageKey.HIDDEN, _id)
   }, [dispatch]);
   
   const setLikeAndWriteToLocalStorage = useCallback((_id: string) => {
     dispatch(setLike(_id));
-    manageLocalStorageItems('liked', _id);
+    storageService.manageHiddenOrLikedIds(StorageKey.LIKED, _id)
   }, [dispatch]);
   
   const resetFilters = useCallback((reset: UseFormReset<IListing>) => {
@@ -76,7 +78,7 @@ export const useClientActions = () => {
   
   const clearSort = () => dispatch(resetSort());
   const sortByCriteria = (sortingOption: string, criteria: string) => {
-    dispatch(sortBy({
+    dispatch(sortByCustomOrder({
       customOrder: getCustomOrders(criteria) || [],
       sortingOption,
       sortCriteria: criteria.toLowerCase(),

@@ -1,7 +1,7 @@
 import '@/styles/globals.scss';
 import { Open_Sans } from 'next/font/google';
 import { Header } from '@/_components/Header/Header';
-import { ReduxProvider } from '@/store/ReduxProvider';
+import { ReduxProvider } from '@/_context/provider/ReduxProvider';
 import 'react-toastify/dist/ReactToastify.css';
 
 const openSans = Open_Sans({

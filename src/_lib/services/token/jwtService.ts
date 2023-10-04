@@ -1,5 +1,7 @@
 import * as jose from 'jose';
 import { getSecretEnv } from '@/_lib/services/token/getSecretEnv';
+import { ErrorMessage } from '@/_utils/enums/enums';
+import { EXPIRED_IN_TWO_WEEKS } from '@/_utils/constants/constants';
 class Jwt {
   private instance: typeof jose;
   public secret: Uint8Array;
@@ -10,7 +12,6 @@ class Jwt {
   }
 
   generate(email: FormDataEntryValue | null) {
-    const EXPIRED_IN_TWO_WEEKS = '14d';
     return new this.instance.SignJWT({ email })
       .setProtectedHeader({ alg: 'HS256' })
       .setIssuedAt()
@@ -23,7 +24,7 @@ class Jwt {
       const { payload } = await this.instance.jwtVerify(token, this.secret);
       return payload;
     } catch (e) {
-      throw new Error('Your token expired');
+      throw new Error(ErrorMessage.EXPIRED_TOKEN);
     }
   }
 }

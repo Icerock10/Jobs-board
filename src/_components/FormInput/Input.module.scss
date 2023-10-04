@@ -17,3 +17,6 @@
 .input[type='checkbox']:focus {
   outline-color: transparent;
 }
+.dirty {
+  color: $error;
+}

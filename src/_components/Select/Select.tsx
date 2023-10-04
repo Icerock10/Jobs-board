@@ -7,14 +7,8 @@ import { formatFields } from '@/_utils/helpers/formatFields';
 import { useClickOutside } from '@/_hooks/useClickOutside';
 import { useVisibility } from '@/_hooks/useVisibility';
 import { useSelect } from '@/_hooks/useSelect';
+import { SelectProps } from '@/_utils/types/types';
 
-export type SelectProps = {
-  options: string[];
-  fieldName: string;
-  register: any;
-  setValue: any
-  isDbField?: string
-};
 
 export const Select = ({ options, fieldName, register, setValue, isDbField }: SelectProps) => {
   const { isSelectMenuOpen, toggleSelectMenu } = useVisibility();

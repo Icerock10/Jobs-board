@@ -1,16 +1,8 @@
-import { createSlice, current } from '@reduxjs/toolkit';
-import { manageLocalStorageItems } from '@/_utils/helpers/manageLocalStorageItems';
+import { createSlice } from '@reduxjs/toolkit';
+import { SortingOrder, StorageKey } from '@/_utils/enums/enums';
+import { storageService } from '@/_lib/services/localStorage/storage-service';
+import { Task } from '@/_utils/types/types';
 
-interface Task {
-  title: string;
-  status: string;
-  priority: string;
-  category: string;
-  _id: string;
-  isTaskMenuShown: boolean;
-  isDeleted: boolean,
-  [key: string]: any;
-}
 
 const initialState: { tasks: Task[], currentId?: string } = {
   tasks: [],
@@ -36,32 +28,28 @@ export const tasks = createSlice({
       return {
         ...state,
         tasks: state.tasks.map(task => {
-          if(task._id === payload) {
+          if (task._id === payload) {
             return {
               ...task,
-              isDeleted: !task.isDeleted
-            }
+              isDeleted: !task.isDeleted,
+            };
           }
           return task;
-        })
-      }
+        }),
+      };
     },
     deleteTask: (state) => {
-      state.tasks = state.tasks.filter(task => !task.isDeleted)
-      localStorage.setItem('tasks', JSON.stringify(state.tasks))
+      state.tasks = state.tasks.filter(task => !task.isDeleted);
+      storageService.setUpdatedTasks(StorageKey.TASKS, state.tasks);
     },
     createTask: (state, { payload }) => {
-      manageLocalStorageItems('tasks', payload);
-      return {
-        ...state,
-        tasks: [...state.tasks, payload],
-      };
+      storageService.setTasks(StorageKey.TASKS, payload);
     },
     editTask: (state, { payload }) => {
       const taskIndex = state.tasks.findIndex(task => task._id === payload._id);
       if (taskIndex !== -1) {
         state.tasks[taskIndex] = payload;
-        localStorage.setItem('tasks', JSON.stringify(state.tasks))
+        storageService.setUpdatedTasks(StorageKey.TASKS, state.tasks);
       }
     },
     setTasksAttributes: (state, { payload: { currentId, field, dropDownMenu } }) => {
@@ -70,7 +58,7 @@ export const tasks = createSlice({
         task: task._id === currentId ? (task.hasOwnProperty(lowerCasedField) ? task[lowerCasedField] = dropDownMenu : task) : task,
       }));
     },
-    sortBy: (state, { payload: { customOrder, sortingOption, sortCriteria } }) => {
+    sortByCustomOrder: (state, { payload: { customOrder, sortingOption, sortCriteria } }) => {
       state.tasks.sort((a, b) => {
         if (!customOrder.length) {
           if (a[sortCriteria] < b[sortCriteria]) {
@@ -82,18 +70,27 @@ export const tasks = createSlice({
         }
         const aIndex = customOrder.indexOf(a[sortCriteria]);
         const bIndex = customOrder.indexOf(b[sortCriteria]);
-        if (sortingOption === 'Desc') return aIndex - bIndex;
-        if (sortingOption === 'Asc') return bIndex - aIndex;
+        if (sortingOption === SortingOrder.DESCENDING) return aIndex - bIndex;
+        if (sortingOption === SortingOrder.ASCENDING) return bIndex - aIndex;
         return 0;
       });
     },
     resetSort: (state) => {
-      const storageTasks = localStorage.getItem('tasks')!
-      state.tasks = JSON.parse(storageTasks)
+      state.tasks = storageService.getItem(StorageKey.TASKS);
     },
   },
 });
 
-export const { deleteTask, setInitialTasks, resetSort, editTask, showTaskMenu, markTaskDeleted, setTasksAttributes, sortBy, createTask } = tasks.actions;
+export const {
+  deleteTask,
+  setInitialTasks,
+  resetSort,
+  editTask,
+  showTaskMenu,
+  markTaskDeleted,
+  setTasksAttributes,
+  sortByCustomOrder,
+  createTask,
+} = tasks.actions;
 
 export default tasks.reducer;

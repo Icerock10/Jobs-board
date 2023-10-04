@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { CreateLink } from '@/_components/CreateLink/CreateLink';
-import { FilterListings } from '@/_components/FilterListings/FilterListings';
+import { FilterListings } from '@/_components/Jobs/FilterListings/FilterListings';
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <section className='container'>

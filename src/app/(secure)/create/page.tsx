@@ -1,4 +1,4 @@
-import { Listing } from '@/_components/Listing/Listing';
+import { Listing } from '@/_components/Jobs/Listing/Listing';
 
 export default function New() {
   return (

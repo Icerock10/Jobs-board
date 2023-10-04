@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
+import { Headers } from '@/_utils/enums/enums';
 
 class ApiService {
   protected readonly instance: AxiosInstance;
@@ -19,7 +20,7 @@ class ApiService {
     }
   }
   setToken(token?: string) {
-    this.instance.defaults.headers.common['authorization'] = `Bearer ${token}`;
+    this.instance.defaults.headers.common[Headers.AUTHORIZATION] = `Bearer ${token}`;
   }
   getInstance() {
     return this.instance;

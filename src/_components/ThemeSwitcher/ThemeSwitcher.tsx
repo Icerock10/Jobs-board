@@ -10,17 +10,30 @@ import { Themes } from '@/_utils/types/types';
 import { useVisibility } from '@/_hooks/useVisibility';
 import { useClickOutside } from '@/_hooks/useClickOutside';
 import { ToastContainer } from 'react-toastify';
-import { JWTPayload } from 'jose';
+import { Intro } from '@/_components/Intro/Intro';
+import { StorageKey } from '@/_utils/enums/enums';
+import { useEffect, useState } from 'react';
+import { storageService } from '@/_lib/services/localStorage/storage-service';
 
 export const ThemeSwitcher = ({ email }: { email?: unknown | null }) => {
   const { toggleTheme, isDarkMode } = UseThemeToggle();
+  const [isModalWatched, setIsModalWatched] = useState(null)
   const { isSwitcherMenuActive, toggleMenu, isBurgerMenuActive, toggleBurger } = useVisibility();
   const { switcherMenuRef } = useClickOutside(toggleMenu, isSwitcherMenuActive);
   const { burgerMenuRef } = useClickOutside(toggleBurger, isBurgerMenuActive);
   const themeIcon = isDarkMode === Themes.DARK ? <MoonIcon /> : <SunIcon />;
+  
+  useEffect(() => {
+    const isModalWatchedFromStorage = storageService.getItem(StorageKey.MODAL)
+    if(isModalWatchedFromStorage) {
+      setIsModalWatched(isModalWatchedFromStorage)
+    }
+  }, [])
+  
   return (
     <aside className={styles.container}>
       <ToastContainer theme={isDarkMode} />
+      {!isModalWatched && <Intro />}
       <figure
         data-set="switcher"
         onClick={toggleMenu}

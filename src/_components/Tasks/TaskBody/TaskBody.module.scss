@@ -1,0 +1,51 @@
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
+.dots {
+  position: relative;
+  display: flex;
+  width: fit-content;
+  height: auto;
+  cursor: pointer;
+  @include custom-hover($hover-dark);
+  padding: 0.4rem !important
+}
+.table_body__hovered:hover {
+  background-color: $table-hover;
+}
+.table_body__placeholder {
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1fr !important;
+  padding: 3rem !important;
+}
+.table_body {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) 0.5fr;
+  padding: 1.2rem 0.8rem;
+  & > div {
+    padding: 0 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+.deleted {
+  @include delete-animation
+}
+
+.table_body:not(:last-child) {
+  border-bottom: 1px solid $light-border;
+}
+
+@media screen and (max-width: 550px) {
+  .table_body {
+    min-width: 30rem;
+  }
+}
+[data-theme='light'] .dots {
+  @include custom-hover($hover-light);
+}
+[data-theme='light'] .table_body__hovered:hover {
+  background-color: $table-light-hover;
+}

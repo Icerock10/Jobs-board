@@ -1,0 +1,42 @@
+@import "@/styles/variables";
+@import "@/styles/mixins";
+
+.textarea {
+  min-height: 80px;
+  resize: vertical;
+  @include custom-dark-border;
+  background: transparent;
+  border-radius: 0.5rem;
+  color: $primary-text-color;
+  padding: 0.5rem;
+  &:focus {
+    outline: 2px solid $secondary-color;
+    outline-offset: 0.125rem;
+  }
+}
+[data-theme='light'] .textarea {
+  border-color: $light-border;
+  color: $secondary-color;
+  &:focus {
+    outline-color: #9aa8b7;
+  }
+}
+.form_textarea {
+  flex: 1 0 50% !important;
+  &__full {
+    flex: 0 1 100% !important;
+  }
+}
+.dirty {
+  color: $error;
+}
+.tooltip {
+  font-size: smaller;
+  opacity: .8;
+}
+
+@media screen and (max-width: 850px) {
+  .form_textarea {
+    flex: 1 1 100%;
+  }
+}

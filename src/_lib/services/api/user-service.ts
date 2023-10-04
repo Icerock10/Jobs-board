@@ -1,11 +1,12 @@
 import { apiService } from '@/_lib/services/api/api-service';
-import { AuthResponse, TokenResponse } from '@/_utils/types/types';
+import { TokenResponse } from '@/_utils/types/types';
+import { ApiUserPath } from '@/_utils/enums/enums';
 
 class UserService {
   private readonly axiosInstance = apiService.getInstance();
   register = async (email: FormDataEntryValue | null, password: FormDataEntryValue | null) => {
     try {
-      const { status, data } = await this.axiosInstance.post<TokenResponse>('/api/user/register', {
+      const { status, data } = await this.axiosInstance.post<TokenResponse>(ApiUserPath.REGISTER, {
         email,
         password,
       });
@@ -16,7 +17,7 @@ class UserService {
   };
   login = async (email: FormDataEntryValue | null, password: FormDataEntryValue | null) => {
     try {
-      const { status, data } = await this.axiosInstance.post<TokenResponse>('/api/user/login', {
+      const { status, data } = await this.axiosInstance.post<TokenResponse>(ApiUserPath.LOGIN, {
         email,
         password,
       });
