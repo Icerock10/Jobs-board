@@ -12,8 +12,8 @@ export default function Tasks() {
        <CreateTask />
      </div>
      <div className={styles.table}>
-       <TaskHead />
-       <TaskBody />
+         <TaskHead />
+         <TaskBody />
      </div>
    </section>
  )

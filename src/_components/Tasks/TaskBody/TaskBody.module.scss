@@ -2,9 +2,9 @@
 @import '@/styles/mixins';
 
 .dots {
-  position: relative;
   display: flex;
   width: fit-content;
+  position: relative;
   height: auto;
   cursor: pointer;
   @include custom-hover($hover-dark);

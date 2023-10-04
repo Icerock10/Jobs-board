@@ -9,7 +9,6 @@
   flex-direction: column;
   font-size: 0.875rem;
 }
-
 @media screen and (max-width: 550px) {
   .table_head {
     min-width: 30rem;
@@ -19,5 +18,6 @@
   }
   .table {
     overflow-x: scroll;
+    overflow-y: hidden;
   }
 }

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import React, { useCallback } from 'react';
 import { TaskFields } from '@/_components/Tasks/TaskBody/Menu/TaskFields/TaskFields';
 import { deleteTask, markTaskDeleted } from '@/store/tasks/taskSlice';
+import { AppPath } from '@/_utils/enums/enums';
 export const Menu = ({ toggleTaskMenu, isMenuShown }: {
   toggleTaskMenu: () => void,
   isMenuShown: boolean,
@@ -22,7 +23,7 @@ export const Menu = ({ toggleTaskMenu, isMenuShown }: {
   return (
     <div ref={taskMenuRef} className={clsx(styles.menu, isMenuShown && styles.menu_active)}>
       <TaskFields />
-      <Link href={`/tasks/edit/${currentId}`}
+      <Link href={`${AppPath.TASKS}${AppPath.EDIT}${currentId}`}
             className={clsx(styles.menu_item, styles.divider)}><span>Edit</span></Link>
       <div onClick={() => deleteTaskWithTimeout(currentId)} className={styles.menu_item}><span>Delete</span></div>
     </div>
