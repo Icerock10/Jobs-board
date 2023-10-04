@@ -6,7 +6,7 @@ export const getListingsStorageFields = (listings: IListing) => {
   const storedLikedIds = storageService.getItem(StorageKey.LIKED)
   return listings.map((item: IListing) => ({
     ...item,
-    isHidden: storedHiddenIds.includes(item._id),
-    isLiked: storedLikedIds.includes(item._id)
+    isHidden: storedHiddenIds ? storedHiddenIds.includes(item._id) : false,
+    isLiked: storedLikedIds ? storedLikedIds.includes(item._id) : false,
   }));
 }

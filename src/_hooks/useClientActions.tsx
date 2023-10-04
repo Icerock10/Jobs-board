@@ -67,6 +67,7 @@ export const useClientActions = () => {
   }, [dispatch]);
   
   const setLikeAndWriteToLocalStorage = useCallback((_id: string) => {
+    console.log(_id);
     dispatch(setLike(_id));
     storageService.manageHiddenOrLikedIds(StorageKey.LIKED, _id)
   }, [dispatch]);

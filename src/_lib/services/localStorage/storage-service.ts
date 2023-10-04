@@ -1,7 +1,7 @@
 class Storage {
   getItem(key: string) {
-    const storedItems = window?.localStorage?.getItem(key || '[]');
-    return storedItems && JSON.parse(storedItems);
+    const storedItems = localStorage.getItem(key || '[]');
+    return storedItems && JSON.parse(storedItems)
   }
   
   setItem(key: string, value?: any) {
@@ -19,10 +19,10 @@ class Storage {
   }
   
   manageHiddenOrLikedIds(key: string, _id: string) {
-    let storedHiddenIds = storageService.getItem(key);
+    const storedHiddenIds = storageService.getItem(key);
     if (!storedHiddenIds) {
-      storageService.setItem(key);
-      storedHiddenIds = storageService.getItem(key);
+      storageService.setItem(key, [_id]);
+      return;
     }
     const index = storedHiddenIds.indexOf(_id);
     if (index !== -1) {
