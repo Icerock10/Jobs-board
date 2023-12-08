@@ -1,6 +1,6 @@
 
 <h2 align='center'>
-  <a href="[https://icerock10.github.io/aroma-shop/](https://jobs-board-six.vercel.app/)">View Demo</a>
+  <a href="https://jobs-board-six.vercel.app/">View Demo</a>
 </h2>
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
